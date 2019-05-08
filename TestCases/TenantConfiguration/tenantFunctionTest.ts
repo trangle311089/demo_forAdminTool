@@ -1,11 +1,21 @@
 import { async } from "q";
 import { browser, by } from "protractor";
 import { sign } from "crypto";
+import { LoginPage } from "../../PageObjects/LoginPage";
+import { protractor } from "protractor/built/ptor";
 
 describe("Tenant Configuration", function(){
+    var loginPage:LoginPage
+    var originalTimeOut:number
+
+    beforeEach(async function(){
+        loginPage = new LoginPage (browser)
+        originalTimeOut = jasmine.DEFAULT_TIMEOUT_INTERVAL
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+    })
+
     // create new tenancy
-    it ("should add the new tenancy successfully", async function(){
-        var signIn_btn = browser.element(by.xpath("//button[@ng-click='login()']"))
+    fit ("should add the new tenancy successfully", async function(){
         var add_opt = browser.element(by.xpath("//i[@class='fa fa-plus-circle add']"))
         var add_pop = browser.element(by.xpath("//span[@class='dialog-title ng-binding' and contains (text(),'add')]"))
         var tenant_id = browser.element(by.id("txtTenantId"))
@@ -16,15 +26,16 @@ describe("Tenant Configuration", function(){
         var inform_pop = browser.element(by.xpath("//div[@ng-bind='content' and contains (text(),'Your changes have been saved.')]"))
         var inform_btn = browser.element(by.xpath("//button[@class='action-btn button btn-save' and contains (text(), 'ok')]"))
       
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
-        await browser.manage().window().maximize()
+        browser.waitForAngularEnabled(false)
+        browser.get("http://localhost:81/landlord/#/login")
+        browser.manage().window().maximize()
 
-        await signIn_btn.click()
+        await loginPage.login()
+        await browser.sleep(2000)
         await add_opt.click()
         await add_pop.isDisplayed()
-        await tenant_id.sendKeys("TenantP12")
-        await tenant_name.sendKeys("TenantP12")
+        await tenant_id.sendKeys("")
+        await tenant_name.sendKeys("")
         await save_btn.click()
         await alert_pop.isDisplayed()
         await alert_OK_btn.click()
