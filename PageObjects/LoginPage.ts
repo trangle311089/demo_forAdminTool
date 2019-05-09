@@ -7,7 +7,7 @@ export class LoginPage {
     actionSupport:ActionSupport
 
     constructor(brower: any) {
-        this.curBrowser = brower;
+        this.curBrowser = brower
         this.actionSupport = new ActionSupport(this.curBrowser)
 
         // define xpath for sign in button

@@ -4,28 +4,28 @@ import { sign } from "crypto";
 import { LoginPage } from "../../PageObjects/LoginPage";
 import { protractor } from "protractor/built/ptor";
 import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
-import { TenantConfigurationPopup } from "../../admin_core_popup/tenantConfigurationPopup";
+import { ActionPopup } from "../../admin_core_popup/actionPopup";
+import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
+
 
 describe("Tenant Configuration", function(){
     var loginPage:LoginPage
     var originalTimeOut:number
     var editingControl:EditingControl
-    var tenantConfigurationPopup:TenantConfigurationPopup
+    var actionPopup:ActionPopup
+    var tenantConfigurationPage:TenantConfigurationPage
 
     beforeEach(async function(){
         loginPage = new LoginPage (browser)
         editingControl = new EditingControl(browser)
-        tenantConfigurationPopup = new TenantConfigurationPopup (browser)
+        actionPopup = new ActionPopup (browser)
+        tenantConfigurationPage = new TenantConfigurationPage (browser)
         originalTimeOut = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     // create new tenancy
     fit ("should add the new tenancy successfully", async function(){
-        // var add_pop = browser.element(by.xpath("//span[@class='dialog-title ng-binding' and contains (text(),'add')]"))
-        // var tenant_id = browser.element(by.id("txtTenantId"))
-        // var tenant_name = browser.element(by.id("txtTenantName"))
-        // var save_btn = browser.element(by.xpath("//button [@ng-click='saveAndClose()']"))
         // var alert_pop = browser.element(by.xpath("//span[@class='dialog-title ng-binding' and contains (text(),'ALERT')]"))
         // var alert_OK_btn = browser.element(by.xpath("//button[@class='button action-btn btn-save ng-binding' and contains (text(),'OK')]"))
         // var inform_pop = browser.element(by.xpath("//div[@ng-bind='content' and contains (text(),'Your changes have been saved.')]"))
@@ -36,13 +36,12 @@ describe("Tenant Configuration", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await browser.sleep(20000)
         await editingControl.clickAdd()
-        await tenantConfigurationPopup.showAddPop()
+        await actionPopup.showAddPop()
+        await tenantConfigurationPage.createNewTenancy("1002","1002")
+        await actionPopup.clickSaveAndClose_btn()
 
-        // await add_pop.isDisplayed()
-        // await tenant_id.sendKeys("")
-        // await tenant_name.sendKeys("")
+
         // await save_btn.click()
         // await alert_pop.isDisplayed()
         // await alert_OK_btn.click()
