@@ -6,7 +6,7 @@ exports.config = {
     // The address of a running selenium server.
     seleniumAddress: 'http://localhost:4444/wd/hub',
     specs: ['Testcases/**/tenantFunctionTest.ts'],
-    // specs: ['TestCases/**/tenantFunction.ts'], 
+    // specs: ['TestCases/**/loginTest.ts'], 
     //run directly with browser driver without using webdriver manager
     directConnect: true,
     // Capabilities to be passed to the webdriver instance.
@@ -27,7 +27,8 @@ exports.config = {
         jasmine.getEnv().addReporter(new HtmlReporter({
             baseDirectory: __dirname + '\\TestReports\\' + dateFormat(new Date(), "dddd_mmmm_dS_yyyy_h_MM_ss_TT")
         }).getJasmine2Reporter());
-        
+
+              
     },
     // SELENIUM_PROMISE_MANAGER: false,
     //HTMLReport called once tests are finished
