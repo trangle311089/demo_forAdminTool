@@ -8,6 +8,7 @@ import { ActionPopup } from "../../admin_core_popup/actionPopup";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
 import { arch } from "os";
 import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
+import { ActiveStatusPage } from "../../PageObjects/ActiveStatusPage";
 
 
 describe("Tenant Configuration", function(){
@@ -16,6 +17,7 @@ describe("Tenant Configuration", function(){
     var editingControl:EditingControl
     var actionPopup:ActionPopup
     var tenantConfigurationPage:TenantConfigurationPage
+    var activeStt: ActiveStatusPage
     
    
     beforeEach(async function(){
@@ -23,6 +25,8 @@ describe("Tenant Configuration", function(){
         editingControl = new EditingControl(browser)
         actionPopup = new ActionPopup (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
+        activeStt = new ActiveStatusPage (browser)
+
         originalTimeOut = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
@@ -51,7 +55,7 @@ describe("Tenant Configuration", function(){
         await loginPage.login()
         await tenantConfigurationPage.selectTenancy()
         await editingControl.clickEdit()
-        //await activestatuspage.
+        await activeStt.show_Tier1VerActiveStt()
     })
 
     // Copy the tenancy
@@ -126,7 +130,7 @@ describe("Tenant Configuration", function(){
     })
 
     // Search function on the Tenant Configuration page
-    fit("should display the entry matches with the text on search field", async function(){
+    it("should display the entry matches with the text on search field", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlord/#/login")
         await browser.manage().window().maximize()

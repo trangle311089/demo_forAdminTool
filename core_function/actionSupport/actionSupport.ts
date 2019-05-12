@@ -22,6 +22,7 @@ export class ActionSupport{
         console.log ("Show the element " + xpath)
         var el = await this.curBrowser.element(by.xpath(xpath))
         await this.curBrowser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
+        await this.curBrowser.wait(this.until.visibilityOf(el), timeOut, 'Element' + xpath + 'take too long to visible in the DOM')
         await browser.isElementPresent(el)
     }
 
