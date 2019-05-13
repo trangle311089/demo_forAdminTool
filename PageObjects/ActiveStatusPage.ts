@@ -13,11 +13,11 @@ export class ActiveStatusPage{
         this.actionSupport = new ActionSupport(this.curBrowser)
 
         this.tier1ver_actStatus = "//a[@class='verical-menu-item ng-binding' and contains (text(), 'active status')]"
-        this.active_user = "//div[@tabindex='-1' and @col-id='userDisplayName']"
+        this.active_user = "//span[contains(text(),'Dung Tran')]"
     }
 
     async show_Tier1VerActiveStt(){
-        console.log ("Show the Tier 1 vertical menu Active Status")
+        console.log ("Check the presence of Tier 1 vertical Active Status menu ")
         this.actionSupport.presentElement(this.tier1ver_actStatus)
     }
     async click_Tier1VerActiveStt(){

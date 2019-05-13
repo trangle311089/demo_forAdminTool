@@ -38,7 +38,7 @@ describe ("Active Status", function(){
         await activeStatus.show_Tier1VerActiveStt()
     })
 
-    fit ("should remove the active user", async function(){
+    it ("should remove the active user", async function(){
 
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlord/#/login")
@@ -49,10 +49,16 @@ describe ("Active Status", function(){
         await tenantConfiguration.selectTenancy()
         await editingControl.clickEdit()
         await activeStatus.show_Tier1VerActiveStt()
+        await browser.sleep (2000)
         await activeStatus.selectActiveUser()
+        await browser.sleep (2000)
         await editingControl.clickRemove()
         await actionPopup.showAttentionPop()
-        await actionPopup.clickAttenctionCancel_btn()
+        await actionPopup.clickAttentionRem_btn()
+        await browser.sleep(2000)
+        await actionPopup.showAttentionPop()
+        await actionPopup.clickAttentionRem_btn1()
+    
     })
 
     it ("should display the active user which has the text matches with the text in the searching field", async function(){
