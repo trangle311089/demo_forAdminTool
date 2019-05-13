@@ -1,21 +1,22 @@
 import { async } from "q";
 import { Tier1UsersAndTeams } from "../../admin_core_menu/tier1_UsersAndTeams/tier1_UsersAndTeams";
 import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
-import { GroupListPage } from "../../PageObjects/UsersAndTeamsPage/GroupListPage";
 import { LoginPage } from "../../PageObjects/LoginPage";
 import { browser } from "protractor";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
-import { GroupProfile } from "../../PageObjects/UsersAndTeamsPage/GroupProfileGeneralPage";
 import { TitleBarButtons } from "../../admin_core_function/titleBarButtons/titleBarButtons";
 import { ActionPopup } from "../../admin_core_popup/actionPopup";
+import { GroupProfile } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
+import { GroupListPage } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
 
 describe("Group List", function(){
     var loginPage: LoginPage
     var tier1UsersAndTeams: Tier1UsersAndTeams
     var editingControl: EditingControl
-    var groupListPage: GroupListPage
     var tenantConfigurationPage: TenantConfigurationPage
     var groupProfilePage: GroupProfile
+    var groupListPage: GroupListPage
+
     var titleBar_btn: TitleBarButtons
     var actionPopup: ActionPopup
     

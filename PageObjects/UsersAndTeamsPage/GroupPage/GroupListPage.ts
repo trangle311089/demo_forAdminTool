@@ -1,7 +1,6 @@
 import { ProtractorBrowser } from "protractor";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
-import { Tier1UsersAndTeams } from "../../admin_core_menu/tier1_UsersAndTeams/tier1_UsersAndTeams";
-import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
+import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1_UsersAndTeams/tier1_UsersAndTeams";
 
 export class GroupListPage{
     
