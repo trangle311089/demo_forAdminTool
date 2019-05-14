@@ -5,16 +5,24 @@ exports.config = {
     framework: 'jasmine',
     // The address of a running selenium server.
     seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['Testcases/**/groupListTest.ts'],
     // specs: ['TestCases/**/loginTest.ts'], 
     // specs: ['TestCases/**/tenantFunctionTest.ts'],
     // specs: ['TestCases/**/activeStatusTest.ts'],
+    // specs: ['Testcases/**/groupListTest.ts'],
+    specs: ['Testcases/**/groupLoginSettingsTest.ts'],
+
     //run directly with browser driver without using webdriver manager
     directConnect: true,
+    
     // Capabilities to be passed to the webdriver instance.
     capabilities: {
-        browserName: 'chrome'
+        browserName: 'chrome',
+        shardTestFiles: true, //To enable sharing of tests at the spec level, we must configure shardTestFiles flag as true within the capabilities.
+        maxInstances: 1 //the maximum number of browser windows that Protractor should create in parallel.
+        
     },
+    
+       
     // restartBrowserBetweenTests: true,
     onPrepare: function() {
         require('ts-node').register({

@@ -52,7 +52,7 @@ describe("Group List", function(){
         await groupListPage.clickGroupsMenu()
     })
 
-    it ("should add new group successfully ", async function(){
+    fit ("should add new group successfully ", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlord/#/login")
         await browser.manage().window().maximize()

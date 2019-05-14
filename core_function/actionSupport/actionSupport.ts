@@ -1,4 +1,5 @@
 import { by, ElementFinder, ProtractorBrowser, ProtractorExpectedConditions, protractor, browser } from 'protractor';
+import { TIMEOUT } from 'dns';
 export class ActionSupport{
     curBrowser:ProtractorBrowser
     timeOut:number
@@ -14,7 +15,7 @@ export class ActionSupport{
         console.log ("Clicking on element " + xpath)
         var el = await this.curBrowser.element(by.xpath(xpath))
         await this.curBrowser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
-        await this.curBrowser.wait(this.until.elementToBeClickable(el), this.timeOut, 'Element' + xpath + 'is NOT clickable')
+        await this.curBrowser.wait(this.until.elementToBeClickable(el), timeOut, 'Element' + xpath + 'is NOT clickable')
         await browser.actions().mouseMove(el).click().perform()
     }
 
