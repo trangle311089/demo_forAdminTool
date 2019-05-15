@@ -18,22 +18,26 @@ export class ActiveStatusPage{
 
     async show_Tier1VerActiveStt(){
         console.log ("Check the presence of Tier 1 vertical Active Status menu ")
-        this.actionSupport.presentElement(this.tier1ver_actStatus)
+        await this.actionSupport.presentElement(this.tier1ver_actStatus)
     }
     async click_Tier1VerActiveStt(){
         console.log ("Click on the Tier 1 vertical menu Active Status")
-        this.actionSupport.clickOnElement(this.tier1ver_actStatus)
+        await this.actionSupport.clickOnElement(this.tier1ver_actStatus)
     }
 
     async selectActiveUser(){
         console.log ("Select the active user on the grid")
-        this.actionSupport.clickOnElement(this.active_user)
+        await this.actionSupport.clickOnElement(this.active_user)
     }
 
     async showActiveUser(){
         console.log ("Show the active user on grid ")
-        this.actionSupport.presentElement(this.active_user)
+        await this.actionSupport.presentElement(this.active_user)
     }
 
+    getTextEmlement(name:string){
+          return "//span[contains(text()='"+ name +"')]"
+        }
+    
     
 }

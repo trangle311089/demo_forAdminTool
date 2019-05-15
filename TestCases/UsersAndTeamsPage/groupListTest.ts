@@ -38,7 +38,7 @@ describe("Group List", function(){
 
     it ("should naviagte to the Users and Teams - Groups list", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -54,7 +54,7 @@ describe("Group List", function(){
 
     fit ("should add new group successfully ", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -76,7 +76,7 @@ describe("Group List", function(){
 
     it ("should edit group name and description successfully", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -101,7 +101,7 @@ describe("Group List", function(){
 
     it ("should delete the group successfully", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()

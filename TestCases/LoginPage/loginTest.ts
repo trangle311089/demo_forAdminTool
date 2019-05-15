@@ -19,7 +19,7 @@ describe("Login Page", function(){
         var tenant_bcrumb = browser.element(by.xpath('//a[@class="verical-menu-item ng-binding" and contains (text(),"Tenant Configuration")]'))
         
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -29,7 +29,7 @@ describe("Login Page", function(){
     
     it ("should login successfully with pcp audience", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.inputAudience('ec2-52-63-37-167.ap-southeast-2.compute.amazonaws.com')

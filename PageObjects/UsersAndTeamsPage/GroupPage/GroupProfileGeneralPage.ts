@@ -30,5 +30,10 @@ export class GroupProfile{
         console.log ("Update the description to " + description)
         await this.actionSupport.sendKeyOnElement(this.description_field, description)
     }
+
+    getNameXpath(name:string){
+        return "//span[text='"+ name +"']"
+    }
+
         
 }

@@ -34,7 +34,7 @@ describe("Tenant Configuration", function(){
     // Create the new tenancy
     it ("Should add the new tenancy successfully", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -49,7 +49,7 @@ describe("Tenant Configuration", function(){
     // Edit the existing tenancy
     it ("should navigate to the active status page when editing the tenancy", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -61,7 +61,7 @@ describe("Tenant Configuration", function(){
     // Copy the tenancy
     it("should copy new tenancy when clicking on copy option", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -79,7 +79,7 @@ describe("Tenant Configuration", function(){
     // Delete the tenancy
     it("should disable the tenancy when clicking on delete option", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -94,7 +94,7 @@ describe("Tenant Configuration", function(){
     // Enable the tenancy
     it("should enable the tenancy when clicking on enable option", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -110,7 +110,7 @@ describe("Tenant Configuration", function(){
     // Disable the tenancy
     it('should disable the selected tenancy when clicking on disable option', async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -132,7 +132,7 @@ describe("Tenant Configuration", function(){
     // Search function on the Tenant Configuration page
     it("should display the entry matches with the text on search field", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()

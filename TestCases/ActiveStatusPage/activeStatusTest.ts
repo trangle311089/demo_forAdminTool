@@ -29,7 +29,7 @@ describe ("Active Status", function(){
 
     it ("should display the Active Status page", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
@@ -38,10 +38,10 @@ describe ("Active Status", function(){
         await activeStatus.show_Tier1VerActiveStt()
     })
 
-    it ("should remove the active user", async function(){
+    fit ("should remove the active user", async function(){
 
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.inputAudience("ec2-52-63-37-167.ap-southeast-2.compute.amazonaws.com")
@@ -49,8 +49,8 @@ describe ("Active Status", function(){
         await tenantConfiguration.selectTenancy()
         await editingControl.clickEdit()
         await activeStatus.show_Tier1VerActiveStt()
-        await browser.sleep (2000)
-        await activeStatus.selectActiveUser()
+        // await browser.sleep (3000)
+        await activeStatus.getTextEmlement("Dung Tran")
         await browser.sleep (2000)
         await editingControl.clickRemove()
         await actionPopup.showAttentionPop()
@@ -63,7 +63,7 @@ describe ("Active Status", function(){
 
     it ("should display the active user which has the text matches with the text in the searching field", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.inputAudience("ec2-52-63-37-167.ap-southeast-2.compute.amazonaws.com")
