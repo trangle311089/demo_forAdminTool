@@ -35,40 +35,40 @@ describe ("Group Login Settings", function(){
 
     it ("should update the login settings successfully", async function(){
         await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlord/#/login")
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
                 
         await loginPage.login()
         await tenancy.selectTenancy()
         await editingControl.clickEdit()
-        await browser.sleep(3000)
+        
         await tier1UsersandTeams.clickUsersAndTeamsMenu()
-        await browser.sleep(3000)
+       
         await groupList.showGroupsMenu()
         await groupList.clickGroupsMenu()
-        await browser.sleep(3000)
+        
         await groupList.selectGroupEntry()
-        await browser.sleep(3000)
+        
         await editingControl.clickEdit()
-        await browser.sleep(3000)
+       
         await groupLoginSettings.presenceOf_AgentParammeters()
         await groupLoginSettings.clickAgentParameterMenu()
-        await browser.sleep(2000)
+        
         await groupLoginSettings.presentOf_LoginSettings()
         await groupLoginSettings.clickLoginSettings()
-        await browser.sleep(2000)
-        await groupLoginSettings.checkNotReady_rad()
-        await browser.sleep(2000)
-        await groupLoginSettings.checkReadyPro1()
-        await browser.sleep(2000)
-        await groupLoginSettings.inputProfile1("automation_readyStateProfile1")
-        await browser.sleep(3000)
-        await groupLoginSettings.checkAvailable1()
-        await browser.sleep(2000)
-        await groupLoginSettings.inputIPRanges("172.17.0.223")
-        await browser.sleep(3000)
-        await titleBar.clickSave_btn()
-        await browser.sleep(3000)
+    
+        groupLoginSettings.checkNotReady_rad()
+        
+        groupLoginSettings.checkReadyPro1()
+        
+        groupLoginSettings.inputProfile1("automation_readyStateProfile1")
+        
+        groupLoginSettings.checkAvailable1()
+        
+        groupLoginSettings.inputIPRanges("172.17.0.223")
+       
+        titleBar.clickSave_btn()
+      
         await expect (titleBar.waitForSavingTxt())
    })
 })

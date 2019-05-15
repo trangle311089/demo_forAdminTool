@@ -38,6 +38,5 @@ export class ActiveStatusPage{
     getTextEmlement(name:string){
           return "//span[contains(text()='"+ name +"')]"
         }
-    
-    
+
 }

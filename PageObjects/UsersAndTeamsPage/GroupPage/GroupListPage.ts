@@ -25,21 +25,21 @@ export class GroupListPage{
 
     async showGroupsMenu(){
         console.log ("Check the visible of Tier 1 horizontal Groups menu")
-        this.actionSupport.clickOnElement(this.tier1_horGroups)
+        await this.actionSupport.clickOnElement(this.tier1_horGroups)
     }
 
     async clickGroupsMenu(){
         console.log ("Click on the Tier 1 horizontal Groups menu")
-        this.actionSupport.clickOnElement(this.tier1_horGroups)
+        await this.actionSupport.clickOnElement(this.tier1_horGroups)
     }
     
     async selectGroupEntry(){
         console.log ("Select one group in list")
-        this.actionSupport.clickOnElement(this.selectedGroup)
+        await this.actionSupport.clickOnElement(this.selectedGroup)
     }
 
     async selectDeletedGroupEntry(){
         console.log ("Select one group for deleting")
-        this.actionSupport.clickOnElement(this.deletedGroup)
+        await this.actionSupport.clickOnElement(this.deletedGroup)
     }
 }

@@ -18,17 +18,17 @@ export class TitleBarButtons{
         this.saving_txt = "//span[@class='saving-text' and contains (text(), 'All changes saved')]"
     }
 
-    async clickSave_btn(){
+    clickSave_btn(){
         console.log ("Click on the SAVE button on the title bar")
         this.actionSupport.clickOnElement(this.save_btn)
     }
 
-    async clickCancel_btn(){
+    clickCancel_btn(){
         console.log ("Click on the CANCEL button on the title bar")
         this.actionSupport.clickOnElement(this.cancel_btn)
     }
 
-    async waitForSavingTxt(){
+    waitForSavingTxt(){
         console.log("display the text All changes saved when saving successfully")
         this.actionSupport.presentElement(this.saving_txt)
     }

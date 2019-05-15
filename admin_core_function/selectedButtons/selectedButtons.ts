@@ -21,22 +21,22 @@ export class SelectedButtons{
 
     }
 
-    async clickCheckbox(){
+    clickCheckbox(){
         console.log ("Click on the check box")
         this.actionSupport.clickOnElement(this.checkbox_btn)
     }
 
-    async clickRadiobutton(){
+    clickRadiobutton(){
         console.log ("Click on the radio button")
         this.actionSupport.clickOnElement(this.radio_btn)
     }
 
-    async clickAssigned_btn(){
+    clickAssigned_btn(){
         console.log ("Click on the assigned button")
         this.actionSupport.clickOnElement(this.assigned_btn)
     }
 
-    async clickUnassigned_btn(){
+    clickUnassigned_btn(){
         console.log ("Click on the unassigned button")
         this.actionSupport.clickOnElement(this.unassigned_btn)
     }

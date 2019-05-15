@@ -44,15 +44,13 @@ describe("Group List", function(){
         await loginPage.login()
         await tenantConfigurationPage.selectTenancy()
         await editingControl.clickEdit()
-        await browser.sleep(3000)
         await tier1UsersAndTeams.showUsersAndTeamsMenu()
         await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        await browser.sleep(2000)
         await groupListPage.showGroupsMenu()
         await groupListPage.clickGroupsMenu()
     })
 
-    fit ("should add new group successfully ", async function(){
+    it ("should add new group successfully ", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
@@ -60,17 +58,13 @@ describe("Group List", function(){
         await loginPage.login()
         await tenantConfigurationPage.selectTenancy()
         await editingControl.clickEdit()
-        await browser.sleep(3000)
         await tier1UsersAndTeams.showUsersAndTeamsMenu()
         await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        await browser.sleep(5000)
         await groupListPage.showGroupsMenu()
         await groupListPage.clickGroupsMenu()
-        await browser.sleep(5000)
         await editingControl.clickAdd()
         await groupProfilePage.createNewGroup("Automation Group", "This group is created by automation script")
         await titleBar_btn.clickSave_btn()
-        await browser.sleep(5000)
         await expect (titleBar_btn.waitForSavingTxt())
     })
 
@@ -82,44 +76,41 @@ describe("Group List", function(){
         await loginPage.login()
         await tenantConfigurationPage.selectTenancy()
         await editingControl.clickEdit()
-        await browser.sleep(3000)
+        
         await tier1UsersAndTeams.showUsersAndTeamsMenu()
         await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        await browser.sleep(5000)
+        
         await groupListPage.showGroupsMenu()
         await groupListPage.clickGroupsMenu()
-        await browser.sleep(5000)
         await groupListPage.selectGroupEntry()
-        await browser.sleep(5000)
+        
         await editingControl.clickEdit()
-        await browser.sleep(5000)
         await groupProfilePage.editExistingGroup("Updated_ Automation Group Name", "Updated_This group is edited by script")
         await titleBar_btn.clickSave_btn()
-        await browser.sleep(3000)
+        
         await expect (titleBar_btn.waitForSavingTxt())
     })
 
-    it ("should delete the group successfully", async function(){
+    fit ("should delete the group successfully", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
+        
         await tenantConfigurationPage.selectTenancy()
         await editingControl.clickEdit()
-        await browser.sleep(3000)
+        
         await tier1UsersAndTeams.showUsersAndTeamsMenu()
         await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        await browser.sleep(3000)
+        
         await groupListPage.showGroupsMenu()
         await groupListPage.clickGroupsMenu()
-        await browser.sleep(3000)
         await groupListPage.selectDeletedGroupEntry()  
-        await browser.sleep(3000)
+        
         await editingControl.clickDelete()
         await actionPopup.showAttentionPop()
         await actionPopup.clickAttentionDel_btn()
-        await browser.sleep(3000)
         await actionPopup.showAttentionPop()
         await actionPopup.clickAttentionDel_btn()
 

@@ -56,88 +56,81 @@ export class ActionPopup{
     }
 
     // Showing the popup in Admin Tool
-    async showAddPop(){
+    showAddPop(){
         console.log("Show the ADD popup")
         this.actionSupport.presentElement(this.add_popup)
     }
 
-    async showAlertPop(){
+    showAlertPop(){
         console.log ("Show the ALERT popup")
         this.actionSupport.presentElement(this.alert_popup)
     }
 
-    async showInfoPop(){
+    showInfoPop(){
         console.log ("Show the INFORMATION popup")
-       this.actionSupport.presentElement(this.info_popup)
+        this.actionSupport.presentElement(this.info_popup)
     }
 
-    async showAttentionPop(){
+    showAttentionPop(){
         console.log ("Show the ATTENTION popup")
         this.actionSupport.presentElement(this.attention_popup)
     }
 
-    async showCopyPop(){
+    showCopyPop(){
         console.log("Show the COPY popup")
         this.actionSupport.presentElement(this.copy_popup)
     }
 
     // Action buttons on the popup
-    async clickSaveAndClose_btn(){
+    clickSaveAndClose_btn(){
         console.log ("Save the data changes and close the popup")
         this.actionSupport.clickOnElement(this.saveAndClose_btn)
     }
 
-    async clickCancel_btn(){
+    clickCancel_btn(){
         console.log ("Cancel the data changes and close the popup")
         this.actionSupport.clickOnElement(this.cancel_btn)
     }
 
-    async clickOkClose_btn(){
+    clickOkClose_btn(){
         console.log ("Click on OK button to close the popup")
         this.actionSupport.clickOnElement(this.okClose_btn)
     }
 
-    async clickAttentionDel_btn(){
+    clickAttentionDel_btn(){
         console.log ("Click on DELETE button to delete the entry and close popup")
         this.actionSupport.clickOnElement(this.attention_del_btn)
     }
 
-    async clickAttenctionCancel_btn(){
+    clickAttenctionCancel_btn(){
         console.log("Click on CANCEL button to close the popup")
         this.actionSupport.clickOnElement(this.attention_cancel_btn)
     }
 
-    async clickAttentionYes_btn(){
+    clickAttentionYes_btn(){
         console.log("Click on Yes button to save the changes and close the popup")
         this.actionSupport.clickOnElement(this.attention_yes_btn)
     }
 
-    async clickAttentionNo_btn(){
+    clickAttentionNo_btn(){
         console.log("Click on No button to cancel the changes and close the popup")
         this.actionSupport.clickOnElement(this.attention_no_btn)
     }
 
-    async clickAttentionRem_btn(){
+    clickAttentionRem_btn(){
         console.log ("Click on Remove button to remove the active user and close the popup")
         this.actionSupport.clickOnElement(this.attention_remove_btn)
 
     }
 
-    async clickAttentionRem_btn1(){
+    clickAttentionRem_btn1(){
         console.log ("Click on Remove button to confirm remove the active user and close the popup")
         this.actionSupport.clickOnElement(this.attention_remove_btn1)
 
     }
 
-    async clickInfOK_btn(){
+    clickInfOK_btn(){
         console.log("Click on OK button to closed the popup")
         this.actionSupport.clickOnElement(this.info_ok_btn)
     }
-
-
-
-    
-    
-
-
 }
