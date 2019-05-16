@@ -48,6 +48,8 @@ describe("Group List", function(){
         await tier1UsersAndTeams.clickUsersAndTeamsMenu()
         await groupListPage.showGroupsMenu()
         await groupListPage.clickGroupsMenu()
+
+        await groupListPage.selectGroup('Automation Group')
     })
 
     it ("should add new group successfully ", async function(){
@@ -91,7 +93,7 @@ describe("Group List", function(){
         await expect (titleBar_btn.waitForSavingTxt())
     })
 
-    fit ("should delete the group successfully", async function(){
+    it ("should delete the group successfully", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()

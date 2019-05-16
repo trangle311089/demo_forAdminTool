@@ -39,11 +39,13 @@ describe("Tenant Configuration", function(){
 
         await loginPage.login()
         await editingControl.clickAdd()
-        await actionPopup.showAddPop()
+        await actionPopup.showPopup('add')
         await tenantConfigurationPage.createNewTenancy("1001","1001")
         await actionPopup.clickSaveAndClose_btn()
-        await actionPopup.showAlertPop()
-        await actionPopup.clickOkClose_btn()
+        await actionPopup.showPopup('ALERT')
+        await actionPopup.clickPopup_btn('OK')
+        await actionPopup.showPopup('INFORMATION')
+        await actionPopup.clickPopup_OKbtn('ok')
     })
 
     // Edit the existing tenancy
@@ -53,9 +55,9 @@ describe("Tenant Configuration", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy("1001")
         await editingControl.clickEdit()
-        await activeStt.show_Tier1VerActiveStt()
+        await expect (activeStt.show_Tier1VerActiveStt())
     })
 
     // Copy the tenancy
@@ -65,15 +67,15 @@ describe("Tenant Configuration", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await editingControl.clickCopy()
-        await actionPopup.showCopyPop()
-        await tenantConfigurationPage.copyTenancy("copiedTenancy", "copiedTenancy")
+        await actionPopup.showPopup('copy')
+        await tenantConfigurationPage.createNewTenancy("copied", "copied")
         await actionPopup.clickSaveAndClose_btn()
-        await actionPopup.showAlertPop()
-        await actionPopup.clickOkClose_btn()
-        await actionPopup.showInfoPop()
-        await actionPopup.clickInfOK_btn()
+        await actionPopup.showPopup('ALERT')
+        await actionPopup.clickPopup_btn('OK')
+        await actionPopup.showPopup('INFORMATION')
+        await actionPopup.clickPopup_OKbtn('ok')
     })
 
     // Delete the tenancy
@@ -83,12 +85,12 @@ describe("Tenant Configuration", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await editingControl.clickDelete()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionDel_btn()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionDel_btn()
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
     })
 
     // Enable the tenancy
@@ -99,34 +101,35 @@ describe("Tenant Configuration", function(){
 
         await loginPage.login()
         await tenantConfigurationPage.showDisabledTenancy()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.enableTenancy()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionYes_btn()
-        await actionPopup.showInfoPop()
-        await actionPopup.clickInfOK_btn()
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('yes')
+        await actionPopup.showPopup('INFORMATION')
+        await actionPopup.clickPopup_OKbtn('ok')
     })
 
     // Disable the tenancy
-    it('should disable the selected tenancy when clicking on disable option', async function(){
+    fit('should disable the selected tenancy when clicking on disable option', async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.disableTenancy()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionYes_btn()
-        await actionPopup.showInfoPop()
-        await actionPopup.clickInfOK_btn()
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('yes')
+        await actionPopup.showPopup('INFORMATION')
+        await actionPopup.clickPopup_OKbtn('ok')
 
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.showDisabledTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.enableTenancy()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionYes_btn()
-        await actionPopup.showInfoPop()
-        await actionPopup.clickInfOK_btn()
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('yes')
+        await actionPopup.showPopup('INFORMATION')
+        await actionPopup.clickPopup_OKbtn('ok')
     })
 
     // Search function on the Tenant Configuration page
@@ -137,7 +140,6 @@ describe("Tenant Configuration", function(){
 
         await loginPage.login()
         await editingControl.searchEntry("1001")
-        await tenantConfigurationPage.showTenancy()
         await editingControl.removeSearchEntry()
     })
 

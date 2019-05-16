@@ -9,18 +9,15 @@ export class GroupListPage{
     tier1_UsersAndTeams: Tier1UsersAndTeams
 
     tier1_horGroups: string
-    selectedGroup: string
-    deletedGroup:string
+      
 
-    constructor(browser:any){
+    constructor(browser:ProtractorBrowser){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
         this.tier1_UsersAndTeams = new Tier1UsersAndTeams (this.curBrowser)
 
         this.tier1_horGroups = "//a[@class='ng-binding' and contains (text(), 'Groups')]"
-        this.selectedGroup = "//span[contains(text(),'Automation Group')]"
-        this.deletedGroup = "//span[contains(text(),'Updated_ Automation Group Name')]"
-        
+               
     }
 
     async showGroupsMenu(){
@@ -32,14 +29,9 @@ export class GroupListPage{
         console.log ("Click on the Tier 1 horizontal Groups menu")
         await this.actionSupport.clickOnElement(this.tier1_horGroups)
     }
-    
-    async selectGroupEntry(){
-        console.log ("Select one group in list")
-        await this.actionSupport.clickOnElement(this.selectedGroup)
-    }
 
-    async selectDeletedGroupEntry(){
-        console.log ("Select one group for deleting")
-        await this.actionSupport.clickOnElement(this.deletedGroup)
+    async selectGroup(name:string){
+        var xpath ="//span[contains(text(),'"+name+"')]"
+        await this.actionSupport.clickOnElement(xpath)
     }
 }

@@ -43,9 +43,9 @@ export class TenantConfigurationPage {
         await this.actionSupport.sendKeyOnElement(this.tnt_name, tenantName)
     }
 
-    async selectTenancy(){
-        console.log("Select one tenancy on grid")
-        await this.actionSupport.clickOnElement(this.tnt_selected)
+    async selectTenancy(tenancyName:string){
+        var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
 
     }
 
@@ -62,10 +62,5 @@ export class TenantConfigurationPage {
     async disableTenancy(){
         console.log("Disable the tenancy")
         await this.actionSupport.clickOnElement(this.disable_tenancy_option)
-    }
-
-    async showTenancy(){
-        console.log ("Show the tenancy on grid")
-        await this.actionSupport.presentElement(this.tnt_selected)
     }
 }

@@ -6,9 +6,9 @@ exports.config = {
     // The address of a running selenium server.
     seleniumAddress: 'http://localhost:4444/wd/hub',
     // specs: ['TestCases/**/loginTest.ts'], 
-    // specs: ['TestCases/**/tenantFunctionTest.ts'],
+    specs: ['TestCases/**/tenantFunctionTest.ts'],
     // specs: ['TestCases/**/activeStatusTest.ts'],
-    specs: ['Testcases/**/groupListTest.ts', 'Testcases/**/groupLoginSettingsTest.ts'],
+    // specs: ['Testcases/**/groupListTest.ts'],
     // specs: ['Testcases/**/groupLoginSettingsTest.ts'],
 
     //run directly with browser driver without using webdriver manager
