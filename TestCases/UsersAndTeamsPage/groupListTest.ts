@@ -34,7 +34,7 @@ describe("Group List", function(){
         actionPopup = new ActionPopup (browser)
  
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 800000
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     it ("should naviagte to the Users and Teams - Groups list", async function(){
@@ -65,7 +65,7 @@ describe("Group List", function(){
         await tier1Menu.navigateToTier1Hor('Groups')
         await editingControl.clickAdd()
         await groupProfilePage.createNewGroup("Automation Group", "This group is created by automation script")
-        await titleBar_btn.clickSave_btn()
+        await titleBar_btn.clickSaveCancel_btn('Save')
         await expect (titleBar_btn.waitForSavingTxt())
     })
 
@@ -84,7 +84,7 @@ describe("Group List", function(){
         await groupListPage.selectGroup('Automation Group')
         await editingControl.clickEdit()
         await groupProfilePage.createNewGroup("Updated_ Automation Group Name", "Updated_This group is edited by script")
-        await titleBar_btn.clickSave_btn()
+        await titleBar_btn.clickSaveCancel_btn('Save')
         await expect (titleBar_btn.waitForSavingTxt())
     })
 

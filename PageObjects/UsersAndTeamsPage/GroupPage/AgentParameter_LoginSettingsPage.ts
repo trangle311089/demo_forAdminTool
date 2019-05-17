@@ -15,19 +15,19 @@ export class GroupLoginSettingPage{
         this.titleBar_btn = new TitleBarButtons (this.curBrowser)
     }
 
-    selectRadio_btn(btnName:string){
+    async selectRadio_btn(btnName:string){
         var xpath = "//input[@id='"+btnName+"']"
-        this.actionSupport.clickOnElement(xpath)
+        await this.actionSupport.clickOnElement(xpath)
     }
 
-    selectCheckbox_btn(btnName:string){
+    async selectCheckbox_btn(btnName:string){
         var xpath = "//label[@for='"+btnName+"']" 
-        this.actionSupport.clickOnElement(xpath)
+        await this.actionSupport.clickOnElement(xpath)
     }
 
-    inputText_field(fieldName:string, data:string){
+    async inputText_field(fieldName:string, data:string){
         var xpath = "//input[@name='"+fieldName+"']"
-        this.actionSupport.sendKeyOnElement(xpath,data)
+        await this.actionSupport.sendKeyOnElement(xpath,data)
     }
 
 

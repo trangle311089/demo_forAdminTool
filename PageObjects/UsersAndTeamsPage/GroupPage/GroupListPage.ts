@@ -7,7 +7,6 @@ export class GroupListPage{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
       
-
     constructor(browser:ProtractorBrowser){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)

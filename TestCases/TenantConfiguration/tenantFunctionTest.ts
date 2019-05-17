@@ -45,7 +45,7 @@ describe("Tenant Configuration", function(){
     })
 
     // Edit the existing tenancy
-    fit ("should navigate to the active status page when editing the tenancy", async function(){
+    it ("should navigate to the active status page when editing the tenancy", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
@@ -118,7 +118,7 @@ describe("Tenant Configuration", function(){
         await actionPopup.clickPopup_btn('yes')
         await actionPopup.showPopup('INFORMATION')
         await actionPopup.clickPopup_OKbtn('ok')
-        await tenantConfigurationPage.showDisabledTenancy() //unable to click on Show disabled tenant when running two test scripts at the same time
+        await tenantConfigurationPage.showDisabledTenancy()
         await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.enableTenancy()
         await actionPopup.showPopup('ATTENTION')
