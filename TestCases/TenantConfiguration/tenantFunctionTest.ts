@@ -1,14 +1,10 @@
 import { async } from "q";
 import { browser, by } from "protractor";
-import { sign } from "crypto";
 import { LoginPage } from "../../PageObjects/LoginPage";
-import { protractor } from "protractor/built/ptor";
 import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
 import { ActionPopup } from "../../admin_core_popup/actionPopup";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
-import { arch } from "os";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
-import { ActiveStatusPage } from "../../PageObjects/ActiveStatusPage";
+import { Tier1Menu } from "../../admin_core_menu/tier1Menu/tier1Menu";
 
 
 describe("Tenant Configuration", function(){
@@ -17,7 +13,7 @@ describe("Tenant Configuration", function(){
     var editingControl:EditingControl
     var actionPopup:ActionPopup
     var tenantConfigurationPage:TenantConfigurationPage
-    var activeStt: ActiveStatusPage
+    var tier1Menu: Tier1Menu
     
    
     beforeEach(async function(){
@@ -25,7 +21,7 @@ describe("Tenant Configuration", function(){
         editingControl = new EditingControl(browser)
         actionPopup = new ActionPopup (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
-        activeStt = new ActiveStatusPage (browser)
+        tier1Menu = new Tier1Menu(browser)
 
         originalTimeOut = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
@@ -49,7 +45,7 @@ describe("Tenant Configuration", function(){
     })
 
     // Edit the existing tenancy
-    it ("should navigate to the active status page when editing the tenancy", async function(){
+    fit ("should navigate to the active status page when editing the tenancy", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
@@ -57,7 +53,7 @@ describe("Tenant Configuration", function(){
         await loginPage.login()
         await tenantConfigurationPage.selectTenancy("1001")
         await editingControl.clickEdit()
-        await expect (activeStt.show_Tier1VerActiveStt())
+        await expect(tier1Menu.presenceOfTier1Ver('active status'))
     })
 
     // Copy the tenancy
@@ -110,7 +106,7 @@ describe("Tenant Configuration", function(){
     })
 
     // Disable the tenancy
-    fit('should disable the selected tenancy when clicking on disable option', async function(){
+    it('should disable the selected tenancy when clicking on disable option', async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
@@ -122,8 +118,7 @@ describe("Tenant Configuration", function(){
         await actionPopup.clickPopup_btn('yes')
         await actionPopup.showPopup('INFORMATION')
         await actionPopup.clickPopup_OKbtn('ok')
-
-        await tenantConfigurationPage.showDisabledTenancy()
+        await tenantConfigurationPage.showDisabledTenancy() //unable to click on Show disabled tenant when running two test scripts at the same time
         await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.enableTenancy()
         await actionPopup.showPopup('ATTENTION')

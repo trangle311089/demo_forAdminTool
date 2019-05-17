@@ -2,45 +2,81 @@
 var dateFormat = require('dateformat');
 
 exports.config = {
+    // Define framework
     framework: 'jasmine',
+    
     // The address of a running selenium server.
     seleniumAddress: 'http://localhost:4444/wd/hub',
-    // specs: ['TestCases/**/loginTest.ts'], 
-    specs: ['TestCases/**/tenantFunctionTest.ts'],
-    // specs: ['TestCases/**/activeStatusTest.ts'],
-    // specs: ['Testcases/**/groupListTest.ts'],
-    // specs: ['Testcases/**/groupLoginSettingsTest.ts'],
 
+    //Specify the specs to run test script
+    // specs: ['TestCases/LoginPage/loginTest.ts'],
+    // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
+    // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
+    // specs: ['TestCases/UsersAndTeamsPage/groupListTest.ts'],
+    specs:['TestCases/UsersAndTeamsPage/groupLoginSettingsTest.ts'],
+    
     //run directly with browser driver without using webdriver manager
     directConnect: true,
-    
+   
     // Capabilities to be passed to the webdriver instance.
     capabilities: {
-        browserName: 'chrome',
-        shardTestFiles: true, //To enable sharing of tests at the spec level, we must configure shardTestFiles flag as true within the capabilities.
-        maxInstances: 1 //the maximum number of browser windows that Protractor should create in parallel.
-        
+        browserName: 'chrome'
     },
     
-       
-    // restartBrowserBetweenTests: true,
+    // Set restart browser to true
+    restartBrowserBetweenTests: true,
+
+    // Set promise to true
+    SELENIUM_PROMISE_MANAGER: true,
+    
     onPrepare: function() {
         require('ts-node').register({
           project: require('path').join(__dirname, './tsconfig.json')
         })
         var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
-
+        //var SpecReporter = require('jasmine-spec-reporter');
         jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: 'all'}));
 
         var HtmlReporter = require('protractor-beautiful-reporter');
         // Add a screenshot reporter and store screenshots to `/tmp/screenshots`:
         jasmine.getEnv().addReporter(new HtmlReporter({
+            //baseDirectory: 'tmp/screenshots'
             baseDirectory: __dirname + '\\TestReports\\' + dateFormat(new Date(), "dddd_mmmm_dS_yyyy_h_MM_ss_TT")
         }).getJasmine2Reporter());
 
-              
+        // var jasmineReporters = require('jasmine-reporters');
+        // jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+        //     consolidateAll: true,
+        //     savePath: './',
+        //     filePrefix: 'xmlresults'
+        // }));
+        // var fs = require('fs-extra');
+ 
+        // fs.emptyDir('screenshots/', function (err) {
+        //     console.log(err);
+        // });
+    
+        // jasmine.getEnv().addReporter({
+        //     specDone: function(result) {
+        //         if (result.status == 'failed') {
+        //             browser.getCapabilities().then(function (caps) {
+        //                 var browserName = caps.get('browserName');
+    
+        //                 browser.takeScreenshot().then(function (png) {
+        //                     var stream = fs.createWriteStream('screenshots/' + browserName + '-' + result.fullName+ '.png');
+        //                     stream.write(new Buffer(png, 'base64'));
+        //                     stream.end();
+        //                 });
+        //             });
+        //         }
+        //     }
+        // });
+
+        // Add a screenshot reporter and store screenshots to `/tmp/screenshots`:
+        
     },
-    // SELENIUM_PROMISE_MANAGER: false,
+   
+    
     //HTMLReport called once tests are finished
     onComplete: function() {
         
@@ -93,9 +129,7 @@ exports.config = {
     //   browserName: 'chrome'
     // }],
     // Options to be passed to Jasmine-node.
-    //allScriptsTimeout: 15000, //allScriptsTimeout is timeout for EACH async command in protractor, to not execute for too long
     jasmineNodeOpts: {
         showColors: true, // Use colors in the command line report.
-        defaultTimeoutInterval: 999999 //apply jasmine timeouts for all specs
     }
   }

@@ -1,5 +1,4 @@
 import { async } from "q";
-import { Tier1UsersAndTeams } from "../../admin_core_menu/tier1_UsersAndTeams/tier1_UsersAndTeams";
 import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
 import { LoginPage } from "../../PageObjects/LoginPage";
 import { browser } from "protractor";
@@ -8,10 +7,12 @@ import { TitleBarButtons } from "../../admin_core_function/titleBarButtons/title
 import { ActionPopup } from "../../admin_core_popup/actionPopup";
 import { GroupProfile } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 import { GroupListPage } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
+import { Tier1Menu } from "../../admin_core_menu/tier1Menu/tier1Menu";
+import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
 
 describe("Group List", function(){
     var loginPage: LoginPage
-    var tier1UsersAndTeams: Tier1UsersAndTeams
+    var tier1Menu: Tier1Menu
     var editingControl: EditingControl
     var tenantConfigurationPage: TenantConfigurationPage
     var groupProfilePage: GroupProfile
@@ -24,14 +25,14 @@ describe("Group List", function(){
 
     beforeEach (async function(){
         loginPage = new LoginPage (browser)
-        tier1UsersAndTeams = new Tier1UsersAndTeams(browser)
+        tier1Menu = new Tier1Menu(browser)
         editingControl = new EditingControl (browser)
         groupListPage = new GroupListPage (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
         groupProfilePage = new GroupProfile (browser)
         titleBar_btn = new TitleBarButtons (browser)
         actionPopup = new ActionPopup (browser)
-
+ 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 800000
     })
@@ -42,14 +43,12 @@ describe("Group List", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await editingControl.clickEdit()
-        await tier1UsersAndTeams.showUsersAndTeamsMenu()
-        await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        await groupListPage.showGroupsMenu()
-        await groupListPage.clickGroupsMenu()
-
-        await groupListPage.selectGroup('Automation Group')
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await expect (tier1Menu.navigateToTier1Hor('Groups'))
     })
 
     it ("should add new group successfully ", async function(){
@@ -58,12 +57,12 @@ describe("Group List", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await editingControl.clickEdit()
-        await tier1UsersAndTeams.showUsersAndTeamsMenu()
-        await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        await groupListPage.showGroupsMenu()
-        await groupListPage.clickGroupsMenu()
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
         await editingControl.clickAdd()
         await groupProfilePage.createNewGroup("Automation Group", "This group is created by automation script")
         await titleBar_btn.clickSave_btn()
@@ -76,20 +75,16 @@ describe("Group List", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await editingControl.clickEdit()
-        
-        await tier1UsersAndTeams.showUsersAndTeamsMenu()
-        await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        
-        await groupListPage.showGroupsMenu()
-        await groupListPage.clickGroupsMenu()
-        await groupListPage.selectGroupEntry()
-        
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupListPage.selectGroup('Automation Group')
         await editingControl.clickEdit()
-        await groupProfilePage.editExistingGroup("Updated_ Automation Group Name", "Updated_This group is edited by script")
+        await groupProfilePage.createNewGroup("Updated_ Automation Group Name", "Updated_This group is edited by script")
         await titleBar_btn.clickSave_btn()
-        
         await expect (titleBar_btn.waitForSavingTxt())
     })
 
@@ -99,23 +94,19 @@ describe("Group List", function(){
         await browser.manage().window().maximize()
 
         await loginPage.login()
-        
-        await tenantConfigurationPage.selectTenancy()
+        await tenantConfigurationPage.selectTenancy('1001')
         await editingControl.clickEdit()
-        
-        await tier1UsersAndTeams.showUsersAndTeamsMenu()
-        await tier1UsersAndTeams.clickUsersAndTeamsMenu()
-        
-        await groupListPage.showGroupsMenu()
-        await groupListPage.clickGroupsMenu()
-        await groupListPage.selectDeletedGroupEntry()  
-        
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupListPage.selectGroup('Updated_ Automation Group Name')  
         await editingControl.clickDelete()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionDel_btn()
-        await actionPopup.showAttentionPop()
-        await actionPopup.clickAttentionDel_btn()
-
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+        await expect (groupListPage.invisibleGroup('Updated_Automation Group Name')) 
     })
 
     afterEach(function(){

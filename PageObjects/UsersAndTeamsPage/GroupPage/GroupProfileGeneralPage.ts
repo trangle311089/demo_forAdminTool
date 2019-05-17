@@ -23,17 +23,5 @@ export class GroupProfile{
         console.log("Input the description" + description)
         await this.actionSupport.sendKeyOnElement(this.description_field, description)
     }
-
-    async editExistingGroup(groupName:string, description:string){
-        console.log ("Update the group name to " + groupName)
-        await this.actionSupport.sendKeyOnElement(this.groupName_field, groupName)
-        console.log ("Update the description to " + description)
-        await this.actionSupport.sendKeyOnElement(this.description_field, description)
-    }
-
-    getNameXpath(name:string){
-        return "//span[text='"+ name +"']"
-    }
-
-        
+  
 }

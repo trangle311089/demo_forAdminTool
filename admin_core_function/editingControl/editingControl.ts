@@ -30,14 +30,14 @@ export class EditingControl{
         this.remove_search = "//i[@ng-click='removeSearch()']"
     }
 
-    clickAdd(){
+    async clickAdd(){
         console.log("Click on the add option on the editing control")
-        this.actionSupport.clickOnElement(this.add_option)
+        await this.actionSupport.clickOnElement(this.add_option)
     }
 
-    clickEdit(){
+    async clickEdit(){
         console.log ("Click on the edit option on the editing control")
-        this.actionSupport.clickOnElement(this.edit_option)
+        await this.actionSupport.clickOnElement(this.edit_option)
     }
 
     async clickDelete(){
@@ -45,24 +45,24 @@ export class EditingControl{
         await this.actionSupport.clickOnElement(this.delete_option)
     }
 
-    clickCopy(){
+    async clickCopy(){
         console.log ("Click on the copy option on the editing control")
-        this.actionSupport.clickOnElement(this.copy_option)
+        await this.actionSupport.clickOnElement(this.copy_option)
     }
 
-    clickRemove(){
+    async clickRemove(){
         console.log ("Click on the remove option on the editing control")
-        this.actionSupport.clickOnElement(this.remove_option)
+        await this.actionSupport.clickOnElement(this.remove_option)
     }
 
-    searchEntry(textSearch:string){
+    async searchEntry(textSearch:string){
         console.log ("Enter text on the search field: " + textSearch)
-        this.actionSupport.sendKeyOnElement(this.search_function, textSearch)
+        await this.actionSupport.sendKeyOnElement(this.search_function, textSearch)
     }
 
-    removeSearchEntry(){
+    async removeSearchEntry(){
         console.log ("Click on the cross icon on search field to remove search")
-        this.actionSupport.clickOnElement(this.remove_search)
+        await this.actionSupport.clickOnElement(this.remove_search)
     }
 
     

@@ -7,7 +7,7 @@ export class TenantConfigurationPage {
 
     tnt_id:string
     tnt_name:string
-    tnt_selected:string
+   
    
     show_disTenancy_option:string
    
@@ -20,8 +20,7 @@ export class TenantConfigurationPage {
         
         this.tnt_id = "//input[@id='txtTenantId']"
         this.tnt_name = "//input[@id='txtTenantName']"
-        this.tnt_selected = "//div[@col-id='tenantid' and contains (text(),'1001')]"
-        
+               
         this.show_disTenancy_option = "//label[@class='show-disable-tenant']"
 
         this.enable_tenancy_option = "//span[@ng-disabled='!checkEnableCondition()']"
@@ -34,13 +33,6 @@ export class TenantConfigurationPage {
         await this.actionSupport.sendKeyOnElement(this.tnt_id, tenantid)
         console.log("Input Tenant name: "+ tenantName)
         await this.actionSupport.sendKeyOnElement(this.tnt_name,tenantName)
-    }
-
-    async copyTenancy(tenantid:string, tenantName:string){
-        console.log ("Input Tenant id: " + tenantid)
-        await this.actionSupport.sendKeyOnElement(this.tnt_id, tenantid)
-        console.log ("Input Tenant name: " + tenantName)
-        await this.actionSupport.sendKeyOnElement(this.tnt_name, tenantName)
     }
 
     async selectTenancy(tenancyName:string){
