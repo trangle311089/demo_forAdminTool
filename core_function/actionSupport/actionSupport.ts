@@ -19,6 +19,13 @@ export class ActionSupport{
         await browser.actions().mouseMove(el).click().perform()
     }
 
+    async selectCheckbox(xpath:string, timeOut=this.timeOut){
+        console.log ("Clicking on the checkbox " + xpath)
+        var el = await this.curBrowser.element(by.xpath(xpath))
+        await this.curBrowser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
+        await browser.actions().mouseMove(el).click().perform()
+    }
+
     async presentElement(xpath:string, timeOut=this.timeOut){
         console.log ("Show the element " + xpath)
         var el = await this.curBrowser.element(by.xpath(xpath))
