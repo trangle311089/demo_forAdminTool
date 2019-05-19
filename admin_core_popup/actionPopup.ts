@@ -41,12 +41,13 @@ export class ActionPopup{
         await this.actionSupport.clickOnElement(xpath)
     }
     
-    // Action buttons on the popup
+    // Action buttons on the popup - SAVE button on the popup
     async clickSaveAndClose_btn(){
         console.log ("Save the data changes and close the popup")
         await this.actionSupport.clickOnElement(this.saveAndClose_btn)
     }
-
+    
+    // Action buttons on the popup - CANCEL button on the popup
     async clickCancel_btn(){
         console.log ("Cancel the data changes and close the popup")
         await this.actionSupport.clickOnElement(this.cancel_btn)

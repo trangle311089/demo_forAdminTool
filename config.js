@@ -12,8 +12,9 @@ exports.config = {
     // specs: ['TestCases/LoginPage/loginTest.ts'],
     // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
-    // specs: ['TestCases/UsersAndTeamsPage/groupListTest.ts'],
-    specs:['TestCases/UsersAndTeamsPage/groupLoginSettingsTest.ts'],
+    // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
+    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupLoginSettingsTest.ts'],
+    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
     
     //run directly with browser driver without using webdriver manager
     directConnect: true,

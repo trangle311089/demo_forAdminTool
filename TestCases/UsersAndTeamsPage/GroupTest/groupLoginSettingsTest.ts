@@ -1,15 +1,16 @@
-import { LoginPage } from "../../PageObjects/LoginPage";
-import { GroupListPage } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
-import { GroupLoginSettingPage } from "../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameter_LoginSettingsPage";
-import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
-import { TitleBarButtons } from "../../admin_core_function/titleBarButtons/titleBarButtons";
+import { LoginPage } from "../../../PageObjects/LoginPage";
+import { GroupListPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
+import { GroupLoginSettingPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameter_LoginSettingsPage";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
+import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 import { async } from "q";
 import { browser, by } from "protractor";
-import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
+import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 import { Driver } from "selenium-webdriver/ie";
-import { Tier1Menu } from "../../admin_core_menu/tier1Menu/tier1Menu";
-import { GroupContactPresentationPage } from "../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameter_ContactPresentation";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
+import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
+import { GroupContactPresentationPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameter_ContactPresentation";
+import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { GroupAgentPermissionPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameter_AgentPermissionsPage";
 
 describe ("Group Login Settings", function(){
     var loginPage: LoginPage
@@ -20,9 +21,8 @@ describe ("Group Login Settings", function(){
     var titleBar: TitleBarButtons
     var editingControl: EditingControl
     var groupContactPresent: GroupContactPresentationPage
-    var actionSupport:ActionSupport
-  
-
+    var groupAgentPermission: GroupAgentPermissionPage
+   
     var originalTimeout: number
 
     beforeEach (async function(){
@@ -34,9 +34,8 @@ describe ("Group Login Settings", function(){
         titleBar = new TitleBarButtons (browser)
         editingControl = new EditingControl (browser)
         groupContactPresent = new GroupContactPresentationPage (browser)
-        actionSupport = new ActionSupport(browser)
+        groupAgentPermission = new GroupAgentPermissionPage (browser)
    
-
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
@@ -104,5 +103,46 @@ describe ("Group Login Settings", function(){
         await titleBar.clickSaveCancel_btn('Save')
         await expect(titleBar.waitForSavingTxt())
 
+   })
+
+    it("should update successfully the Agent Permissions setting", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+        
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+        
+        await tier1Menu.presenceOfTier1Ver('Agent Parameters')
+        await tier1Menu.navigateToTier1Ver('Agent Parameters')
+        await tier1Menu.presenceOfTier1Hor('Agent Permissions')
+        await tier1Menu.navigateToTier1Hor('Agent Permission')
+
+        await groupAgentPermission.selectCheckbox('dataModel.allowWrapFollowOnCalls')
+        await groupAgentPermission.selectCheckbox('dataModel.allowCallsFromReady')
+        await groupAgentPermission.selectCheckbox('dataModel.allowConfCallButton')
+        await groupAgentPermission.selectCheckbox('dataModel.allowBlindTransfer')
+        await groupAgentPermission.selectCheckbox('dataModel.allowWarmTransferToThirdParties')
+        await groupAgentPermission.selectCheckbox('dataModel.allowWarmTransferToQueues')
+        await groupAgentPermission.selectCheckbox('dataModel.allowCallConferencing')
+        await groupAgentPermission.selectCheckbox('dataModel.allowTransferToAgents')
+        await groupAgentPermission.selectCheckbox('dataModel.allowTransferToSupervisors')
+        await groupAgentPermission.selectCheckbox('dataModel.allowTransferToQueues')
+        await groupAgentPermission.selectCheckbox('dataModel.allowInternalTransfers')
+        await groupAgentPermission.selectCheckbox('dataModel.allowExternalTransfers')
+        await groupAgentPermission.selectCheckbox('dataModel.allowTransfertoExperts')
+        await groupAgentPermission.selectCheckbox('dataModel.allowHangupOnThirdParties')
+        await groupAgentPermission.selectCheckbox('dataModel.allowHangupOnCustomers')
+
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect (titleBar.waitForSavingTxt())
    })
 })

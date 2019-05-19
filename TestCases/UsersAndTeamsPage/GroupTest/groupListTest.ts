@@ -1,14 +1,14 @@
 import { async } from "q";
-import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
-import { LoginPage } from "../../PageObjects/LoginPage";
+import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
+import { LoginPage } from "../../../PageObjects/LoginPage";
 import { browser } from "protractor";
-import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
-import { TitleBarButtons } from "../../admin_core_function/titleBarButtons/titleBarButtons";
-import { ActionPopup } from "../../admin_core_popup/actionPopup";
-import { GroupProfile } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
-import { GroupListPage } from "../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
-import { Tier1Menu } from "../../admin_core_menu/tier1Menu/tier1Menu";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
+import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
+import { ActionPopup } from "../../../admin_core_popup/actionPopup";
+import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
+import { GroupListPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
+import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
+import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
 
 describe("Group List", function(){
     var loginPage: LoginPage
