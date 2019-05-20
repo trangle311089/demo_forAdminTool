@@ -169,6 +169,166 @@ describe("Group Telephony", function(){
 
     })
 
+    //Group Telephony - Dial Plan
+    it("should update the global dial plan collection successfully", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Telephony')
+        await tier1Menu.navigateToTier1Ver('Telephony') 
+        await tier1Menu.presenceOfTier1Hor('Dial Plan')
+        await tier1Menu.navigateToTier1Hor('Dial Plan')
+
+        await ddlSupport.clickOnDDL('dialPlanCollection')
+        await ddlSupport.selectByVisibleText('dialPlanCollection')
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect(titleBar.waitForSavingTxt())
+    })
+
+    it('should add group dialplan successfully', async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Telephony')
+        await tier1Menu.navigateToTier1Ver('Telephony') 
+        await tier1Menu.presenceOfTier1Hor('Dial Plan')
+        await tier1Menu.navigateToTier1Hor('Dial Plan')
+
+        await editingControl.clickAdd()
+        await actionPopup.showPopup('add')
+        await groupTelephony.inputValue('txtDialString','0123456789')
+        await groupTelephony.inputValue('txtMinLength','10')
+        await groupTelephony.inputValue('txtMaxLength','10')
+        await groupTelephony.inputValue('txtDescription','This group dial plan is created by script')
+        await actionPopup.clickSaveAndAddAnother_btn()
+
+        await actionPopup.showPopup('add')
+        await groupTelephony.inputValue('txtDialString','012345678910')
+        await groupTelephony.inputValue('txtMinLength','15')
+        await groupTelephony.inputValue('txtMaxLength','15')
+        await groupTelephony.inputValue('txtDescription','This group dial plan is created by script')
+        await actionPopup.clickSaveAndClose_btn()
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect(titleBar.waitForSavingTxt())
+    })
+
+    it('should edit the group dial plan successfully', async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Telephony')
+        await tier1Menu.navigateToTier1Ver('Telephony') 
+        await tier1Menu.presenceOfTier1Hor('Dial Plan')
+        await tier1Menu.navigateToTier1Hor('Dial Plan')
+
+        await groupTelephony.selectDialPlan('0123456789')
+        await editingControl.clickEdit()
+        await actionPopup.showPopup('edit')
+        await groupTelephony.inputValue('txtDialString','012345678')
+        await actionPopup.clickSaveAndClose_btn()
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect (titleBar.waitForSavingTxt())
+    })
+
+    it('should delete the group dial plan successfully', async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Telephony')
+        await tier1Menu.navigateToTier1Ver('Telephony') 
+        await tier1Menu.presenceOfTier1Hor('Dial Plan')
+        await tier1Menu.navigateToTier1Hor('Dial Plan')
+
+        await groupTelephony.selectDialPlan('012345678')
+        await editingControl.clickDelete()
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect (titleBar.waitForSavingTxt())
+    })
+
+    fit('should get validation message', async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Telephony')
+        await tier1Menu.navigateToTier1Ver('Telephony') 
+        await tier1Menu.presenceOfTier1Hor('Dial Plan')
+        await tier1Menu.navigateToTier1Hor('Dial Plan') 
+
+        await editingControl.clickAdd()
+        await actionPopup.showPopup('add')
+        await groupTelephony.inputValue('txtDialString','012345678910')
+        await groupTelephony.inputValue('txtMinLength','15')
+        await groupTelephony.inputValue('txtMaxLength','12')
+        await groupTelephony.inputValue('txtDescription','This group dial plan is created by script')
+        await actionPopup.clickSaveAndAddAnother_btn()
+        await expect (groupTelephony.getValidationMessage('invalidMinAndMaxLength','Min length is greater than Max length'))
+    })
+
 
     
 

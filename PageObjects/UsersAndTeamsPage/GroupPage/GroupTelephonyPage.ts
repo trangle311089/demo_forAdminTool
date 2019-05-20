@@ -5,15 +5,13 @@ import { ActionSupport } from "../../../core_function/actionSupport/actionSuppor
 export class GroupTelephonyPage{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
-    input : string
-    valid :string
+
   
 
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
-        this.input = "//input[@id='txtMinLength']"
-        this.valid = "//p[@ng-bind='minValueMessage']"
+ 
     }
 
     async inputValue(fieldName:string, data:string){
@@ -26,10 +24,19 @@ export class GroupTelephonyPage{
         await this.actionSupport.clickOnElement(xpath)
     }
 
+    async selectDialPlan(dialPlan:string){
+        var xpath = "//div[@col-id='dialString' and contains(text(),'"+dialPlan+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
     async selectPermission(btn_name:string){
         var xpath = "//input[@id='"+btn_name+"']"
         await this.actionSupport.clickOnElement(xpath)
     }
     
+    async getValidationMessage(message_txt:string, message_content:string){
+        var xpath ="//p[@ng-bind='"+message_txt+"' and contains (text(),'"+message_content+"')]"
+        await this.actionSupport.presentElement(xpath)
+    }
 
 }
