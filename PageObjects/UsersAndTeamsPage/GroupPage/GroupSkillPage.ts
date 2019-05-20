@@ -14,4 +14,19 @@ export class GroupSkillPage{
         var xpath = "//input[@id = '"+fieldName+"']"
         await this.actionSupport.sendKeyOnElement(xpath, data)
     }
+
+    async selectSkill(skillName:string){
+        var xpath = "//span[contains (text(),'"+skillName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async clickShowSkillHolders_btn(){
+        var xpath = "//button[@ng-click='showSkillHolders()']"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async showHolder(holderName:string){
+        var xpath = "//span[contains (text(), '"+holderName+"')]"
+        await this.actionSupport.presentElement(xpath)
+    }
 }

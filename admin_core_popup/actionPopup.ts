@@ -8,13 +8,15 @@ export class ActionPopup{
     
     saveAndClose_btn:string
     cancel_btn:string
-    
+    saveAndAddAnother_btn:string
+
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport(this.curBrowser)
       
         this.saveAndClose_btn = "//button [@ng-click='saveAndClose()']"
         this.cancel_btn = '//button[@class="button action-btn btn-cancel" and contains (text(), "CANCEL")]'     
+        this.saveAndAddAnother_btn = "//button[@ng-click='saveOnly()']"
     }
 
     // Show the popup, include these popup's names: add, ALERT, INFORMATION, ATTENTION, copy
@@ -51,6 +53,13 @@ export class ActionPopup{
     async clickCancel_btn(){
         console.log ("Cancel the data changes and close the popup")
         await this.actionSupport.clickOnElement(this.cancel_btn)
+    }
+
+    // Action buttons on the popup - SAVE & ADD ANOTHER button 
+    async clickSaveAndAddAnother_btn(){
+        console.log("Save data and add another")
+        await this.actionSupport.clickOnElement(this.saveAndAddAnother_btn)
+
     }
     
 }

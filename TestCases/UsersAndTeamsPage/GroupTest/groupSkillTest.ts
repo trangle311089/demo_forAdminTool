@@ -56,14 +56,108 @@ describe("Group Skill", function(){
         await tier1Menu.navigateToTier1Ver('Skills')
         await tier1Menu.presenceOfTier1Hor('Skill List')
         await tier1Menu.navigateToTier1Hor ('Skill List')
-
         await editingControl.clickAdd()
+        
         await actionPopup.showPopup('add')
-        await groupSkillPage.inputSkill('txtSkillName','Skill Script')
+        await groupSkillPage.inputSkill('txtSkillName','skill script')
         await groupSkillPage.inputSkill('txtSkillDescription','This skill is created by script')
-
+        await actionPopup.clickSaveAndAddAnother_btn()
+        
+        await actionPopup.showPopup('add')
+        await groupSkillPage.inputSkill('txtSkillName','deleted skill script')
+        await groupSkillPage.inputSkill('txtSkillDescription','This skill is created by script')
         await actionPopup.clickSaveAndClose_btn()
+
         await titleBar.clickSaveCancel_btn('Save')
         await expect (titleBar.waitForSavingTxt())
+    })
+
+    it("should edit the skill successfully", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+                
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Skills')
+        await tier1Menu.navigateToTier1Ver('Skills')
+        await tier1Menu.presenceOfTier1Hor('Skill List')
+        await tier1Menu.navigateToTier1Hor ('Skill List')
+
+        await groupSkillPage.selectSkill('skill script')
+        await editingControl.clickEdit()
+        await actionPopup.showPopup('edit')
+        await groupSkillPage.inputSkill('txtSkillName', 'skill script edited')
+        await actionPopup.clickSaveAndClose_btn()
+
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect(titleBar.waitForSavingTxt())
+    })
+
+    it ("should delete the skill successfully", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+                
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Skills')
+        await tier1Menu.navigateToTier1Ver('Skills')
+        await tier1Menu.presenceOfTier1Hor('Skill List')
+        await tier1Menu.navigateToTier1Hor ('Skill List')
+
+        await groupSkillPage.selectSkill('skill script edited')
+        await editingControl.clickDelete()
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+        await actionPopup.showPopup('ATTENTION')
+        await actionPopup.clickPopup_btn('delete')
+
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect(titleBar.waitForSavingTxt())
+    })
+
+    it("should return the users list who are holding the skill", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
+                
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Users and Teams')
+        await tier1Menu.navigateToTier1Ver('Users and Teams')
+        await tier1Menu.presenceOfTier1Hor('Groups')
+        await tier1Menu.navigateToTier1Hor('Groups')
+        await groupList.selectGroup('Default')
+        await editingControl.clickEdit()
+
+        await tier1Menu.presenceOfTier1Ver('Skills')
+        await tier1Menu.navigateToTier1Ver('Skills')
+        await tier1Menu.presenceOfTier1Hor('Skill List')
+        await tier1Menu.navigateToTier1Hor ('Skill List')
+
+        await groupSkillPage.selectSkill('skill script')
+        await groupSkillPage.clickShowSkillHolders_btn()
+        await expect (groupSkillPage.showHolder('userSkill'))
     })
 })
