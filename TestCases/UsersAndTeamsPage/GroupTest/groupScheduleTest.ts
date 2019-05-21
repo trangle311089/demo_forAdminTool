@@ -8,6 +8,7 @@ import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
 import { async } from "q";
 import { GroupSchedulePage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupSchedulePage";
 import { GroupListPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
+import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 
 describe('Group Schedule Login', function(){
     var curBrowser: ProtractorBrowser
@@ -19,6 +20,7 @@ describe('Group Schedule Login', function(){
     var tier1Menu: Tier1Menu
     var groupSchedule: GroupSchedulePage
     var groupList:GroupListPage
+    var titleBar: TitleBarButtons
 
     var originalTimeout: number
 
@@ -32,6 +34,7 @@ describe('Group Schedule Login', function(){
         tier1Menu = new Tier1Menu (browser)
         groupSchedule = new GroupSchedulePage (browser)
         groupList = new GroupListPage(browser)
+        titleBar = new TitleBarButtons(browser)
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
@@ -57,7 +60,11 @@ describe('Group Schedule Login', function(){
         await tier1Menu.navigateToTier1Hor('Login Schedule')
         await groupSchedule.clickEditingControl('fa fa-plus-circle add')
         await actionPopup.showPopup('add')
-        await groupSchedule.input('October','18')
+        await groupSchedule.inputDate('October')
+        await browser.sleep(2000)
+        await actionPopup.clickSaveAndClose_btn()
+        await titleBar.clickSaveCancel_btn('Save')
+        await expect (titleBar.waitForSavingTxt())
 
     })
 
