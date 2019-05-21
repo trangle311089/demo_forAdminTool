@@ -231,6 +231,7 @@ describe("Group Telephony", function(){
         await groupTelephony.inputValue('txtMinLength','15')
         await groupTelephony.inputValue('txtMaxLength','15')
         await groupTelephony.inputValue('txtDescription','This group dial plan is created by script')
+        await groupTelephony.selectPermission('rdDeny')
         await actionPopup.clickSaveAndClose_btn()
         await titleBar.clickSaveCancel_btn('Save')
         await expect(titleBar.waitForSavingTxt())
@@ -298,7 +299,7 @@ describe("Group Telephony", function(){
         await expect (titleBar.waitForSavingTxt())
     })
 
-    fit('should get validation message', async function(){
+    it('should get validation message', async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
