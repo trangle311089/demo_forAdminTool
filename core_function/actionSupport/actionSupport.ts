@@ -31,7 +31,7 @@ export class ActionSupport{
         var el = await this.curBrowser.element(by.xpath(xpath))
         await this.curBrowser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
         await this.curBrowser.wait(this.until.visibilityOf(el), timeOut, 'Element' + xpath + 'take too long to visible in the DOM')
-    }
+   }
 
     async notPresentElement(xpath:string, timeOut=this.timeOut){
         console.log ("Element is invisible " + xpath)

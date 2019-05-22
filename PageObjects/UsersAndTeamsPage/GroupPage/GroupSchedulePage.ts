@@ -4,62 +4,71 @@ import { ActionSupport } from "../../../core_function/actionSupport/actionSuppor
 export class GroupSchedulePage{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
-    date: string
 
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
-        this.date = "//input[@id='dtExpiryDate']"
-      
+     
     }
 
-    // getToday_xpath(){
-    //     return "//li[@class='date-picker-menu']//table[@class='uib-daypicker']//descendant::tbody/tr/td/button/span[@class='ng-binding text-info-custom']"
-    // }
-
-    getDate_xpath( date:string){
-        return "//li[@class='date-picker-menu']//table[@class='uib-daypicker']//descendant::tbody/tr/td/button/span[contains(text(),'"+date+"')]"
-    }
-    getSwitch_xpath(){
-        return "//li[@class='date-picker-menu']//table[@class='uib-daypicker']//descendant::th[@colspan='5']"
-    }
-
-    getMonth_xpath(month:string){
-        return "//li[@class='date-picker-menu']//table[@class='uib-monthpicker']//descendant::tbody/tr/td/button/span[contains(text(),'"+month+"')]"
-    }
-
-    getYear_xpath(year:string){
-        return "//li[@class='date-picker-menu']//table[@class='uib-yearpicker']//descendant::tbody/tr/td/button/span[contains(text(),'"+year+"')]"
-    }
-    
-    getMonth(fullDate:string):string{
-        return fullDate.split("/")[0]
-        
-    }
-    
-    getDate(fullDate:string):string{
-        return fullDate.split("/")[0]
-    }
-
-    
-    async selectDateTimePicker(dateTimePickerIndex:string, fullDate:string){
-        var month = this.getMonth(fullDate)
-        var date = this.getDate(fullDate)
-        console.log ("Schedule: Click on the DateTimePicker")
-        await this.actionSupport.clickOnElement(this.date)
-        await this.actionSupport.clickOnElement(this.getSwitch_xpath())
-        await this.actionSupport.clickOnElement(this.getMonth_xpath(month))
-        // await this.actionSupport.clickOnElement(this.getDate_xpath(date))
-        
-    }
-    
-    async inputDate(month:string){
-        await this.selectDateTimePicker('1',month)
-    }
-
-     async clickEditingControl(btnName:string){
-        var xpath = "//div[@data='data.exceptionGrid']//descendant::div/ul/li/span/i[@class='"+btnName+"']"
+    async clickEditingControl(gridName:string, btnName:string){
+        var xpath = "//div[@data='"+gridName+"']//descendant::div/ul/li/span/i[@class='"+btnName+"']"
         await this.actionSupport.clickOnElement(xpath)
     }
+
+    async inputDate(fieldName:string, data:string){
+        var xpath = "//input[@id='"+fieldName+"']"
+        await this.actionSupport.sendKeyOnElement(xpath,data)
+    }
+
+    async selectYearMonthDay(year:string, month:string, day:string){
+        var xpath = "//input[@id='dtExpiryDate']"
+        await this.actionSupport.clickOnElement(xpath)
+        var buttonSwitchToMonth = "//th[@colspan='5']"
+        await this.actionSupport.clickOnElement(buttonSwitchToMonth)
+        var buttonSwitchToYear = "//li[@class='date-picker-menu']//descendant::th/button/strong[@class='ng-binding']"
+        await this.actionSupport.clickOnElement(buttonSwitchToYear)
+        var xpath = "//span[contains (text(),'"+year+"')]"      
+        await this.actionSupport.clickOnElement(xpath)
+        var xpath = "//span[contains (text(),'"+month+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+        var xpath = "//span[contains (text(),'"+day+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async selectTime(timeField:string, hour:string, min:string){
+        var xpath = "//input[@id='"+timeField+"']"
+        await this.actionSupport.clickOnElement(xpath)
+        var xpath = "//input[@placeholder='HH']"
+        await this.actionSupport.sendKeyOnElement(xpath,hour)
+        var xpath = "//input[@placeholder='MM']"
+        await this.actionSupport.sendKeyOnElement(xpath, min)
+        var xpath = "//input[@id='"+timeField+"']"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async switchToAMPM(timeField:string, btnName:string){
+        var xpath = "//input[@id='"+timeField+"']"
+        await this.actionSupport.clickOnElement(xpath)
+        var xpath = "//button[contains (text(),'"+btnName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+        var xpath = "//input[@id='"+timeField+"']"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async selectRecurring(){
+        var xpath = "//input[@id='chkrecurring']"
+        await this.actionSupport.selectCheckbox(xpath)
+    }
+
+    async selectDayOfWeek(dayName:string){
+        var xpath = "//div[@ng-model='dataModel.dayOfWeek']"
+        await this.actionSupport.clickOnElement(xpath)
+        var xpath = "//span[contains(text(),'"+dayName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    
+    
 
 }

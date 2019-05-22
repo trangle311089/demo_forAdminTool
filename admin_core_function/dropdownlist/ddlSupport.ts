@@ -20,5 +20,4 @@ export class DDLSupport{
         await this.actionSupport.clickOnElement(xpath)
     }
 
-    //Specify the ddl by index
 }
