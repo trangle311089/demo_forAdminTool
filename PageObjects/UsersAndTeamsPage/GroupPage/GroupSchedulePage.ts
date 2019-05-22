@@ -1,14 +1,39 @@
 import { ProtractorBrowser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
+import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1Menu/tier1UsersAndTeams";
+import { GroupListPage } from "./GroupListPage";
+import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 
 export class GroupSchedulePage{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
 
+    tier1Menu: Tier1Menu
+    tier1UsersAndTeams: Tier1UsersAndTeams
+    groupList: GroupListPage
+    editingControl: EditingControl
+
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
+
+        this.tier1Menu = new Tier1Menu (this.curBrowser)
+        this.tier1UsersAndTeams = new Tier1UsersAndTeams (this.curBrowser)
+        this.groupList = new GroupListPage (this.curBrowser)
+        this.editingControl = new EditingControl (this.curBrowser)
      
+    }
+
+    async navigateToGroupSchedule(){
+        await this.tier1UsersAndTeams.navigateToUsersAndTeams()
+        await this.tier1UsersAndTeams.navigateToGroupsList()
+        await this.groupList.selectGroup('Default')
+        await this.editingControl.clickEdit()
+        await this.tier1Menu.presenceOfTier1Ver('Schedule')
+        await this.tier1Menu.navigateToTier1Ver('Schedule')
+        await this.tier1Menu.presenceOfTier1Hor('Login Schedule')
+        await this.tier1Menu.navigateToTier1Hor('Login Schedule')
     }
 
     async clickEditingControl(gridName:string, btnName:string){

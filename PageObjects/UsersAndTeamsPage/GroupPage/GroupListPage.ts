@@ -1,6 +1,5 @@
 import { ProtractorBrowser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
-import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
 
 export class GroupListPage{
     
@@ -10,7 +9,6 @@ export class GroupListPage{
     constructor(browser:ProtractorBrowser){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
-     
     }
 
     async selectGroup(groupName:string){

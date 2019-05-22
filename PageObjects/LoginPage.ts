@@ -30,7 +30,6 @@ export class LoginPage {
         console.log("Select one tenancy for editing")
         await this.tenancy.selectTenancy('1001')
         await this.editingControl.clickEdit()
-
     }
 
     async inputAudience(audience:string){
