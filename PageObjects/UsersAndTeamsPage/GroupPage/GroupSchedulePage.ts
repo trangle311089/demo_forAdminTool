@@ -8,7 +8,6 @@ import { EditingControl } from "../../../admin_core_function/editingControl/edit
 export class GroupSchedulePage{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
-
     tier1Menu: Tier1Menu
     tier1UsersAndTeams: Tier1UsersAndTeams
     groupList: GroupListPage
@@ -17,12 +16,10 @@ export class GroupSchedulePage{
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
-
         this.tier1Menu = new Tier1Menu (this.curBrowser)
         this.tier1UsersAndTeams = new Tier1UsersAndTeams (this.curBrowser)
         this.groupList = new GroupListPage (this.curBrowser)
         this.editingControl = new EditingControl (this.curBrowser)
-     
     }
 
     async navigateToGroupSchedule(){

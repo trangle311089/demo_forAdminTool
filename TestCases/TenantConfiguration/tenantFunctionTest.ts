@@ -5,15 +5,17 @@ import { EditingControl } from "../../admin_core_function/editingControl/editing
 import { ActionPopup } from "../../admin_core_popup/actionPopup";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
 import { Tier1Menu } from "../../admin_core_menu/tier1Menu/tier1Menu";
+import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
 
 
 describe("Tenant Configuration", function(){
     var loginPage:LoginPage
-    var originalTimeOut:number
+    var originalTimeout:number
     var editingControl:EditingControl
     var actionPopup:ActionPopup
     var tenantConfigurationPage:TenantConfigurationPage
     var tier1Menu: Tier1Menu
+    var actionSupport: ActionSupport
     
    
     beforeEach(async function(){
@@ -22,21 +24,22 @@ describe("Tenant Configuration", function(){
         actionPopup = new ActionPopup (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
         tier1Menu = new Tier1Menu(browser)
+        actionSupport = new ActionSupport (browser)
 
-        originalTimeOut = jasmine.DEFAULT_TIMEOUT_INTERVAL
+        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     // Create the new tenancy
-    it ("Should add the new tenancy successfully", async function(){
+    fit ("Should add the new tenancy successfully", async function(){
         await browser.waitForAngularEnabled(true)
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
-
-        await loginPage.login()
+        await loginPage.clickOnSignIn()
+        await tenantConfigurationPage.navigateToTenantConfiguration()
         await editingControl.clickAdd()
         await actionPopup.showPopup('add')
-        await tenantConfigurationPage.createNewTenancy("1001","1001")
+        await tenantConfigurationPage.createNewTenancy("1002","1002")
         await actionPopup.clickSaveAndClose_btn()
         await actionPopup.showPopup('ALERT')
         await actionPopup.clickPopup_btn('OK')
@@ -139,7 +142,7 @@ describe("Tenant Configuration", function(){
     })
 
     afterEach(function(){
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeOut
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     })
 
 

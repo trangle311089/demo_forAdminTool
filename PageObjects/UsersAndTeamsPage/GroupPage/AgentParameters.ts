@@ -8,7 +8,6 @@ import { GroupListPage } from "./GroupListPage";
 export class GroupAgentParameters{
     curBrowser : ProtractorBrowser
     actionSupport: ActionSupport
-
     tier1UsersAndTeams: Tier1UsersAndTeams
     tier1Menu : Tier1Menu
     groupList: GroupListPage
@@ -17,7 +16,6 @@ export class GroupAgentParameters{
     constructor (browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
-
         this.tier1UsersAndTeams = new Tier1UsersAndTeams (this.curBrowser)
         this.editingControl = new EditingControl (this.curBrowser)
         this.tier1Menu = new Tier1Menu (this.curBrowser)

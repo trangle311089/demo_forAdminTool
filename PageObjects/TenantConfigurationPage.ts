@@ -1,9 +1,11 @@
 import { ProtractorBrowser } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport/actionSupport";
+import { Tier1TenantConfiguration } from "../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 
 export class TenantConfigurationPage {
     curBrowser:ProtractorBrowser
     actionSupport:ActionSupport
+    tier1TenantConfiguration: Tier1TenantConfiguration
 
     tnt_id:string
     tnt_name:string
@@ -17,6 +19,7 @@ export class TenantConfigurationPage {
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport(browser)
+        this.tier1TenantConfiguration = new Tier1TenantConfiguration(browser)
         
         this.tnt_id = "//input[@id='txtTenantId']"
         this.tnt_name = "//input[@id='txtTenantName']"
@@ -26,6 +29,10 @@ export class TenantConfigurationPage {
         this.enable_tenancy_option = "//span[@ng-disabled='!checkEnableCondition()']"
         this.disable_tenancy_option = "//span[@ng-disabled='!checkDisableCondition()']"
         
+    }
+
+    async navigateToTenantConfiguration(){
+        await this.tier1TenantConfiguration.navigateToTenantConfiguration()
     }
 
     async createNewTenancy(tenantid:string, tenantName:string){

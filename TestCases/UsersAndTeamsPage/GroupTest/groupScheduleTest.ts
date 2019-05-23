@@ -28,8 +28,10 @@ describe('Group Schedule Login', function(){
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
-    it('Should input date successfully', async function(){
-        await actionSupport.startBrowser()
+    it ('Should input date successfully', async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login ()
         await groupSchedule.navigateToGroupSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
@@ -41,7 +43,9 @@ describe('Group Schedule Login', function(){
     })
 
     it ("Should be able to select the year, month, day, time, ampm, recurring for Group Exception", async function(){
-        await actionSupport.startBrowser()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login ()
         await groupSchedule.navigateToGroupSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
@@ -57,7 +61,9 @@ describe('Group Schedule Login', function(){
     })
 
     it ("Should be able to select day of week, startTime, endTime for Group Routine", async function(){
-        await actionSupport.startBrowser()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login ()
         await groupSchedule.navigateToGroupSchedule()
         await groupSchedule.clickEditingControl('data.routineGrid','fa fa-plus-circle add')

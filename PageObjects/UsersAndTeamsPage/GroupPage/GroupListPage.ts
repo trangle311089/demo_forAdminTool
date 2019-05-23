@@ -2,7 +2,6 @@ import { ProtractorBrowser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
 
 export class GroupListPage{
-    
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
       

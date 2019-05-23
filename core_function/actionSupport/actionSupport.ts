@@ -52,10 +52,4 @@ export class ActionSupport{
         await el.sendKeys(data);
     }
 
-    async startBrowser(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-    }
-
-   }
+}

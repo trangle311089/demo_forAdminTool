@@ -24,8 +24,10 @@ describe ("Group - Agent Parameters", function(){
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
-    it ("should update the login settings successfully", async function(){
-        await actionSupport.startBrowser()
+    it ("Should update the login settings successfully", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await groupAgentParameters.navigateToGroupLoginSettings()
         await groupAgentParameters.selectRadio_loginPage('rdNotReady')
@@ -37,8 +39,10 @@ describe ("Group - Agent Parameters", function(){
         await titleBar.waitForSavingTxt()
    })
 
-    it ("should update the contact presentation successfully", async function(){
-        await actionSupport.startBrowser()
+    it ("Should update the contact presentation successfully", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await groupAgentParameters.navigateToGroupContactPresentation()
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.enableAcceptRejectVoice')
@@ -52,8 +56,10 @@ describe ("Group - Agent Parameters", function(){
         await titleBar.waitForSavingTxt()
    })
 
-    it ("should update successfully the Agent Permissions setting", async function(){
-        await actionSupport.startBrowser()
+    it ("Should update successfully the Agent Permissions setting", async function(){
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await groupAgentParameters.navigateToGroupAgentPermission()
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowWrapFollowOnCalls')

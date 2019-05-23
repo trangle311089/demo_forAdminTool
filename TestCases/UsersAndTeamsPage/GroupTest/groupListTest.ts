@@ -16,7 +16,6 @@ describe("Group List", function(){
     var groupListPage: GroupListPage
     var actionSupport:ActionSupport
     var tier1UsersAndTeams: Tier1UsersAndTeams
-
     var titleBar_btn: TitleBarButtons
     var actionPopup: ActionPopup
     
@@ -37,14 +36,18 @@ describe("Group List", function(){
     })
 
     it ("Should naviagte to the Users and Teams - Groups list", async function(){
-        await actionSupport.startBrowser()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()      
     })
 
     it ("Should add new group successfully ", async function(){
-        await actionSupport.startBrowser()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()
@@ -55,7 +58,9 @@ describe("Group List", function(){
     })
 
     it ("Should edit group name and description successfully", async function(){
-        await actionSupport.startBrowser()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()
@@ -67,7 +72,9 @@ describe("Group List", function(){
     })
 
     it ("Should delete the group successfully", async function(){
-        await actionSupport.startBrowser()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://localhost:81/landlordAutomation/#/login")
+        await browser.manage().window().maximize()
         await loginPage.login()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()      
