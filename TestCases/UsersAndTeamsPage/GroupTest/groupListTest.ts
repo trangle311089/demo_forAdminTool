@@ -8,6 +8,8 @@ import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/G
 import { GroupListPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
 import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1Menu/tier1UsersAndTeams";
+import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 
 describe("Group List", function(){
     var loginPage: LoginPage
@@ -18,6 +20,8 @@ describe("Group List", function(){
     var tier1UsersAndTeams: Tier1UsersAndTeams
     var titleBar_btn: TitleBarButtons
     var actionPopup: ActionPopup
+    var tier1TenantConfiguration: Tier1TenantConfiguration
+    var tenancy: TenantConfigurationPage
     
     var originalTimeout: number
 
@@ -30,25 +34,30 @@ describe("Group List", function(){
         actionPopup = new ActionPopup (browser)
         actionSupport = new ActionSupport (browser)
         tier1UsersAndTeams = new Tier1UsersAndTeams (browser)
+        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
+        tenancy = new TenantConfigurationPage(browser)
+        
  
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     it ("Should naviagte to the Users and Teams - Groups list", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()      
     })
 
     it ("Should add new group successfully ", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()
         await editingControl.clickAdd()
@@ -58,10 +67,11 @@ describe("Group List", function(){
     })
 
     it ("Should edit group name and description successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()
         await groupListPage.selectGroup('Automation Group')
@@ -72,10 +82,11 @@ describe("Group List", function(){
     })
 
     it ("Should delete the group successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await tier1UsersAndTeams.navigateToUsersAndTeams()
         await tier1UsersAndTeams.navigateToGroupsList()      
         await groupListPage.selectGroup('Updated _ Automation Group Name')  

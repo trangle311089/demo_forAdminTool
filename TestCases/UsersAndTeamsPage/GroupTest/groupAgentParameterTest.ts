@@ -1,10 +1,13 @@
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
-import { async } from "q";
+import { async, timeout } from "q";
 import { browser, by } from "protractor";
 import { Driver } from "selenium-webdriver/ie";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
 import { GroupAgentParameters } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameters";
+import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
+import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 
 
 describe ("Group - Agent Parameters", function(){
@@ -12,6 +15,9 @@ describe ("Group - Agent Parameters", function(){
     var titleBar: TitleBarButtons
     var actionSupport: ActionSupport
     var groupAgentParameters: GroupAgentParameters
+    var tier1TenantConfiguration: Tier1TenantConfiguration
+    var tenancy: TenantConfigurationPage
+    var editingControl: EditingControl
     var originalTimeout: number
 
     beforeEach (async function(){
@@ -19,16 +25,20 @@ describe ("Group - Agent Parameters", function(){
         titleBar = new TitleBarButtons (browser)
         actionSupport = new ActionSupport (browser)
         groupAgentParameters = new GroupAgentParameters (browser)
+        editingControl = new EditingControl (browser)
+        tier1TenantConfiguration = new Tier1TenantConfiguration(browser)
+        tenancy = new TenantConfigurationPage (browser)
    
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     it ("Should update the login settings successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupAgentParameters.navigateToGroupLoginSettings()
         await groupAgentParameters.selectRadio_loginPage('rdNotReady')
         await groupAgentParameters.selectCheckbox_loginPage('cbEnabled1')
@@ -37,13 +47,14 @@ describe ("Group - Agent Parameters", function(){
         await groupAgentParameters.inputData_loginPage('txtIPRanges','172.17.0.223')
         await titleBar.clickSaveCancel_btn('Save')
         await titleBar.waitForSavingTxt()
-   })
+    })
 
     it ("Should update the contact presentation successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupAgentParameters.navigateToGroupContactPresentation()
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.enableAcceptRejectVoice')
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.enableAcceptRejectEmail')
@@ -54,13 +65,14 @@ describe ("Group - Agent Parameters", function(){
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.placeInNotReadyOnRejectTimeout')
         await titleBar.clickSaveCancel_btn('Save')
         await titleBar.waitForSavingTxt()
-   })
+    })
 
     it ("Should update successfully the Agent Permissions setting", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupAgentParameters.navigateToGroupAgentPermission()
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowWrapFollowOnCalls')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowCallsFromReady')
@@ -77,7 +89,12 @@ describe ("Group - Agent Parameters", function(){
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowTransfertoExperts')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnThirdParties')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnCustomers')
+        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHold')
         await titleBar.clickSaveCancel_btn('Save')
         await titleBar.waitForSavingTxt()
+   })
+
+   afterEach(function(){
+       jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
    })
 })

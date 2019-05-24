@@ -9,7 +9,7 @@ exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
 
     //Specify the specs to run test script
-    specs: ['TestCases/LoginPage/loginTest.ts'],
+    // specs: ['TestCases/LoginPage/loginTest.ts'],
     // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
@@ -18,6 +18,7 @@ exports.config = {
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
+    specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
     directConnect: true,

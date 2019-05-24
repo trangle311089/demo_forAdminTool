@@ -17,24 +17,21 @@ describe("Login Page", function(){
         actionSupport = new ActionSupport (browser)
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000000
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
     })
 
-    fit ("Should login successfully when click on Sign In button", async function(){            
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+    it ("Should login successfully when click on Sign In button", async function(){            
+        await actionSupport.startBrowser()
         await loginPage.login()
-        await tier1Menu.presenceOfTier1Ver('active status')
+        await tier1Menu.presenceOfTier1Ver('Tenant Configuration')
     })
     
     it ("Should login successfully with pcp audience", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.inputAudience('ec2-52-63-37-167.ap-southeast-2.compute.amazonaws.com')
-        await tier1Menu.presenceOfTier1Ver('active status')
+        await loginPage.login()
+        await tier1Menu.presenceOfTier1Ver('Tenant Configuration')
     })
         
     afterEach(function(){

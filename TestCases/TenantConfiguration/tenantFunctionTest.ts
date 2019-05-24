@@ -14,8 +14,8 @@ describe("Tenant Configuration", function(){
     var editingControl:EditingControl
     var actionPopup:ActionPopup
     var tenantConfigurationPage:TenantConfigurationPage
-    var tier1Menu: Tier1Menu
     var actionSupport: ActionSupport
+    var tier1Menu: Tier1Menu
     
    
     beforeEach(async function(){
@@ -23,19 +23,17 @@ describe("Tenant Configuration", function(){
         editingControl = new EditingControl(browser)
         actionPopup = new ActionPopup (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
-        tier1Menu = new Tier1Menu(browser)
         actionSupport = new ActionSupport (browser)
+        tier1Menu = new Tier1Menu (browser)
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     // Create the new tenancy
-    fit ("Should add the new tenancy successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-        await loginPage.clickOnSignIn()
+    it ("Should add the new tenancy successfully", async function(){
+        await actionSupport.startBrowser()
+        await loginPage.login()
         await tenantConfigurationPage.navigateToTenantConfiguration()
         await editingControl.clickAdd()
         await actionPopup.showPopup('add')
@@ -48,28 +46,25 @@ describe("Tenant Configuration", function(){
     })
 
     // Edit the existing tenancy
-    it ("should navigate to the active status page when editing the tenancy", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-
+    it ("Should navigate to the active status page when editing the tenancy", async function(){
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tenantConfigurationPage.navigateToTenantConfiguration()      
         await tenantConfigurationPage.selectTenancy("1001")
         await editingControl.clickEdit()
-        await expect(tier1Menu.presenceOfTier1Ver('active status'))
+        await tier1Menu.presenceOfTier1Ver('active status')
+        
     })
 
     // Copy the tenancy
-    it("should copy new tenancy when clicking on copy option", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-
+    it ("Should copy new tenancy when clicking on copy option", async function(){
+        await actionSupport.startBrowser()
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy('1001')
+        await tenantConfigurationPage.navigateToTenantConfiguration()      
+        await tenantConfigurationPage.selectTenancy("1001")
         await editingControl.clickCopy()
         await actionPopup.showPopup('copy')
-        await tenantConfigurationPage.createNewTenancy("copied", "copied")
+        await tenantConfigurationPage.createNewTenancy("copied1", "copied1")
         await actionPopup.clickSaveAndClose_btn()
         await actionPopup.showPopup('ALERT')
         await actionPopup.clickPopup_btn('OK')
@@ -78,13 +73,11 @@ describe("Tenant Configuration", function(){
     })
 
     // Delete the tenancy
-    it("should disable the tenancy when clicking on delete option", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-
+    it ("Should disable the tenancy when clicking on delete option", async function(){
+        await actionSupport.startBrowser()
         await loginPage.login()
-        await tenantConfigurationPage.selectTenancy('1001')
+        await tenantConfigurationPage.navigateToTenantConfiguration()      
+        await tenantConfigurationPage.selectTenancy("1001")
         await editingControl.clickDelete()
         await actionPopup.showPopup('ATTENTION')
         await actionPopup.clickPopup_btn('delete')
@@ -93,11 +86,8 @@ describe("Tenant Configuration", function(){
     })
 
     // Enable the tenancy
-    it("should enable the tenancy when clicking on enable option", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-
+    it ("Should enable the tenancy when clicking on enable option", async function(){
+        await actionSupport.startBrowser()
         await loginPage.login()
         await tenantConfigurationPage.showDisabledTenancy()
         await tenantConfigurationPage.selectTenancy('1001')
@@ -109,11 +99,8 @@ describe("Tenant Configuration", function(){
     })
 
     // Disable the tenancy
-    it('should disable the selected tenancy when clicking on disable option', async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-
+    it('Should disable the selected tenancy when clicking on disable option', async function(){
+        await actionSupport.startBrowser()
         await loginPage.login()
         await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.disableTenancy()
@@ -131,14 +118,11 @@ describe("Tenant Configuration", function(){
     })
 
     // Search function on the Tenant Configuration page
-    it("should display the entry matches with the text on search field", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-
+    it ("Should display the entry matches with the text on search field", async function(){
+        await actionSupport.startBrowser()
         await loginPage.login()
         await editingControl.searchEntry("1001")
-        await editingControl.removeSearchEntry()
+        await tenantConfigurationPage.showTenancy('1001')
     })
 
     afterEach(function(){

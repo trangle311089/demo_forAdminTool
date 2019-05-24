@@ -6,6 +6,8 @@ import { async } from "q";
 import { browser } from "protractor";
 import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 
 describe("Group Skill", function(){
     var loginPage: LoginPage
@@ -14,6 +16,8 @@ describe("Group Skill", function(){
     var actionPopup: ActionPopup
     var actionSupport: ActionSupport
     var titleBar: TitleBarButtons
+    var tier1TenantConfiguration: Tier1TenantConfiguration
+    var tenancy: TenantConfigurationPage
 
     var originalTimeout: number
 
@@ -24,6 +28,8 @@ describe("Group Skill", function(){
         actionPopup = new ActionPopup (browser)
         titleBar = new TitleBarButtons (browser)
         actionSupport = new ActionSupport (browser)
+        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
+        tenancy = new TenantConfigurationPage (browser)
      
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
@@ -31,10 +37,12 @@ describe("Group Skill", function(){
     })
 
     it ("Should add new skill successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+
         await groupSkillPage.navigateToGroupSkillList()
         await editingControl.clickAdd()
         await actionPopup.showPopup('add')
@@ -42,7 +50,7 @@ describe("Group Skill", function(){
         await groupSkillPage.inputData_Skills('txtSkillDescription','This skill is created by script')
         await actionPopup.clickSaveAndAddAnother_btn()        
         await actionPopup.showPopup('add')
-        await groupSkillPage.inputData_Skills('txtSkillName','_skillscript')
+        await groupSkillPage.inputData_Skills('txtSkillName','+skillscript')
         await groupSkillPage.inputData_Skills('txtSkillDescription','This skill is created by script')
         await actionPopup.clickSaveAndClose_btn()
         await titleBar.clickSaveCancel_btn('Save')
@@ -50,12 +58,13 @@ describe("Group Skill", function(){
     })
 
     it ("Should edit the skill successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupSkillPage.navigateToGroupSkillList()
-        await groupSkillPage.selectSkill('_skillscript')
+        await groupSkillPage.selectSkill('+skillscript')
         await editingControl.clickEdit()
         await actionPopup.showPopup('edit')
         await groupSkillPage.inputData_Skills('txtSkillName', 'skillScriptEdited')
@@ -65,10 +74,11 @@ describe("Group Skill", function(){
     })
 
     it ("Should delete the skill successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupSkillPage.navigateToGroupSkillList()
         await groupSkillPage.selectSkill('skillScriptEdited')
         await editingControl.clickDelete()
@@ -81,13 +91,18 @@ describe("Group Skill", function(){
     })
 
     it("Should return the users list who are holding the skill", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupSkillPage.navigateToGroupSkillList()
         await groupSkillPage.selectSkill('SkillScript')
         await groupSkillPage.clickShowSkillHolders_btn()
         await groupSkillPage.showHolder('userSkill')
+    })
+
+    afterEach(function(){
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
     })
 })

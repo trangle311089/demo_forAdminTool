@@ -5,6 +5,9 @@ import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";
 import { GroupSchedulePage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupSchedulePage";
 import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
+import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
+import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 
 describe('Group Schedule Login', function(){
     var curBrowser: ProtractorBrowser
@@ -13,7 +16,9 @@ describe('Group Schedule Login', function(){
     var groupSchedule: GroupSchedulePage
     var titleBar: TitleBarButtons
     var actionSupport: ActionSupport
-
+    var tier1TenantConfiguration: Tier1TenantConfiguration
+    var tenancy: TenantConfigurationPage
+    var editingControl : EditingControl
     var originalTimeout: number
 
     beforeEach(async function(){
@@ -23,16 +28,20 @@ describe('Group Schedule Login', function(){
         groupSchedule = new GroupSchedulePage (browser)
         titleBar = new TitleBarButtons(browser)
         actionSupport = new ActionSupport (browser)
+        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
+        tenancy = new TenantConfigurationPage (browser)
+        editingControl = new EditingControl (browser)
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     it ('Should input date successfully', async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-        await loginPage.login ()
+        await actionSupport.startBrowser()
+        await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupSchedule.navigateToGroupSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
         await actionPopup.showPopup('add')
@@ -43,10 +52,11 @@ describe('Group Schedule Login', function(){
     })
 
     it ("Should be able to select the year, month, day, time, ampm, recurring for Group Exception", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-        await loginPage.login ()
+        await actionSupport.startBrowser()
+        await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupSchedule.navigateToGroupSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
         await actionPopup.showPopup('add')
@@ -61,10 +71,11 @@ describe('Group Schedule Login', function(){
     })
 
     it ("Should be able to select day of week, startTime, endTime for Group Routine", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
-        await loginPage.login ()
+        await actionSupport.startBrowser()
+        await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupSchedule.navigateToGroupSchedule()
         await groupSchedule.clickEditingControl('data.routineGrid','fa fa-plus-circle add')
         await actionPopup.showPopup('add')

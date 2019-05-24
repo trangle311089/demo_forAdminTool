@@ -7,17 +7,14 @@ export class Tier1TenantConfiguration{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
     tier1menu: Tier1Menu
-    loginPage: LoginPage
 
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
         this.tier1menu = new Tier1Menu (this.curBrowser)
-        this.loginPage = new LoginPage (this.curBrowser)
     }
 
     async navigateToTenantConfiguration(){
-        await this.loginPage.clickOnSignIn()
         await this.tier1menu.presenceOfTier1Ver('Tenant Configuration')
         await this.tier1menu.navigateToTier1Ver('Tenant Configuration')
     }

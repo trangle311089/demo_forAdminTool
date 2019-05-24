@@ -45,7 +45,6 @@ export class TenantConfigurationPage {
     async selectTenancy(tenancyName:string){
         var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
         await this.actionSupport.clickOnElement(xpath)
-
     }
 
     async showDisabledTenancy(){
@@ -61,5 +60,11 @@ export class TenantConfigurationPage {
     async disableTenancy(){
         console.log("Disable the tenancy")
         await this.actionSupport.clickOnElement(this.disable_tenancy_option)
+    }
+
+    async showTenancy(tenancyName:string){
+        console.log('The tenancy is displayed in grid')
+        var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+        await this.actionSupport.presentElement(xpath)
     }
 }

@@ -11,6 +11,9 @@ export class EditingControl{
     delete_option:string
     copy_option:string
     remove_option:string
+    upload_option:string
+    move_option:string
+    download_option:string
     
     search_function:string
     remove_search:string
@@ -25,6 +28,10 @@ export class EditingControl{
         this.delete_option = "//i[@class = 'fa fa-trash-o delete']"
         this.copy_option = "//i[@class = 'fa fa-files-o copy']"
         this.remove_option = "//i[@class='fa fa-ban ban']"
+        this.move_option ="//i[@class='fa fa-sign-out move']"
+        this.upload_option="//i[@class='fa fa-upload upload']"
+        this.download_option="//i[@class='fa fa-download download']"
+
 
         this.search_function = "//input[@placeholder='search']"
         this.remove_search = "//i[@ng-click='removeSearch()']"
@@ -63,6 +70,21 @@ export class EditingControl{
     async removeSearchEntry(){
         console.log ("Click on the cross icon on search field to remove search")
         await this.actionSupport.clickOnElement(this.remove_search)
+    }
+
+    async clickUpload(){
+        console.log ("Click on the upload option on the editing control")
+        await this.actionSupport.clickOnElement(this.upload_option)
+    }
+
+    async clickMove(){
+        console.log ("Click on the move option on the editing control")
+        await this.actionSupport.clickOnElement(this.move_option)
+    }
+
+    async clickDownload(){
+        console.log ("Click on the download option on the editing control")
+        await this.actionSupport.clickOnElement(this.download_option)
     }
 
     

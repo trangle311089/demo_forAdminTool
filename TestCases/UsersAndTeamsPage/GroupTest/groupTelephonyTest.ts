@@ -7,6 +7,8 @@ import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/ti
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { GroupTelephonyPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupTelephonyPage";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 
 describe("Group Telephony", function(){
     var loginPage: LoginPage
@@ -16,6 +18,8 @@ describe("Group Telephony", function(){
     var actionPopup: ActionPopup
     var groupTelephony: GroupTelephonyPage
     var actionSupport: ActionSupport
+    var tier1TenantConfiguration : Tier1TenantConfiguration
+    var tenancy : TenantConfigurationPage
 
     var originalTimeout: number
 
@@ -27,16 +31,19 @@ describe("Group Telephony", function(){
         actionPopup = new ActionPopup (browser)
         groupTelephony = new GroupTelephonyPage (browser)
         actionSupport = new ActionSupport (browser)
+        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
+        tenancy = new TenantConfigurationPage (browser)
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
     it ("Should assign the outbound call and music on hold to group successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyGeneralPage()
         await ddlSupport.clickOnDDL('post2Prompt')
         await ddlSupport.selectByVisibleText('+01224217688')
@@ -48,10 +55,11 @@ describe("Group Telephony", function(){
 
     //  Group Telephony - PSTN Agent Connection
     it ("Should add the group PSTN successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()       
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyPSTN()
         await editingControl.clickAdd()
         await actionPopup.showPopup('add')
@@ -67,10 +75,11 @@ describe("Group Telephony", function(){
     })
     
     it ("Should edit the group PSTN successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()       
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyPSTN()
         await groupTelephony.selectPSTN('+0932093963')
         await editingControl.clickEdit()
@@ -82,10 +91,11 @@ describe("Group Telephony", function(){
     })
 
     it ("Should delete the group PSTN successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()       
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyPSTN()
         await groupTelephony.selectPSTN('+84932093963')
         await editingControl.clickDelete()
@@ -99,10 +109,11 @@ describe("Group Telephony", function(){
 
     //Group Telephony - Dial Plan
     it ("Should update the global dial plan collection successfully", async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyDialPlan()
         await ddlSupport.clickOnDDL('dialPlanCollection')
         await ddlSupport.selectByVisibleText('dialPlanCollection')
@@ -111,10 +122,11 @@ describe("Group Telephony", function(){
     })
 
     it ('Should add group dialplan successfully', async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyDialPlan()
         await editingControl.clickAdd()
         await actionPopup.showPopup('add')
@@ -135,10 +147,11 @@ describe("Group Telephony", function(){
     })
 
     it('Should edit the group dial plan successfully', async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyDialPlan()
         await groupTelephony.selectDialPlan('0123456789')
         await editingControl.clickEdit()
@@ -166,10 +179,11 @@ describe("Group Telephony", function(){
     })
 
     it ('Should get validation message when the min length is greater than max length', async function(){
-        await browser.waitForAngularEnabled(true)
-        await browser.get("http://localhost:81/landlordAutomation/#/login")
-        await browser.manage().window().maximize()
+        await actionSupport.startBrowser()
         await loginPage.login()
+        await tier1TenantConfiguration.navigateToTenantConfiguration()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
         await groupTelephony.navigateToGroup_TelephonyDialPlan()
         await editingControl.clickAdd()
         await actionPopup.showPopup('add')
