@@ -48,7 +48,7 @@ describe ("Active Status", function(){
         await actionPopup.clickPopup_btn('remove')           
     })
 
-    it ("Should display the active user which has the text matches with the text in the searching field", async function(){
+    it ("Should display the active user which has the text matches with the text in the search field", async function(){
         await actionSupport.startBrowser()
         await loginPage.inputAudience("ec2-52-63-37-167.ap-southeast-2.compute.amazonaws.com")
         await loginPage.login()

@@ -39,5 +39,11 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await tenancy.selectTenancy('1001')
         await editingControl.clickEdit()
         await userGreetings.navigateToAgentGreetings()
+        await editingControl.clickAdd()
+        await actionPopup.showPopup('add')
+        await userGreetings.createPrompt('txtPromptName','promptScript2')
+        await userGreetings.createPrompt('txtDescription', 'This prompt is created by script')
+        await actionPopup.clickUpload_btn()
+
     }) 
 })

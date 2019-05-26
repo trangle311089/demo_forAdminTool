@@ -43,4 +43,9 @@ export class UserGreetings{
         await this.tier1Menu.presenceOfTier1Hor('General')
         await this.tier1Menu.navigateToTier1Hor('General')
     }
+
+    async createPrompt(fieldName:string, data:string){
+        var xpath = "//input[@id='"+fieldName+"']"
+        await this.actionSupport.sendKeyOnElement(xpath, data)
+    }
 }
