@@ -34,6 +34,8 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
     })
 
     it ('Should add the agent greetings prompt successfully', async function(){
+        var fileToUpload = "C:/Users/Admin/Desktop/test"
+        var absolutePath = 
         await actionSupport.startBrowser()
         await loginPage.login()
         await tenancy.selectTenancy('1001')
