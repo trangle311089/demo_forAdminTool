@@ -10,6 +10,7 @@ export class ActionPopup{
     cancel_btn:string
     saveAndAddAnother_btn:string
     upload_btn:string
+    okOnUploadPopup:string
 
     constructor(browser:any){
         this.curBrowser = browser
@@ -19,6 +20,7 @@ export class ActionPopup{
         this.cancel_btn = '//button[@class="button action-btn btn-cancel" and contains (text(), "CANCEL")]'     
         this.saveAndAddAnother_btn = "//button[@ng-click='saveOnly()']"
         this.upload_btn = "//button[@ng-click='beforeUpload()']"
+        this.okOnUploadPopup = "//button[@ng-if='isComplete']"
     }
 
     // Show the popup, include these popup's names: add, ALERT, INFORMATION, ATTENTION, copy
@@ -67,6 +69,12 @@ export class ActionPopup{
     async clickUpload_btn(){
         console.log ("Click on UPLOAD button")
         await this.actionSupport.clickOnElement(this.upload_btn)
+    }
+
+    //Action button OK on UPLOAD popup
+    async clickOK_UPLOAD(){
+        console.log("Click on OK button on the UPLOAD popup")
+        await this.actionSupport.clickOnElement(this.okOnUploadPopup)
     }
     
 }

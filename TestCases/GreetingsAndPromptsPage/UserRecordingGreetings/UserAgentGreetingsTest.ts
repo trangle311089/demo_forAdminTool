@@ -1,6 +1,5 @@
-import { ProtractorBrowser, browser } from "protractor";
+import { ProtractorBrowser, browser,by,  element, $ } from "protractor";
 import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
-import { Tier1GreetingsAndPrompts } from "../../../admin_core_menu/tier1Menu/tier1GreetingsAndPrompts";
 import { UserGreetings } from "../../../PageObjects/GreetingsAndPromptsPage/UserRecordedGreetingsPage/UserGreetings";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
@@ -14,10 +13,10 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
     var userGreetings: UserGreetings
     var actionSupport: ActionSupport
     var actionPopup: ActionPopup
-    var userRecorded: UserRecordedGreetings
     var tenancy: TenantConfigurationPage
     var loginPage: LoginPage
     var originalTimeout: number
+    
 
 
     beforeEach(function(){
@@ -25,7 +24,6 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         userGreetings = new UserGreetings (browser)
         actionSupport = new ActionSupport (browser)
         actionPopup = new ActionPopup (browser)
-        userRecorded = new UserRecordedGreetings (browser)
         tenancy = new TenantConfigurationPage (browser)
         loginPage = new LoginPage (browser)
 
@@ -34,8 +32,11 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
     })
 
     it ('Should add the agent greetings prompt successfully', async function(){
-        var fileToUpload = "C:/Users/Admin/Desktop/test"
-        var absolutePath = 
+        var path = require('path')
+        var fileToUpload = 'C:/Users/ltthuytrang/Downloads/MarryYou.mp3'
+        var absolutePath = path.resolve(__dirname,fileToUpload)
+        var uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
+    
         await actionSupport.startBrowser()
         await loginPage.login()
         await tenancy.selectTenancy('1001')
@@ -45,7 +46,9 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await actionPopup.showPopup('add')
         await userGreetings.createPrompt('txtPromptName','promptScript2')
         await userGreetings.createPrompt('txtDescription', 'This prompt is created by script')
-        await actionPopup.clickUpload_btn()
-
+        await uploadAudio.sendKeys(absolutePath)
+        await actionPopup.showPopup('Upload')
+        await actionPopup.clickOK_UPLOAD()
+        await actionPopup.clickSaveAndClose_btn()  
     }) 
 })
