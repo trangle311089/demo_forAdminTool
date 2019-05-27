@@ -17,6 +17,7 @@ export class EditingControl{
     
     search_function:string
     remove_search:string
+    selectall_check:string
 
     constructor(browser:any){
         this.curBrowser = browser
@@ -35,6 +36,7 @@ export class EditingControl{
 
         this.search_function = "//input[@placeholder='search']"
         this.remove_search = "//i[@ng-click='removeSearch()']"
+        this.selectall_check = "//div[@class='ag-header-cell']"
     }
 
     async clickAdd(){
@@ -85,6 +87,11 @@ export class EditingControl{
     async clickDownload(){
         console.log ("Click on the download option on the editing control")
         await this.actionSupport.clickOnElement(this.download_option)
+    }
+
+    async clickSelectAll(){
+        console.log ("Click on the select all check box on the grid")
+        await this.actionSupport.selectCheckbox(this.selectall_check)
     }
 
     

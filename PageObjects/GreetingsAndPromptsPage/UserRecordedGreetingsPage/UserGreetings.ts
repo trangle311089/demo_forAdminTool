@@ -48,4 +48,9 @@ export class UserGreetings{
         var xpath = "//input[@id='"+fieldName+"']"
         await this.actionSupport.sendKeyOnElement(xpath, data)
     }
+
+    async selectPrompt(promptName:string){
+        var xpath = "//span[contains (text(), '"+promptName+"' )]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
 }

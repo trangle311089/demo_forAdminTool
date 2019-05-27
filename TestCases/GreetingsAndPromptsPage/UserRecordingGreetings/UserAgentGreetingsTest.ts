@@ -7,6 +7,7 @@ import { UserRecordedGreetings } from "../../../PageObjects/GreetingsAndPromptsP
 import { async } from "q";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { LoginPage } from "../../../PageObjects/LoginPage";
+import { AudioControl } from "../../../PageObjects/GreetingsAndPromptsPage/audioControl/audioControl";
 
 describe ("User Recorded Greetings - Agent Greetings", function(){
     var editingControl: EditingControl
@@ -16,6 +17,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
     var tenancy: TenantConfigurationPage
     var loginPage: LoginPage
     var originalTimeout: number
+    var audioControl: AudioControl
     
 
 
@@ -26,14 +28,15 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         actionPopup = new ActionPopup (browser)
         tenancy = new TenantConfigurationPage (browser)
         loginPage = new LoginPage (browser)
+        audioControl = new AudioControl (browser)
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
-    it ('Should add the agent greetings prompt successfully', async function(){
+    it ('Should add the agent greetings prompt and upload the audio successfully', async function(){
         var path = require('path')
-        var fileToUpload = 'C:/Users/ltthuytrang/Downloads/MarryYou.mp3'
+        var fileToUpload = 'C:/Users/Admin/Desktop/MarryYou.mp3'
         var absolutePath = path.resolve(__dirname,fileToUpload)
         var uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
     
@@ -51,4 +54,41 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await actionPopup.clickOK_UPLOAD()
         await actionPopup.clickSaveAndClose_btn()  
     }) 
+
+    it ("Should play, stop, backward, forward the audio successfully", async function(){
+        await actionSupport.startBrowser()
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+        await userGreetings.navigateToAgentGreetings()
+        await userGreetings.selectPrompt('promptScript2')
+        await audioControl.audioControl('mediaPlay')
+        await browser.sleep(8000)
+        await audioControl.audioVolumeControl('mediaVolUp')
+        await audioControl.audioControl('mediaForward')
+        await browser.sleep(8000)
+        await audioControl.audioVolumeControl('mediaVolDown')
+        await audioControl.audioControl('mediaBackward')
+        await browser.sleep(8000)
+        await audioControl.audioControl('mediaStop')
+    })
+
+    it ("Should play all audio in list with next, previous option", async function(){
+        await actionSupport.startBrowser()
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await editingControl.clickEdit()
+        await userGreetings.navigateToAgentGreetings()
+        await editingControl.clickSelectAll()
+        await audioControl.audioControl('mediaPlay')
+        await browser.sleep(2000)
+        await audioControl.audioControl('mediaNext')
+        await browser.sleep(3000)
+        await audioControl.audioControl('mediaPrev')
+        await browser.sleep(3000)
+    })
+
+    afterEach(function(){
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
+    })
 })
