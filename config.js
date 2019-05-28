@@ -6,7 +6,15 @@ exports.config = {
     framework: 'jasmine',
     
     // The address of a running selenium server.
+
+    //for Chrome, Firefox
     seleniumAddress: 'http://localhost:4444/wd/hub',
+
+    //for Edge
+    seleniumAddress:'http://localhost:17556',
+
+    //for IE11
+    seleniumAddress:'http://localhost:5555',
 
     //Specify the specs to run test script
     // specs: ['TestCases/LoginPage/loginTest.ts'],
@@ -18,15 +26,24 @@ exports.config = {
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
-    specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
+    // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
-    directConnect: true,
+    directConnect: false,
    
     // Capabilities to be passed to the webdriver instance.
-    capabilities: {
-        browserName: 'chrome'
-    },
+    // capabilities: {
+        // browserName: 'MicrosoftEdge',
+        // browserName: 'internet explorer',
+    //  },
+
+    //Multiple Capabilities to be passed to the webdriver instance
+    multiCapabilities: [{
+      browserName: 'internet explorer',
+    }, 
+    {
+      browserName: 'MicrosoftEdge'
+    }],
     
     // Set restart browser to true
     restartBrowserBetweenTests: true,
@@ -128,11 +145,7 @@ exports.config = {
             }
          });
     },
-    // multiCapabilities: [{
-    //   browserName: 'firefox'
-    // }, {
-    //   browserName: 'chrome'
-    // }],
+    
     // Options to be passed to Jasmine-node.
     jasmineNodeOpts: {
         showColors: true, // Use colors in the command line report.

@@ -1,4 +1,4 @@
-import{by, element, ProtractorBrowser} from 'protractor';
+import{by, element, ProtractorBrowser, browser} from 'protractor';
 import { ActionSupport } from '../../core_function/actionSupport/actionSupport';
 import { stringify } from 'querystring';
 
@@ -47,6 +47,7 @@ export class EditingControl{
     async clickEdit(){
         console.log ("Click on the edit option on the editing control")
         await this.actionSupport.clickOnElement(this.edit_option)
+        await browser.sleep(2000)
     }
 
     async clickDelete(){

@@ -3,7 +3,6 @@ import { EditingControl } from "../../../admin_core_function/editingControl/edit
 import { UserGreetings } from "../../../PageObjects/GreetingsAndPromptsPage/UserRecordedGreetingsPage/UserGreetings";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
-import { UserRecordedGreetings } from "../../../PageObjects/GreetingsAndPromptsPage/UserRecordedGreetingsPage/UserRecordedGreetings";
 import { async } from "q";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { LoginPage } from "../../../PageObjects/LoginPage";
@@ -18,9 +17,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
     var loginPage: LoginPage
     var originalTimeout: number
     var audioControl: AudioControl
-    
-
-
+  
     beforeEach(function(){
         editingControl = new EditingControl (browser)
         userGreetings = new UserGreetings (browser)
@@ -36,7 +33,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
 
     it ('Should add the agent greetings prompt and upload the audio successfully', async function(){
         var path = require('path')
-        var fileToUpload = 'C:/Users/Admin/Desktop/MarryYou.mp3'
+        var fileToUpload = 'D:/MarryYou.mp3'
         var absolutePath = path.resolve(__dirname,fileToUpload)
         var uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
     

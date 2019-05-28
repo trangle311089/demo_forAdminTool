@@ -32,6 +32,5 @@ export class LoginPage {
     async inputAudience(audience:string){
         console.log("Input the PCP address to audience text field" + audience)
         await this.actionSupport.sendKeyOnElement(this.audience_txt, audience)
-        this.login()
     }
 }

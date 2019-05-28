@@ -36,7 +36,7 @@ describe('Group Schedule Login', function(){
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
-    it ('Should input date successfully', async function(){
+    fit ('Should input date successfully', async function(){
         await actionSupport.startBrowser()
         await loginPage.login()
         await tier1TenantConfiguration.navigateToTenantConfiguration()
