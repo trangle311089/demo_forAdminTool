@@ -43,9 +43,9 @@ describe ("Active Status", function(){
         await activeStatus.selectActiveUser('Dung Tran')
         await editingControl.clickRemove()
         await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('Remove')
+        await actionPopup.clickPopup_btn('logout')
         await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('remove')           
+        await actionPopup.clickPopup_btn('logout')           
     })
 
     it ("Should display the active user which has the text matches with the text in the search field", async function(){

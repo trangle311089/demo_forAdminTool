@@ -6,7 +6,6 @@ exports.config = {
     framework: 'jasmine',
     
     // The address of a running selenium server.
-
     //for Chrome, Firefox
     seleniumAddress: 'http://localhost:4444/wd/hub',
 
@@ -26,30 +25,30 @@ exports.config = {
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
-    // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
+    // specs: ['TestCases/UsersAndTeamsPage/GroupTest/getData.ts'],
+    specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
-    directConnect: false,
+    directConnect: true,
    
     // Capabilities to be passed to the webdriver instance.
-    // capabilities: {
-        // browserName: 'MicrosoftEdge',
-        // browserName: 'internet explorer',
-    //  },
+    capabilities: {
+        browserName: 'chrome',
+     },
 
     //Multiple Capabilities to be passed to the webdriver instance
-    multiCapabilities: [{
-      browserName: 'internet explorer',
-    }, 
-    {
-      browserName: 'MicrosoftEdge'
-    }],
+    // multiCapabilities: [{
+    //   browserName: 'internet explorer',
+    // }, 
+    // {
+    //   browserName: 'MicrosoftEdge'
+    // }],
     
     // Set restart browser to true
     restartBrowserBetweenTests: true,
 
     // Set promise to true
-    SELENIUM_PROMISE_MANAGER: true,
+    SELENIUM_PROMISE_MANAGER: false,
     
     onPrepare: function() {
         require('ts-node').register({

@@ -29,7 +29,7 @@ export class ActionPopup{
         await this.actionSupport.presentElement(xpath)
     }
 
-    // Click on the button on popup. Include these button's names: OK, yes, delete, Remove, remove
+    // Click on the button on popup. Include these button's names: OK, yes, delete, logout, logout
     async clickPopup_btn(buttonName:string){
         var xpath = "//button[@class='button action-btn btn-save ng-binding' and contains (text(), '"+buttonName+"')]"
         await this.actionSupport.clickOnElement(xpath)
