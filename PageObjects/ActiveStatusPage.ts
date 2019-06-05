@@ -1,5 +1,5 @@
 import { ProtractorBrowser } from "protractor";
-import { ActionSupport } from "../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../core_function/actionSupport";
 import { Tier1ActiveStatus } from "../admin_core_menu/tier1Menu/tier1ActiveStatus";
 
 export class ActiveStatusPage{

@@ -4,7 +4,7 @@ import { browser } from "protractor";
 import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 import { GroupListPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1Menu/tier1UsersAndTeams";
 import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
@@ -43,7 +43,7 @@ describe("get data from file", function(){
     })
 
     it ("create new group successfully by getting data from file", async function(){
-        dataArray = await dataBuilder.readExcel("D:/Working/ProtractorAdminTool/demo_forAdminTool/TestData/group.xlsx","createGroup","TC01")
+        dataArray = await dataBuilder.readExcel("D:/Working/ProtractorAdminTool/demo_forAdminTool/TestData/group.xlsx","createGroup","TC02")
         await actionSupport.startBrowser()
 
         debugger

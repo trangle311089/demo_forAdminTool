@@ -1,5 +1,5 @@
 import { ProtractorBrowser, browser } from "protractor";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../core_function/actionSupport";
 
 export class TitleBarButtons{
     curBrowser: ProtractorBrowser

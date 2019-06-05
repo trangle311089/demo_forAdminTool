@@ -3,7 +3,7 @@ import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/ti
 import { async, timeout } from "q";
 import { browser, by } from "protractor";
 import { Driver } from "selenium-webdriver/ie";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { GroupAgentParameters } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameters";
 import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";

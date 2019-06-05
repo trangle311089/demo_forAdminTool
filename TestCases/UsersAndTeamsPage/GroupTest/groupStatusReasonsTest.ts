@@ -3,7 +3,7 @@ import { EditingControl } from "../../../admin_core_function/editingControl/edit
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 import { GroupStatusReasonsPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupStatusReasonsPage";
 import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";

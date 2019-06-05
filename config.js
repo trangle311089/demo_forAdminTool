@@ -17,7 +17,7 @@ exports.config = {
 
     //Specify the specs to run test script
     // specs: ['TestCases/LoginPage/loginTest.ts'],
-    // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
+    specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
@@ -26,7 +26,7 @@ exports.config = {
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/getData.ts'],
-    specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
+    // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
     directConnect: true,
@@ -148,5 +148,6 @@ exports.config = {
     // Options to be passed to Jasmine-node.
     jasmineNodeOpts: {
         showColors: true, // Use colors in the command line report.
+        defaultTimeoutInterval: 600000
     }
   }

@@ -2,7 +2,7 @@ import { ProtractorBrowser, browser,by,  element, $ } from "protractor";
 import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 import { UserGreetings } from "../../../PageObjects/GreetingsAndPromptsPage/UserRecordedGreetingsPage/UserGreetings";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { async } from "q";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { LoginPage } from "../../../PageObjects/LoginPage";
@@ -31,7 +31,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
     })
 
-    it ('Should add the agent greetings prompt and upload the audio successfully', async function(){
+    fit ('Should add the agent greetings prompt and upload the audio successfully', async function(){
         var path = require('path')
         var fileToUpload = 'D:/MarryYou.mp3'
         var absolutePath = path.resolve(__dirname,fileToUpload)
@@ -46,7 +46,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await actionPopup.showPopup('add')
         await userGreetings.createPrompt('txtPromptName','promptScript2')
         await userGreetings.createPrompt('txtDescription', 'This prompt is created by script')
-        await uploadAudio.sendKeys(absolutePath)
+        await uploadAudio.sendKeys(fileToUpload)
         await actionPopup.showPopup('Upload')
         await actionPopup.clickOK_UPLOAD()
         await actionPopup.clickSaveAndClose_btn()  

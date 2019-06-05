@@ -1,5 +1,5 @@
 import { ProtractorBrowser } from "protractor";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../core_function/actionSupport";
 import { Tier1Menu } from "./tier1Menu";
 
 export class Tier1GreetingsAndPrompts{

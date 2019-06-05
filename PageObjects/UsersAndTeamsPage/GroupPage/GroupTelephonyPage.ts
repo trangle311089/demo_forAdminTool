@@ -1,6 +1,6 @@
 import { ProtractorBrowser } from "protractor";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1Menu/tier1UsersAndTeams";
 import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
 import { GroupListPage } from "./GroupListPage";

@@ -1,39 +1,26 @@
-import { ProtractorBrowser } from "protractor";
-import { ActionSupport } from "../core_function/actionSupport/actionSupport";
-import { Tier1TenantConfiguration } from "../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+import { ProtractorBrowser, by } from "protractor";
+import { ActionSupport } from "../core_function/actionSupport";
 
 export class TenantConfigurationPage {
     curBrowser:ProtractorBrowser
     actionSupport:ActionSupport
-    tier1TenantConfiguration: Tier1TenantConfiguration
-
     tnt_id:string
     tnt_name:string
-   
-   
     show_disTenancy_option:string
    
     enable_tenancy_option:string
     disable_tenancy_option:string
-
     constructor(browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport(browser)
-        this.tier1TenantConfiguration = new Tier1TenantConfiguration(browser)
         
         this.tnt_id = "//input[@id='txtTenantId']"
-        this.tnt_name = "//input[@id='txtTenantName']"
-               
+        this.tnt_name = "//input[@id='txtTenantName']"            
         this.show_disTenancy_option = "//label[@class='show-disable-tenant']"
-
         this.enable_tenancy_option = "//span[@ng-disabled='!checkEnableCondition()']"
-        this.disable_tenancy_option = "//span[@ng-disabled='!checkDisableCondition()']"
-        
+        this.disable_tenancy_option = "//span[@ng-disabled='!checkDisableCondition()']"        
     }
 
-    async navigateToTenantConfiguration(){
-        await this.tier1TenantConfiguration.navigateToTenantConfiguration()
-    }
 
     async createNewTenancy(tenantid:string, tenantName:string){
         console.log("Input Tenant id: " + tenantid)
@@ -62,9 +49,11 @@ export class TenantConfigurationPage {
         await this.actionSupport.clickOnElement(this.disable_tenancy_option)
     }
 
-    async showTenancy(tenancyName:string){
-        console.log('The tenancy is displayed in grid')
-        var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
-        await this.actionSupport.presentElement(xpath)
+    async displayedTenancy(tenancyName:string){
+        console.log('Tenant Configuration Page: The tenancy is displayed in grid')
+        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+        
+        let el= this.curBrowser.element(by.xpath(xpath))
+        await expect(el.isDisplayed()).toBe(true)  
     }
 }

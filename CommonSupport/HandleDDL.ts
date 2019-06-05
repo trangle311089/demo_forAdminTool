@@ -1,5 +1,5 @@
 import { ProtractorBrowser, ElementFinder } from "protractor";
-import { ActionSupport } from "../../core_function/actionSupport";
+import { ActionSupport } from "../core_function/actionSupport";
 
 export class DDLSupport{
     curBrowser: ProtractorBrowser
@@ -10,14 +10,10 @@ export class DDLSupport{
         this.actionSupport = new ActionSupport (this.curBrowser)
     }
 
-    async clickOnDDL(ddlName:string){
+    async clickOnDDL(ddlName:string, visibleText:string){
         var xpath = "//div[@id='"+ddlName+"']"
         await this.actionSupport.clickOnElement(xpath)
-    }
-
-    async selectByVisibleText(visibleText:string){
         var xpath = "//span[contains(text(),'"+visibleText+"')]"
         await this.actionSupport.clickOnElement(xpath)
     }
-
 }

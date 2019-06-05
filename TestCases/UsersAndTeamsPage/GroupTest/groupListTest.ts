@@ -6,7 +6,7 @@ import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/ti
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 import { GroupListPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupListPage";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1Menu/tier1UsersAndTeams";
 import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";

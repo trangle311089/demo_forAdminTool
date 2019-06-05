@@ -1,6 +1,6 @@
 import { ProtractorBrowser } from "protractor";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { Tier1GreetingsAndPrompts } from "../../../admin_core_menu/tier1Menu/tier1GreetingsAndPrompts";
 import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
 

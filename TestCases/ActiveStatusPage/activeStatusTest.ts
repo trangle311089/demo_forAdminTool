@@ -4,7 +4,7 @@ import { browser, by} from "protractor";
 import { LoginPage } from "../../PageObjects/LoginPage";
 import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
 import { ActionPopup } from "../../admin_core_popup/actionPopup";
-import { ActionSupport } from "../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../core_function/actionSupport";
 import { Tier1TenantConfiguration } from "../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
 

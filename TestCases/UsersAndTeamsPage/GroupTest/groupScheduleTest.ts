@@ -1,5 +1,5 @@
 import { ProtractorBrowser, browser } from "protractor";
-import { ActionSupport } from "../../../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../../../core_function/actionSupport";
 import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";

@@ -1,5 +1,5 @@
 import { ProtractorBrowser, ProtractorExpectedConditions, browser } from "protractor";
-import { ActionSupport } from "../core_function/actionSupport/actionSupport";
+import { ActionSupport } from "../core_function/actionSupport";
 import { async } from "q";
 
 export class ActionPopup{
