@@ -21,11 +21,11 @@ exports.config = {
     // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
+    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
-    specs: ['TestCases/UsersAndTeamsPage/GroupTest/getData.ts'],
+    // specs: ['TestCases/UsersAndTeamsPage/GroupTest/getData.ts'],
     // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager

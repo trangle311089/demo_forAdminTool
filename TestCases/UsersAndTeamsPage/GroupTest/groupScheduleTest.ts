@@ -55,14 +55,14 @@ describe('Group Schedule Login', function(){
         await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
         await handlePopup.showPopup('add')
-        await groupSchedule.selectYearMonthDay('2019','June','29')
+        await groupSchedule.selectYearMonthDay('2019','July','29')
         await groupSchedule.selectTime('txtStartTime','10','00')
         await groupSchedule.selectTime('txtEndTime','11','00')
         await groupSchedule.switchToAMPM('txtEndTime','PM')
         await groupSchedule.selectRecurring()
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await groupSchedule.verifyDisplayedDate('29 Jun 2019')
+        await groupSchedule.verifyDisplayedDate('29 Jul 2019')
     })
 
     it ("Should be able to select day of week, startTime, endTime for Group Routine", async function(){

@@ -27,7 +27,7 @@ describe("Login Page", function(){
         await loginPage.login()
 
         console.log ("STEP 2: Verify login successfully and the Tenant Configuration menu is displayed")
-        await handleMenu.presenceOfVerMenu('Tenant Configuration')
+        await handleMenu.verifyDisplayedVerMenu('Tenant Configuration')
     })
     
     // Test script to verify the sign in option with pcp audience
@@ -37,6 +37,6 @@ describe("Login Page", function(){
         await loginPage.inputAudience('ec2-52-63-37-167.ap-southeast-2.compute.amazonaws.com')
 
         console.log("STEP 2: Verify login successfully and the Tenant Configuration menu is displayed")
-        await tier1Menu.presenceOfTier1Ver('Tenant Configuration')
+        await handleMenu.verifyDisplayedVerMenu('Tenant Configuration')
     })
 })

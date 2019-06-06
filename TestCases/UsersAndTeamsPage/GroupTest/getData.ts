@@ -11,7 +11,6 @@ import { HandleMenu } from "../../../CommonSupport/HandleMenu";
 describe("get data from file", function(){
     let loginPage: LoginPage
     let groupProfilePage: GroupProfile
-    let actionSupport: ActionSupport
     let tenancy: TenantConfigurationPage
     let dataArray
 
@@ -22,7 +21,6 @@ describe("get data from file", function(){
     beforeEach(async function(){
         loginPage = new LoginPage(browser)
         groupProfilePage = new GroupProfile (browser)
-        actionSupport = new ActionSupport (browser)
         tenancy = new TenantConfigurationPage (browser)
         handleEditingControl = new HandleEditingControl (browser)
         handleMenu = new HandleMenu (browser)

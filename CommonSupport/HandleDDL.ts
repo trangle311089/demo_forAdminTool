@@ -1,7 +1,7 @@
 import { ProtractorBrowser, ElementFinder } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport";
 
-export class DDLSupport{
+export class HandleDDL{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
       

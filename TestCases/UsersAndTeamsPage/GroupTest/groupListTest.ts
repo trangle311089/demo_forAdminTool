@@ -56,7 +56,7 @@ describe("Group List", function(){
         await handleEditingControl.verifySaveSuccessfully()
     })
 
-    fit ("Should delete the group successfully", async function(){
+    it ("Should delete the group successfully", async function(){
         await handleMenu.selectGroupsList()      
         await groupProfilePage.selectGroup('Updated _ Automation Group Name')  
         await handleEditingControl.clickDelete()

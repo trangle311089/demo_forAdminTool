@@ -1,6 +1,7 @@
 import { ProtractorBrowser, by } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport";
 import { async } from "q";
+import { TouchSequence } from "selenium-webdriver";
 
 export class HandleMenu{
     curBrowser: ProtractorBrowser
@@ -92,6 +93,28 @@ export class HandleMenu{
         await this.selectGroupSkills()
         await this.selectHorMenu('Skill List')
     }
+
+    // Users and Teams - Groups - Telephony
+    async selectGroupTelephony(){
+        await this.selectVerMenu('Telephony')
+    }
+
+    async selectGroupTelephony_General(){
+        await this.selectGroupTelephony()
+        await this.selectHorMenu('General')
+    }
+
+    async selectGroupTelephony_PSTN(){
+        await this.selectGroupTelephony()
+        await this.selectHorMenu('PSTN Agent Connection')
+    }
+
+    async selectGroupTelephony_DialPlan(){
+        await this.selectGroupTelephony()
+        await this.selectHorMenu('Dial Plan')
+    }
+
+
 
     //Users and Teams - Groups - Status Reasons
     async selectGroupStatusReasons(){

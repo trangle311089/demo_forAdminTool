@@ -1,5 +1,4 @@
 import { ProtractorBrowser, browser,by,  element, $ } from "protractor";
-import { ActionSupport } from "../../../core_function/actionSupport";
 import { async } from "q";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { LoginPage } from "../../../PageObjects/LoginPage";
@@ -31,7 +30,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await handleEditingControl.clickEdit()
     })
 
-    fit ('Should add the user agent greetings prompt and upload the audio successfully', async function(){
+    it ('Should add the user agent greetings prompt and upload the audio successfully', async function(){
         let path = require('path')
         // let filetoUpload = 'D:/MarryYou.mp3'
         let absolutePath = path.resolve(__dirname,"..//..//..//TestData//MarryYou.mp3")
@@ -50,7 +49,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await handlePopup.clickOK_UPLOAD()
         await handlePopup.clickSave()
         await promptControl.verifyDisplayedPrompt('promptScript2')
-        await promptControl.verifyPromptWithAudio()  
+
     }) 
 
     it ("Should play, stop, backward, forward the audio successfully", async function(){
