@@ -1,5 +1,6 @@
 import { ProtractorBrowser, by } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport";
+import { async } from "q";
 
 export class HandleMenu{
     curBrowser: ProtractorBrowser
@@ -10,35 +11,97 @@ export class HandleMenu{
         this.actionSupport = new ActionSupport(this.curBrowser)
     }
 
-    async presenceOfVerMenu(menuName:string){
+    async selectVerMenu(menuName:string){
         var xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
         await this.actionSupport.presentElement(xpath)
-        // verify element is displayed in the UI
+        await this.actionSupport.clickOnElement(xpath)
+    }
+    
+    async selectHorMenu(menuName:string){
+        var xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
+        await this.actionSupport.presentElement(xpath)
+        await this.actionSupport.clickOnElement(xpath)
+
+    }
+
+    async verifyDisplayedVerMenu(menuName:string){
+        console.log ("Vertical Menu: The vertical menu "+menuName+" is displayed")
+        let xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
         let ele= this.curBrowser.element(by.xpath(xpath))
         await expect(ele.isDisplayed()).toBe(true)   
     }
 
-    async navigateToVerMenu(menuName:string){
-        var xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
-        await this.actionSupport.clickOnElement(xpath)
-    }
-
-    async presenceOfHorMenu(menuName:string){
-        var xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
-        await this.actionSupport.presentElement(xpath)
-        // verify element is displayed in the UI
+    async verifyDisplayedHorMenu(menuName:string){
+        console.log ("Horizontal Menu: The horizontal menu "+menuName+" is displayed")
+        let xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
         let ele= this.curBrowser.element(by.xpath(xpath))
         await expect(ele.isDisplayed()).toBe(true)  
     }
 
-    async navigateToHorMenu(menuName:string){
-        var xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
-        await this.actionSupport.clickOnElement(xpath)
+    async selectTenantConfigurationMenu(){
+        await this.selectVerMenu('Tenant Configuration')
     }
 
-    async navigateToTenantConfiguration(){
-        await this.presenceOfVerMenu('Tenant Configuration')
-        await this.navigateToVerMenu('Tenant Configuration')
+    // Active status menu
+    async selectActiveStatus(){
+        await this.selectVerMenu('active status')
+    }
+
+    async selectActiveUserList(){
+        await this.selectActiveStatus()
+        await this.selectHorMenu('Users')
+    }
+
+    // Users and Teams menu
+    async selectUsersAndTeams(){
+        await this.selectVerMenu('Users and Teams')
+    }
+
+    //Users and Teams - Groups menu
+    async selectGroupsList(){
+        await this.selectUsersAndTeams()
+        await this.selectHorMenu('Groups')
+    }
+
+    // Users and Teams - Groups - Agent Paramters menu
+    async selectGroupAgentParameters(){
+        await this.selectVerMenu('Agent Parameters')
+    }
+
+    async selectGroupAgentParmeter_LoginSettings(){
+        await this.selectGroupAgentParameters()
+        await this.selectHorMenu('Login Settings')
+    }
+
+    async selectGroupAgentParamter_ContactPresentation(){
+        await this.selectGroupAgentParameters()
+        await this.selectHorMenu('Contact Presentation')
+    }
+
+    async selectGroupAgentParamter_AgentPermission(){
+        await this.selectGroupAgentParameters()
+        await this.selectHorMenu('Agent Permissions')
+    }
+
+    //Greetings & Prompts menu
+    async selectGreetingsPrompts(){
+        await this.selectVerMenu('greetings & prompts')
+    }
+
+    //Greetings & Prompts - User Recorded Greetings
+    async selectUserRecordedGreetings(){
+        await this.selectGreetingsPrompts()
+        await this.selectHorMenu('User Recorded Greetings')
+    }
+
+    async selectUserAgentGreetings(){
+        await this.selectVerMenu('Agent Greetings')
+        await this.selectHorMenu('General')
+    }
+
+    async selectUserVoiceMailGreetings(){
+        await this.selectVerMenu('Voice Mail Greetings')
+        await this.selectHorMenu('General')
     }
     
 

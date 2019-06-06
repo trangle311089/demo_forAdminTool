@@ -1,64 +1,61 @@
 import { ProtractorBrowser, browser,by,  element, $ } from "protractor";
-import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
-import { UserGreetings } from "../../../PageObjects/GreetingsAndPromptsPage/UserRecordedGreetingsPage/UserGreetings";
-import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { ActionSupport } from "../../../core_function/actionSupport";
 import { async } from "q";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { LoginPage } from "../../../PageObjects/LoginPage";
-import { AudioControl } from "../../../PageObjects/GreetingsAndPromptsPage/audioControl/audioControl";
+import { AudioControl } from "../../../PageObjects/GreetingsAndPromptsPage/audioControl";
+import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
+import { HandlePopup } from "../../../CommonSupport/HandlePopup";
+import { HandleMenu } from "../../../CommonSupport/HandleMenu";
+import { PromptControl } from "../../../PageObjects/GreetingsAndPromptsPage/promptControl";
 
 describe ("User Recorded Greetings - Agent Greetings", function(){
-    var editingControl: EditingControl
-    var userGreetings: UserGreetings
-    var actionSupport: ActionSupport
-    var actionPopup: ActionPopup
-    var tenancy: TenantConfigurationPage
-    var loginPage: LoginPage
-    var originalTimeout: number
-    var audioControl: AudioControl
+    let loginPage: LoginPage
+    let handleMenu: HandleMenu
+    let handleEditingControl: HandleEditingControl
+    let handlePopup: HandlePopup
+    let tenancy: TenantConfigurationPage
+    let audioControl: AudioControl
+    let promptControl: PromptControl
   
-    beforeEach(function(){
-        editingControl = new EditingControl (browser)
-        userGreetings = new UserGreetings (browser)
-        actionSupport = new ActionSupport (browser)
-        actionPopup = new ActionPopup (browser)
-        tenancy = new TenantConfigurationPage (browser)
+    beforeEach(async function(){
         loginPage = new LoginPage (browser)
+        handleMenu = new HandleMenu (browser)
+        handleEditingControl = new HandleEditingControl (browser)
+        handlePopup = new HandlePopup (browser)
+        tenancy = new TenantConfigurationPage (browser)
         audioControl = new AudioControl (browser)
-
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
-    })
-
-    fit ('Should add the agent greetings prompt and upload the audio successfully', async function(){
-        var path = require('path')
-        var fileToUpload = 'D:/MarryYou.mp3'
-        var absolutePath = path.resolve(__dirname,fileToUpload)
-        var uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
-    
-        await actionSupport.startBrowser()
+        promptControl = new PromptControl (browser)
         await loginPage.login()
         await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await userGreetings.navigateToAgentGreetings()
-        await editingControl.clickAdd()
-        await actionPopup.showPopup('add')
-        await userGreetings.createPrompt('txtPromptName','promptScript2')
-        await userGreetings.createPrompt('txtDescription', 'This prompt is created by script')
-        await uploadAudio.sendKeys(fileToUpload)
-        await actionPopup.showPopup('Upload')
-        await actionPopup.clickOK_UPLOAD()
-        await actionPopup.clickSaveAndClose_btn()  
+        await handleEditingControl.clickEdit()
+    })
+
+    fit ('Should add the user agent greetings prompt and upload the audio successfully', async function(){
+        let path = require('path')
+        // let filetoUpload = 'D:/MarryYou.mp3'
+        let absolutePath = path.resolve(__dirname,"..//..//..//TestData//MarryYou.mp3")
+        let uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
+           
+        
+        await handleMenu.selectGreetingsPrompts()
+        await promptControl.selectUserGreetings('userSkill')
+        await handleMenu.selectUserAgentGreetings()
+        await handleEditingControl.clickAdd()
+        await handlePopup.showPopup('add')
+        await promptControl.createPrompt('txtPromptName','promptScript2')
+        await promptControl.createPrompt('txtDescription', 'This prompt is created by script')
+        await uploadAudio.sendKeys(absolutePath)
+        await handlePopup.showPopup('Upload')
+        await handlePopup.clickOK_UPLOAD()
+        await handlePopup.clickSave()
+        await promptControl.verifyDisplayedPrompt('promptScript2')
+        await promptControl.verifyPromptWithAudio()  
     }) 
 
     it ("Should play, stop, backward, forward the audio successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await userGreetings.navigateToAgentGreetings()
-        await userGreetings.selectPrompt('promptScript2')
+        await handleMenu.selectUserAgentGreetings()
+        await promptControl.selectPrompt('promptScript2')
         await audioControl.audioControl('mediaPlay')
         await browser.sleep(8000)
         await audioControl.audioVolumeControl('mediaVolUp')
@@ -71,12 +68,9 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
     })
 
     it ("Should play all audio in list with next, previous option", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await userGreetings.navigateToAgentGreetings()
-        await editingControl.clickSelectAll()
+        await handleEditingControl.clickEdit()
+        await handleMenu.selectUserAgentGreetings()
+        await handleEditingControl.clickSelectAll()
         await audioControl.audioControl('mediaPlay')
         await browser.sleep(2000)
         await audioControl.audioControl('mediaNext')
@@ -85,7 +79,4 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await browser.sleep(3000)
     })
 
-    afterEach(function(){
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
-    })
 })

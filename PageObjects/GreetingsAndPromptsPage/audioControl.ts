@@ -1,5 +1,5 @@
 import { ProtractorBrowser } from "protractor";
-import { ActionSupport } from "../../../core_function/actionSupport";
+import { ActionSupport } from "../../core_function/actionSupport";
 import { protractor } from "protractor/built/ptor";
 
 export class AudioControl{

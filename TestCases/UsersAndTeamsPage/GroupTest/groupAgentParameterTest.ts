@@ -1,61 +1,53 @@
 import { LoginPage } from "../../../PageObjects/LoginPage";
-import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
+
 import { async, timeout } from "q";
 import { browser, by } from "protractor";
-import { Driver } from "selenium-webdriver/ie";
-import { ActionSupport } from "../../../core_function/actionSupport";
 import { GroupAgentParameters } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameters";
-import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
-import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
+import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
+import { HandleMenu } from "../../../CommonSupport/HandleMenu";
+import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 
 
 describe ("Group - Agent Parameters", function(){
-    var loginPage: LoginPage
-    var titleBar: TitleBarButtons
-    var actionSupport: ActionSupport
-    var groupAgentParameters: GroupAgentParameters
-    var tier1TenantConfiguration: Tier1TenantConfiguration
-    var tenancy: TenantConfigurationPage
-    var editingControl: EditingControl
-    var originalTimeout: number
+    let loginPage: LoginPage
+    let groupAgentParameters: GroupAgentParameters
+    let tenancy: TenantConfigurationPage
+    let groupProfile: GroupProfile
+    let handleMenu : HandleMenu
+    let handleEditingControl: HandleEditingControl
+    
 
     beforeEach (async function(){
         loginPage = new LoginPage (browser)
-        titleBar = new TitleBarButtons (browser)
-        actionSupport = new ActionSupport (browser)
+        handleMenu = new HandleMenu (browser)
+        groupProfile = new GroupProfile (browser)
         groupAgentParameters = new GroupAgentParameters (browser)
-        editingControl = new EditingControl (browser)
-        tier1TenantConfiguration = new Tier1TenantConfiguration(browser)
+        handleEditingControl = new HandleEditingControl (browser)
         tenancy = new TenantConfigurationPage (browser)
-   
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await handleEditingControl.clickEdit()
+        await handleMenu.selectGroupsList()
+        await groupProfile.selectGroup('Default')
+        await handleEditingControl.clickEdit()
+
     })
 
     it ("Should update the login settings successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupAgentParameters.navigateToGroupLoginSettings()
+        await handleMenu.selectGroupAgentParmeter_LoginSettings()
         await groupAgentParameters.selectRadio_loginPage('rdNotReady')
         await groupAgentParameters.selectCheckbox_loginPage('cbEnabled1')
         await groupAgentParameters.selectCheckbox_loginPage('cbAvaiForAgentTransfer1')
         await groupAgentParameters.inputData_loginPage('txtProfileName1','Profile name')
         await groupAgentParameters.inputData_loginPage('txtIPRanges','172.17.0.223')
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await handleEditingControl.verifySaveSuccessfully()
     })
 
     it ("Should update the contact presentation successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupAgentParameters.navigateToGroupContactPresentation()
+        await handleMenu.selectGroupAgentParamter_ContactPresentation()
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.enableAcceptRejectVoice')
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.enableAcceptRejectEmail')
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.enableAcceptRejectChat')
@@ -63,17 +55,13 @@ describe ("Group - Agent Parameters", function(){
         await groupAgentParameters.inputData_contactPre('txtAcceptResponseTime','1')
         await groupAgentParameters.inputData_contactPre('txtAcceptResponseTime','1')
         await groupAgentParameters.selectCheckbox_contactPre('dataModel.placeInNotReadyOnRejectTimeout')
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await handleEditingControl.verifySaveSuccessfully()
     })
 
     it ("Should update successfully the Agent Permissions setting", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupAgentParameters.navigateToGroupAgentPermission()
+        await handleMenu.selectGroupAgentParamter_AgentPermission()
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowWrapFollowOnCalls')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowCallsFromReady')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowConfCallButton')
@@ -87,14 +75,12 @@ describe ("Group - Agent Parameters", function(){
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowInternalTransfers')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowExternalTransfers')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowTransfertoExperts')
-        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnThirdParties')
-        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnCustomers')
-        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHold')
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        // await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnThirdParties')
+        // await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnCustomers')
+        // await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHold')
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await handleEditingControl.verifySaveSuccessfully()
    })
 
-   afterEach(function(){
-       jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
-   })
 })

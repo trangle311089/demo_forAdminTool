@@ -2,7 +2,7 @@ import{by, element, ProtractorBrowser, browser} from 'protractor';
 import { ActionSupport } from '../core_function/actionSupport';
 import { stringify } from 'querystring';
 
-export class EditingControl{
+export class HandleEditingControl{
     actionSupport:ActionSupport
     curBrowser:ProtractorBrowser
     
@@ -18,6 +18,7 @@ export class EditingControl{
     search_function:string
     remove_search:string
     selectall_check:string
+    saving_txt:string
 
     constructor(browser:any){
         this.curBrowser = browser
@@ -33,6 +34,7 @@ export class EditingControl{
         this.search_function = "//input[@placeholder='search']"
         this.remove_search = "//i[@ng-click='removeSearch()']"
         this.selectall_check = "//div[@class='ag-header-cell']"
+        this.saving_txt = "//span[@class='saving-text' and contains (text(), 'All changes saved')]"
     }
 
     async clickAdd(){
@@ -89,6 +91,18 @@ export class EditingControl{
     async clickSelectAll(){
         console.log ("Angular Grid: Click on the select all check box on the grid")
         await this.actionSupport.selectCheckbox(this.selectall_check)
+    }
+
+    async clickSaveCancel_btn(btnName:string){
+        console.log ("Title Bar: Click on SAVE or CANCEL button")
+        var xpath = "//button[@ng-click='saveAction()' and contains (text(), '"+btnName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async verifySaveSuccessfully(){
+        console.log("Title Bar: Display the text All changes saved when saving data successfully")
+        var ele = this.curBrowser.element(by.xpath(this.saving_txt))
+        await expect(ele.isDisplayed()).toBe(true)             
     }
 
     

@@ -1,60 +1,19 @@
 import { ProtractorBrowser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
-import { Tier1UsersAndTeams } from "../../../admin_core_menu/tier1Menu/tier1UsersAndTeams";
-import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
-import { Tier1Menu } from "../../../admin_core_menu/tier1Menu/tier1Menu";
-import { GroupListPage } from "./GroupListPage";
+import { HandleMenu } from "../../../CommonSupport/HandleMenu";
+import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
 
 export class GroupAgentParameters{
     curBrowser : ProtractorBrowser
     actionSupport: ActionSupport
-    tier1UsersAndTeams: Tier1UsersAndTeams
-    tier1Menu : Tier1Menu
-    groupList: GroupListPage
-    editingControl: EditingControl
+    handleEditingControl: HandleEditingControl
 
     constructor (browser:any){
         this.curBrowser = browser
         this.actionSupport = new ActionSupport (this.curBrowser)
-        this.tier1UsersAndTeams = new Tier1UsersAndTeams (this.curBrowser)
-        this.editingControl = new EditingControl (this.curBrowser)
-        this.tier1Menu = new Tier1Menu (this.curBrowser)
-        this.groupList = new GroupListPage (this.curBrowser)
+        this.handleEditingControl = new HandleEditingControl (this.curBrowser)      
     }
-
-    async navigateToGroupLoginSettings(){
-        await this.tier1UsersAndTeams.navigateToUsersAndTeams()
-        await this.tier1UsersAndTeams.navigateToGroupsList()
-        await this.groupList.selectGroup('Default')
-        await this.editingControl.clickEdit()
-        await this.tier1Menu.presenceOfTier1Ver('Agent Parameters')
-        await this.tier1Menu.navigateToTier1Ver('Agent Parameters')
-        await this.tier1Menu.presenceOfTier1Hor('Login Settings')
-        await this.tier1Menu.navigateToTier1Hor('Login Settings')
-    }
-
-    async navigateToGroupContactPresentation(){
-        await this.tier1UsersAndTeams.navigateToUsersAndTeams()
-        await this.tier1UsersAndTeams.navigateToGroupsList()
-        await this.groupList.selectGroup('Default')
-        await this.editingControl.clickEdit()
-        await this.tier1Menu.presenceOfTier1Ver('Agent Parameters')
-        await this.tier1Menu.navigateToTier1Ver('Agent Parameters')
-        await this.tier1Menu.presenceOfTier1Hor('Contact Presentation')
-        await this.tier1Menu.navigateToTier1Hor('Contact Presentation')
-    }
-
-    async navigateToGroupAgentPermission(){
-        await this.tier1UsersAndTeams.navigateToUsersAndTeams()
-        await this.tier1UsersAndTeams.navigateToGroupsList()
-        await this.groupList.selectGroup('Default')
-        await this.editingControl.clickEdit()
-        await this.tier1Menu.presenceOfTier1Ver('Agent Parameters')
-        await this.tier1Menu.navigateToTier1Ver('Agent Parameters')
-        await this.tier1Menu.presenceOfTier1Hor('Agent Permissions')
-        await this.tier1Menu.navigateToTier1Hor('Agent Permissions')
-    }
-
+  
     // define element on Login Settings page
     async selectRadio_loginPage(btnName:string){
         var xpath = "//input[@id='"+btnName+"']"

@@ -1,4 +1,4 @@
-import { ProtractorBrowser } from "protractor";
+import { ProtractorBrowser, by } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
 
 
@@ -20,6 +20,23 @@ export class GroupProfile{
         await this.actionSupport.sendKeyOnElement(this.groupName_field, groupName)
         console.log("Input the description" + description)
         await this.actionSupport.sendKeyOnElement(this.description_field, description)
+    }
+
+    async selectGroup(groupName:string){
+        var xpath ="//span[contains(text(),'"+groupName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async verifyDisplayedGroup(groupName:string){
+        let xpath = "//span[contains(text(),'"+groupName+"')]"
+        let ele = this.curBrowser.element(by.xpath(xpath))
+        await expect (ele.isDisplayed()).toBe(true)        
+    }
+
+    async verifyRemovedGroup(groupName:string){
+        let xpath = "//span[contains(text(),'"+groupName+"')]"
+        let ele = this.curBrowser.element(by.xpath(xpath))
+        await expect (ele.isDisplayed()).toBe(false)        
     }
   
 }

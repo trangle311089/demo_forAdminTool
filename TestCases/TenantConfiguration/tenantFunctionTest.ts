@@ -1,78 +1,77 @@
 import { async } from "q";
 import { browser, by } from "protractor";
 import { LoginPage } from "../../PageObjects/LoginPage";
-import { EditingControl } from "../../admin_core_function/editingControl/editingControl";
-import { ActionPopup } from "../../admin_core_popup/actionPopup";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
 import { HandleMenu } from "../../CommonSupport/HandleMenu";
-import { ActionSupport } from "../../core_function/actionSupport";
+import { HandlePopup } from "../../CommonSupport/HandlePopup";
+import { HandleEditingControl } from "../../CommonSupport/HandleEditingControl";
 
 
 describe("Tenant Configuration", function(){
-    var loginPage:LoginPage
-    var editingControl:EditingControl
-    var actionPopup:ActionPopup
-    var tenantConfigurationPage:TenantConfigurationPage
-    var handleMenu: HandleMenu
-    let actionSupport: ActionSupport
+    let loginPage:LoginPage
+    let handleEditingControl:HandleEditingControl
+    let tenantConfigurationPage:TenantConfigurationPage
+    let handleMenu: HandleMenu
+    let handlePopup: HandlePopup
     
    
     beforeEach(async function(){
         loginPage = new LoginPage (browser)
-        editingControl = new EditingControl(browser)
-        actionPopup = new ActionPopup (browser)
+        handleEditingControl = new HandleEditingControl(browser)
+        handlePopup = new HandlePopup (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
         handleMenu = new HandleMenu (browser)
         await loginPage.login()
-
     })
 
     // Create the new tenancy
     it ("Should add the new tenancy successfully", async function(){
-    
-        await handleMenu.navigateToTenantConfiguration()
-        await editingControl.clickAdd()
-        await actionPopup.showPopup('add')
-        await tenantConfigurationPage.createNewTenancy("1007","1007")
-        await actionPopup.clickSaveAndClose_btn()
-        await actionPopup.showPopup('ALERT')
-        await actionPopup.clickPopup_btn('OK')
-        await actionPopup.showPopup('INFORMATION')
-        await actionPopup.clickPopup_OKbtn('ok')
-        await tenantConfigurationPage.displayedTenancy('1007')
+        await handleMenu.selectTenantConfigurationMenu()
+        await handleEditingControl.clickAdd()
+        await handlePopup.showPopup('add')
+        await tenantConfigurationPage.createNewTenancy("1001","1001")
+        await handlePopup.clickSave()
+        await handlePopup.showPopup('ALERT')
+        await handlePopup.clickYesDel('OK')
+        await handlePopup.showPopup('INFORMATION')
+        await handlePopup.clickOK('ok')
+        await tenantConfigurationPage.verifyDisplayedTenancy('1001')
     })
 
     // Edit the existing tenancy
     it ("Should navigate to the active status page when editing the tenancy", async function(){
-        await handleMenu.navigateToTenantConfiguration()      
+        await handleMenu.selectTenantConfigurationMenu()      
         await tenantConfigurationPage.selectTenancy("1001")
-        await editingControl.clickEdit()
-        await handleMenu.presenceOfVerMenu('active status')
+        await handleEditingControl.clickEdit()
+        await handleMenu.verifyDisplayedVerMenu('active status')
     })
 
     // Copy the tenancy
     it ("Should copy new tenancy when clicking on copy option", async function(){
-        await handleMenu.navigateToTenantConfiguration()      
+        await handleMenu.selectTenantConfigurationMenu()      
         await tenantConfigurationPage.selectTenancy("1001")
-        await editingControl.clickCopy()
-        await actionPopup.showPopup('copy')
+        await handleEditingControl.clickCopy()
+        await handlePopup.showPopup('copy')
         await tenantConfigurationPage.createNewTenancy("copied1", "copied1")
-        await actionPopup.clickSaveAndClose_btn()
-        await actionPopup.showPopup('ALERT')
-        await actionPopup.clickPopup_btn('OK')
-        await actionPopup.showPopup('INFORMATION')
-        await actionPopup.clickPopup_OKbtn('ok')
+        await handlePopup.clickSave()
+        await handlePopup.showPopup('ALERT')
+        await handlePopup.clickYesDel('OK')
+        await handlePopup.showPopup('INFORMATION')
+        await handlePopup.clickOK('ok')
+        await tenantConfigurationPage.verifyDisplayedTenancy('copied1')
     })
 
     // Delete the tenancy
     it ("Should disable the tenancy when clicking on delete option", async function(){
-        await handleMenu.navigateToTenantConfiguration()      
+        await handleMenu.selectTenantConfigurationMenu()      
         await tenantConfigurationPage.selectTenancy("1001")
-        await editingControl.clickDelete()
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('delete')
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('delete')
+        await handleEditingControl.clickDelete()
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('delete')
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('delete')
+        await tenantConfigurationPage.showDisabledTenancy()
+        await tenantConfigurationPage.verifyDisabledTenancy('1001')
     })
 
     // Enable the tenancy
@@ -80,33 +79,30 @@ describe("Tenant Configuration", function(){
         await tenantConfigurationPage.showDisabledTenancy()
         await tenantConfigurationPage.selectTenancy('1001')
         await tenantConfigurationPage.enableTenancy()
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('yes')
-        await actionPopup.showPopup('INFORMATION')
-        await actionPopup.clickPopup_OKbtn('ok')
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('yes')
+        await handlePopup.showPopup('INFORMATION')
+        await handlePopup.clickOK('ok')
+        await tenantConfigurationPage.verifyEnabledTenancy('1001')
+
     })
 
     // Disable the tenancy
     it('Should disable the selected tenancy when clicking on disable option', async function(){
-        await tenantConfigurationPage.selectTenancy('1001')
+        await tenantConfigurationPage.selectTenancy('copied1')
         await tenantConfigurationPage.disableTenancy()
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('yes')
-        await actionPopup.showPopup('INFORMATION')
-        await actionPopup.clickPopup_OKbtn('ok')
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('yes')
+        await handlePopup.showPopup('INFORMATION')
+        await handlePopup.clickOK('ok')
         await tenantConfigurationPage.showDisabledTenancy()
-        await tenantConfigurationPage.selectTenancy('1001')
-        await tenantConfigurationPage.enableTenancy()
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('yes')
-        await actionPopup.showPopup('INFORMATION')
-        await actionPopup.clickPopup_OKbtn('ok')
+        await tenantConfigurationPage.verifyDisabledTenancy('copied1')
     })
 
     // Search function on the Tenant Configuration page
-    fit ("Should display the entry matches with the text on search field", async function(){
-        await editingControl.searchEntry("1001")
-        await tenantConfigurationPage.displayedTenancy('1001')
+    it ("Should display the entry matches with the text on search field", async function(){
+        await handleEditingControl.searchEntry("1001")
+        await tenantConfigurationPage.verifyDisplayedTenancy('1001')
     })
 
 

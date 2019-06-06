@@ -49,11 +49,24 @@ export class TenantConfigurationPage {
         await this.actionSupport.clickOnElement(this.disable_tenancy_option)
     }
 
-    async displayedTenancy(tenancyName:string){
-        console.log('Tenant Configuration Page: The tenancy is displayed in grid')
+    async verifyDisplayedTenancy(tenancyName:string){
+        console.log('Tenant Configuration Page: The tenancy ' + tenancyName + ' is displayed in grid' )
         let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
-        
         let el= this.curBrowser.element(by.xpath(xpath))
         await expect(el.isDisplayed()).toBe(true)  
+    }
+
+    async verifyDisabledTenancy(tenancyName:string){
+        console.log('Tenant Configuration Page: The tenancy ' + tenancyName + ' is disabled' )
+        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+        let el= this.curBrowser.element(by.xpath(xpath))
+        await expect (el.getCssValue('color')).toBe('rgba(51, 62, 207, 1)')
+    }
+
+    async verifyEnabledTenancy(tenancyName:string){
+        console.log ('Tenany Configuration Page: The tenancy ' + tenancyName +' is enabled' )
+        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+        let el= this.curBrowser.element(by.xpath(xpath))
+        await expect (el.getCssValue('background-color')).toBe('rgba(51, 51, 51, 1)')
     }
 }
