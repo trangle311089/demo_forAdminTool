@@ -67,6 +67,6 @@ export class TenantConfigurationPage {
         console.log ('Tenany Configuration Page: The tenancy ' + tenancyName +' is enabled' )
         let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
         let el= this.curBrowser.element(by.xpath(xpath))
-        await expect (el.getCssValue('background-color')).toBe('rgba(51, 51, 51, 1)')
+        await expect (el.getCssValue('background-color')).toBe('rgba(0, 0, 0, 0)')
     }
 }

@@ -15,7 +15,6 @@ describe('Group Schedule Login', function(){
     let loginPage: LoginPage
     let groupSchedule: GroupSchedulePage
     let tenancy: TenantConfigurationPage
-   
     let handleEditingControl: HandleEditingControl
     let handleMenu: HandleMenu
     let groupProfile: GroupProfile
@@ -25,7 +24,6 @@ describe('Group Schedule Login', function(){
         curBrowser = browser
         loginPage = new LoginPage(browser)
         groupSchedule = new GroupSchedulePage (browser)
-
         tenancy = new TenantConfigurationPage (browser)
         handleMenu = new HandleMenu (browser)
         groupProfile = new GroupProfile (browser)
@@ -38,7 +36,6 @@ describe('Group Schedule Login', function(){
         await handleMenu.selectGroupsList()
         await groupProfile.selectGroup('Default')
         await handleEditingControl.clickEdit()
-   
     })
 
     it ('Should input date successfully', async function(){

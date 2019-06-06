@@ -2,7 +2,6 @@ import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";
 import { browser } from "protractor";
 import { GroupTelephonyPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupTelephonyPage";
-import { ActionSupport } from "../../../core_function/actionSupport";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { HandleMenu } from "../../../CommonSupport/HandleMenu";
 import { HandlePopup } from "../../../CommonSupport/HandlePopup";
@@ -13,22 +12,17 @@ import { HandleDDL } from "../../../CommonSupport/HandleDDL";
 describe("Group Telephony", function(){
     let loginPage: LoginPage
     let groupTelephony: GroupTelephonyPage
-    let actionSupport: ActionSupport
     let tenancy : TenantConfigurationPage
-
     let handleMenu: HandleMenu
     let handleEditingControl: HandleEditingControl
     let groupProfile : GroupProfile
     let handleDDL: HandleDDL
     let handlePopup: HandlePopup
 
-
     beforeEach(async function(){
         loginPage = new LoginPage(browser)
         groupTelephony = new GroupTelephonyPage (browser)
-        actionSupport = new ActionSupport (browser)
         tenancy = new TenantConfigurationPage (browser)
-
         handleMenu = new HandleMenu(browser)
         handleEditingControl = new HandleEditingControl (browser)
         groupProfile = new GroupProfile (browser)
@@ -43,18 +37,28 @@ describe("Group Telephony", function(){
         await handleEditingControl.clickEdit()
     })
 
+    // Group Telephony General
     it ("Should assign the outbound call and music on hold to group successfully", async function(){
+        console.log ("STEP 1: Navigate to Group Telephony General menu")
         await handleMenu.selectGroupTelephony_General()
+
+        console.log ("STEP 2: Set assign caller id for outbound calls ")
         await handleDDL.clickOnDDL('post2Prompt','+01224217688')
+
+        console.log("STEP 3: Set default music on hold")
         await handleDDL.clickOnDDL('onHoldPrompt', 'holdMusic')
+
+        console.log ("STEP 4: Click on SAVE button on the title bar")
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep(2000)
+
+        console.log ("STEP 5: The All changes saved text should be displayed")
         await handleEditingControl.verifySaveSuccessfully()
     })
 
     //  Group Telephony - PSTN Agent Connection
     it ("Should add the group PSTN successfully", async function(){
-        await handleMenu.selectGroupTelephony_PSTN
+        await handleMenu.selectGroupTelephony_PSTN()
         await handleEditingControl.clickAdd()
         await handlePopup.showPopup('add')
         await groupTelephony.inputData_Telephony('txtPhoneNumber','+01224217688')
@@ -65,24 +69,23 @@ describe("Group Telephony", function(){
         await groupTelephony.inputData_Telephony('txtDescription','This PSTN is created by script')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await browser.sleep(2000)
-        await handleEditingControl.verifySaveSuccessfully()
+        await groupTelephony.verifyDisplayedPSTN('+01224217688')
+        await groupTelephony.verifyDisplayedPSTN('+0932093963')
     })
     
     it ("Should edit the group PSTN successfully", async function(){
-        await handleMenu.selectGroupTelephony_PSTN
+        await handleMenu.selectGroupTelephony_PSTN()
         await groupTelephony.selectPSTN('+0932093963')
         await handleEditingControl.clickEdit()
         await handlePopup.showPopup('edit')
         await groupTelephony.inputData_Telephony('txtPhoneNumber','+84932093963')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await browser.sleep(2000)
-        await handleEditingControl.verifySaveSuccessfully()
+        await groupTelephony.verifyDisplayedPSTN('+84932093963')
     })
 
     it ("Should delete the group PSTN successfully", async function(){
-        await handleMenu.selectGroupTelephony_PSTN
+        await handleMenu.selectGroupTelephony_PSTN()
         await groupTelephony.selectPSTN('+84932093963')
         await handleEditingControl.clickDelete()
         await handlePopup.showPopup('ATTENTION')
@@ -101,7 +104,6 @@ describe("Group Telephony", function(){
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep(2000)
         await handleEditingControl.verifySaveSuccessfully()
-    
     })
 
     it ('Should add group dialplan successfully', async function(){
@@ -121,8 +123,7 @@ describe("Group Telephony", function(){
         await groupTelephony.selectPermission('rdDeny')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await browser.sleep (2000)
-        await handleEditingControl.verifySaveSuccessfully()
+        await groupTelephony.verifyDisplayedDialPlan('0123456789')
     })
 
     it('Should edit the group dial plan successfully', async function(){
@@ -133,8 +134,7 @@ describe("Group Telephony", function(){
         await groupTelephony.inputData_Telephony('txtDialString','012345678')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await browser.sleep(2000)
-        await handleEditingControl.verifySaveSuccessfully()
+        await groupTelephony.verifyDisplayedDialPlan('012345678')
     })
 
     it ('Should delete the group dial plan successfully', async function(){
@@ -159,7 +159,7 @@ describe("Group Telephony", function(){
         await groupTelephony.inputData_Telephony('txtMaxLength','12')
         await groupTelephony.inputData_Telephony('txtDescription','This group dial plan is created by script')
         await handlePopup.clickSave()
-        await groupTelephony.getValidationMessage('invalidMinAndMaxLength','Min length is greater than Max length')
+        await groupTelephony.verifyValidationMessage('invalidMinAndMaxLength','Min length is greater than Max length')
     })    
 
 })

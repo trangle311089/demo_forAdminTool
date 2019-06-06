@@ -13,10 +13,8 @@ import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/G
 describe ("Group Status Reason", function(){
     let curBrowser: ProtractorBrowser
     let loginPage: LoginPage
-    let actionSupport: ActionSupport
     let groupStatus: GroupStatusReasonsPage
     let tenancy : TenantConfigurationPage
-
     let handleMenu: HandleMenu
     let handlePopup: HandlePopup
     let handleEditingControl: HandleEditingControl
@@ -27,9 +25,7 @@ describe ("Group Status Reason", function(){
         curBrowser = browser
         loginPage = new LoginPage (browser)
         groupStatus = new GroupStatusReasonsPage(browser)
-        actionSupport = new ActionSupport(browser)
         tenancy = new TenantConfigurationPage (browser)
-
         handleMenu = new HandleMenu (browser)
         handlePopup = new HandlePopup (browser)
         handleEditingControl = new HandleEditingControl(browser)

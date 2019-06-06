@@ -35,8 +35,7 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         // let filetoUpload = 'D:/MarryYou.mp3'
         let absolutePath = path.resolve(__dirname,"..//..//..//TestData//MarryYou.mp3")
         let uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
-           
-        
+               
         await handleMenu.selectGreetingsPrompts()
         await promptControl.selectUserGreetings('userSkill')
         await handleMenu.selectUserAgentGreetings()

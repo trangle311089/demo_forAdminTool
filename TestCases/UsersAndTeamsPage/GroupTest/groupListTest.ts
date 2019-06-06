@@ -1,22 +1,17 @@
 import { async } from "q";
-
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { browser } from "protractor";
 import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
-import { ActionSupport } from "../../../core_function/actionSupport";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
 import { HandlePopup } from "../../../CommonSupport/HandlePopup";
 import { HandleMenu } from "../../../CommonSupport/HandleMenu";
 import { HandleBreadcrumb } from "../../../CommonSupport/HandleBreadcrumb";
 
-
-
 describe("Group List", function(){
     let loginPage: LoginPage
     let handleEditingControl: HandleEditingControl
     let groupProfilePage: GroupProfile
-    let actionSupport:ActionSupport
     let handlePopup: HandlePopup
     let tenancy: TenantConfigurationPage
     let handleMenu: HandleMenu
@@ -27,7 +22,6 @@ describe("Group List", function(){
         handleEditingControl = new HandleEditingControl (browser)
         groupProfilePage = new GroupProfile (browser)
         handlePopup = new HandlePopup (browser)
-        actionSupport = new ActionSupport (browser)
         tenancy = new TenantConfigurationPage(browser)
         handleMenu = new HandleMenu (browser)
         handleBreadcrumb = new HandleBreadcrumb (browser)

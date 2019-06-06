@@ -17,11 +17,11 @@ exports.config = {
 
     //Specify the specs to run test script
     // specs: ['TestCases/LoginPage/loginTest.ts'],
-    // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
+    specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
-    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
+    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],

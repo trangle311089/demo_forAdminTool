@@ -1,7 +1,6 @@
 import { ProtractorBrowser, by } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
 
-
 export class GroupProfile{
     curBrowser: ProtractorBrowser
     actionSupport: ActionSupport

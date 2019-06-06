@@ -1,5 +1,4 @@
 import { LoginPage } from "../../../PageObjects/LoginPage";
-
 import { async, timeout } from "q";
 import { browser, by } from "protractor";
 import { GroupAgentParameters } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameters";
@@ -31,7 +30,6 @@ describe ("Group - Agent Parameters", function(){
         await handleMenu.selectGroupsList()
         await groupProfile.selectGroup('Default')
         await handleEditingControl.clickEdit()
-
     })
 
     it ("Should update the login settings successfully", async function(){
@@ -75,9 +73,9 @@ describe ("Group - Agent Parameters", function(){
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowInternalTransfers')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowExternalTransfers')
         await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowTransfertoExperts')
-        // await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnThirdParties')
-        // await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnCustomers')
-        // await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHold')
+        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnThirdParties')
+        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHangupOnCustomers')
+        await groupAgentParameters.selectCheckbox_agentPer('dataModel.allowHold')
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep(2000)
         await handleEditingControl.verifySaveSuccessfully()
