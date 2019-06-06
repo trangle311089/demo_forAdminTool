@@ -83,6 +83,36 @@ export class HandleMenu{
         await this.selectHorMenu('Agent Permissions')
     }
 
+    // Users and Teams - Groups - Skills
+    async selectGroupSkills(){
+        await this.selectVerMenu('Skills')
+    }
+
+    async selectGroupSkillList(){
+        await this.selectGroupSkills()
+        await this.selectHorMenu('Skill List')
+    }
+
+    //Users and Teams - Groups - Status Reasons
+    async selectGroupStatusReasons(){
+        await this.selectVerMenu('Status Reasons')
+    }
+
+    async selectGroupStatus_BreakReason(){
+        await this.selectGroupStatusReasons()
+        await this.selectHorMenu('Break Reasons')
+    }
+
+    // Users and Teams - Groups - Schedule
+    async selectGroupSchedule(){
+        await this.selectVerMenu('Schedule')
+    }
+
+    async selectGroup_LoginSchedule(){
+        await this.selectGroupSchedule()
+        await this.selectHorMenu('Login Schedule')
+    }
+
     //Greetings & Prompts menu
     async selectGreetingsPrompts(){
         await this.selectVerMenu('greetings & prompts')

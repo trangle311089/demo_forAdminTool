@@ -1,96 +1,86 @@
 import { ProtractorBrowser, browser } from "protractor";
-import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
-import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";
 import { ActionSupport } from "../../../core_function/actionSupport";
-import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 import { GroupStatusReasonsPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupStatusReasonsPage";
-import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
+
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
+import { HandleMenu } from "../../../CommonSupport/HandleMenu";
+import { HandlePopup } from "../../../CommonSupport/HandlePopup";
+import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
+import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 
 describe ("Group Status Reason", function(){
-    var curBrowser: ProtractorBrowser
-    var loginPage: LoginPage
-    var editingControl: EditingControl
-    var actionPopup: ActionPopup
-    var actionSupport: ActionSupport
-    var titleBar: TitleBarButtons
-    var groupStatus: GroupStatusReasonsPage
-    var tier1TenantConfiguration: Tier1TenantConfiguration
-    var tenancy : TenantConfigurationPage
-    var originalTimeout: number
-    
+    let curBrowser: ProtractorBrowser
+    let loginPage: LoginPage
+    let actionSupport: ActionSupport
+    let groupStatus: GroupStatusReasonsPage
+    let tenancy : TenantConfigurationPage
 
+    let handleMenu: HandleMenu
+    let handlePopup: HandlePopup
+    let handleEditingControl: HandleEditingControl
+    let groupProfile: GroupProfile
+    
+    
     beforeEach(async function(){
         curBrowser = browser
         loginPage = new LoginPage (browser)
-        editingControl = new EditingControl (browser)
-        actionPopup = new ActionPopup (browser)
-        titleBar = new TitleBarButtons(browser)
         groupStatus = new GroupStatusReasonsPage(browser)
         actionSupport = new ActionSupport(browser)
-        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
         tenancy = new TenantConfigurationPage (browser)
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
-    })
+
+        handleMenu = new HandleMenu (browser)
+        handlePopup = new HandlePopup (browser)
+        handleEditingControl = new HandleEditingControl(browser)
+        groupProfile = new GroupProfile (browser)
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await handleEditingControl.clickEdit()
+        await handleMenu.selectGroupsList()
+        await groupProfile.selectGroup('Default')
+        await handleEditingControl.clickEdit()        
+     })
 
     it ("Should add the group break reason successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupStatus.navigateToGroup_BreakReasons()
-        await editingControl.clickAdd()
-        await actionPopup.showPopup('add')
+        await handleMenu.selectGroupStatus_BreakReason()
+        await handleEditingControl.clickAdd()
+        await handlePopup.showPopup('add')
         await groupStatus.inputData_StatusReasons('txtStatusReason','Group break reason')
         await groupStatus.inputData_StatusReasons('txtDescription','This group break reason is created by script')
-        await actionPopup.clickSaveAndAddAnother_btn()
-        await actionPopup.showPopup('add')
+        await handlePopup.clickSaveAndAddAnother()
+        await handlePopup.showPopup('add')
         await groupStatus.inputData_StatusReasons('txtStatusReason','Group break reason 1')
         await groupStatus.inputData_StatusReasons('txtDescription','This group break reason is created by script')
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await groupStatus.verifyDisplayedStt('Group break reason')
     })
 
     it ("Should edit the group break status reason successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupStatus.navigateToGroup_BreakReasons()
+        await handleMenu.selectGroupStatus_BreakReason()
         await groupStatus.selectStt('Group break reason 1')
-        await editingControl.clickEdit()
-        await actionPopup.showPopup('edit')
+        await handleEditingControl.clickEdit()
+        await handlePopup.showPopup('edit')
         await groupStatus.inputData_StatusReasons('txtStatusReason','Group break reason 1 Edited')
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await groupStatus.verifyDisplayedStt('Group break reason 1 Edited')
     })
 
     it ("Should delete the group break status reason successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupStatus.navigateToGroup_BreakReasons()
+        await handleMenu.selectGroupStatus_BreakReason()
         await groupStatus.selectStt('Group break reason 1 Edited')
-        await editingControl.clickDelete()
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('delete')
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('delete')
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
-    })
-
-    afterEach(function(){
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
+        await handleEditingControl.clickDelete()
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('delete')
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('delete')
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await handleEditingControl.verifySaveSuccessfully()
     })
 
 })

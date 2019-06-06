@@ -1,108 +1,85 @@
 import { GroupSkillPage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupSkillPage";
-import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
-import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";
 import { browser } from "protractor";
-import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
 import { ActionSupport } from "../../../core_function/actionSupport";
-import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
+import { HandleMenu } from "../../../CommonSupport/HandleMenu";
+import { HandlePopup } from "../../../CommonSupport/HandlePopup";
+import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
+import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 
 describe("Group Skill", function(){
-    var loginPage: LoginPage
-    var groupSkillPage: GroupSkillPage
-    var editingControl: EditingControl
-    var actionPopup: ActionPopup
-    var actionSupport: ActionSupport
-    var titleBar: TitleBarButtons
-    var tier1TenantConfiguration: Tier1TenantConfiguration
-    var tenancy: TenantConfigurationPage
-
-    var originalTimeout: number
+    let loginPage: LoginPage
+    let groupSkillPage: GroupSkillPage
+    let actionSupport: ActionSupport
+    let tenancy: TenantConfigurationPage
+    let handleMenu: HandleMenu
+    let handlePopup: HandlePopup
+    let handleEditingControl: HandleEditingControl
+    let groupProfile: GroupProfile
 
     beforeEach(async function(){
         loginPage = new LoginPage (browser)
         groupSkillPage = new GroupSkillPage (browser)
-        editingControl = new EditingControl (browser)
-        actionPopup = new ActionPopup (browser)
-        titleBar = new TitleBarButtons (browser)
         actionSupport = new ActionSupport (browser)
-        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
         tenancy = new TenantConfigurationPage (browser)
-     
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+        handleMenu = new HandleMenu (browser)
+        handlePopup = new HandlePopup (browser)
+        handleEditingControl = new HandleEditingControl (browser)
+        groupProfile = new GroupProfile (browser)
 
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await handleEditingControl.clickEdit()
+        await handleMenu.selectGroupsList()
+        await groupProfile.selectGroup('Default')
+        await handleEditingControl.clickEdit()
     })
 
     it ("Should add new skill successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-
-        await groupSkillPage.navigateToGroupSkillList()
-        await editingControl.clickAdd()
-        await actionPopup.showPopup('add')
+        await handleMenu.selectGroupSkillList()
+        await handleEditingControl.clickAdd()
+        await handlePopup.showPopup('add')
         await groupSkillPage.inputData_Skills('txtSkillName','SkillScript')
         await groupSkillPage.inputData_Skills('txtSkillDescription','This skill is created by script')
-        await actionPopup.clickSaveAndAddAnother_btn()        
-        await actionPopup.showPopup('add')
-        await groupSkillPage.inputData_Skills('txtSkillName','+skillscript')
+        await handlePopup.clickSaveAndAddAnother()        
+        await handlePopup.showPopup('add')
+        await groupSkillPage.inputData_Skills('txtSkillName','skillscript3')
         await groupSkillPage.inputData_Skills('txtSkillDescription','This skill is created by script')
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await groupSkillPage.verifyDispalyedSkill('SkillScript')
     })
 
     it ("Should edit the skill successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupSkillPage.navigateToGroupSkillList()
-        await groupSkillPage.selectSkill('+skillscript')
-        await editingControl.clickEdit()
-        await actionPopup.showPopup('edit')
+        await handleMenu.selectGroupSkillList()
+        await groupSkillPage.selectSkill('skillscript3')
+        await handleEditingControl.clickEdit()
+        await handlePopup.showPopup('edit')
         await groupSkillPage.inputData_Skills('txtSkillName', 'skillScriptEdited')
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await groupSkillPage.verifyDispalyedSkill('skillScriptEdited')
     })
 
     it ("Should delete the skill successfully", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupSkillPage.navigateToGroupSkillList()
+        await handleMenu.selectGroupSkillList()
         await groupSkillPage.selectSkill('skillScriptEdited')
-        await editingControl.clickDelete()
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('delete')
-        await actionPopup.showPopup('ATTENTION')
-        await actionPopup.clickPopup_btn('delete')
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handleEditingControl.clickDelete()
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('delete')
+        await handlePopup.showPopup('ATTENTION')
+        await handlePopup.clickYesDel('delete')
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await handleEditingControl.verifySaveSuccessfully()
     })
 
     it("Should return the users list who are holding the skill", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupSkillPage.navigateToGroupSkillList()
+        await handleMenu.selectGroupSkillList()
         await groupSkillPage.selectSkill('SkillScript')
         await groupSkillPage.clickShowSkillHolders_btn()
-        await groupSkillPage.showHolder('userSkill')
-    })
-
-    afterEach(function(){
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
+        await groupSkillPage.verifyDisplayedHolder('userSkill')
     })
 })

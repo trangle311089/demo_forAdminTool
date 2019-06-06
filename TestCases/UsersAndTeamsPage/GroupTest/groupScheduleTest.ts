@@ -1,94 +1,81 @@
 import { ProtractorBrowser, browser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
-import { ActionPopup } from "../../../admin_core_popup/actionPopup";
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async } from "q";
 import { GroupSchedulePage } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupSchedulePage";
-import { TitleBarButtons } from "../../../admin_core_function/titleBarButtons/titleBarButtons";
-import { Tier1TenantConfiguration } from "../../../admin_core_menu/tier1Menu/tier1TenantConfiguration";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
-import { EditingControl } from "../../../admin_core_function/editingControl/editingControl";
+import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
+import { HandleMenu } from "../../../CommonSupport/HandleMenu";
+import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
+import { HandlePopup } from "../../../CommonSupport/HandlePopup";
+
 
 describe('Group Schedule Login', function(){
-    var curBrowser: ProtractorBrowser
-    var loginPage: LoginPage
-    var actionPopup: ActionPopup
-    var groupSchedule: GroupSchedulePage
-    var titleBar: TitleBarButtons
-    var actionSupport: ActionSupport
-    var tier1TenantConfiguration: Tier1TenantConfiguration
-    var tenancy: TenantConfigurationPage
-    var editingControl : EditingControl
-    var originalTimeout: number
+    let curBrowser: ProtractorBrowser
+    let loginPage: LoginPage
+    let groupSchedule: GroupSchedulePage
+    let tenancy: TenantConfigurationPage
+   
+    let handleEditingControl: HandleEditingControl
+    let handleMenu: HandleMenu
+    let groupProfile: GroupProfile
+    let handlePopup: HandlePopup
 
     beforeEach(async function(){
         curBrowser = browser
         loginPage = new LoginPage(browser)
-        actionPopup = new ActionPopup (browser)
         groupSchedule = new GroupSchedulePage (browser)
-        titleBar = new TitleBarButtons(browser)
-        actionSupport = new ActionSupport (browser)
-        tier1TenantConfiguration = new Tier1TenantConfiguration (browser)
-        tenancy = new TenantConfigurationPage (browser)
-        editingControl = new EditingControl (browser)
 
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
+        tenancy = new TenantConfigurationPage (browser)
+        handleMenu = new HandleMenu (browser)
+        groupProfile = new GroupProfile (browser)
+        handlePopup = new HandlePopup (browser)
+        handleEditingControl = new HandleEditingControl (browser)
+
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await handleEditingControl.clickEdit()
+        await handleMenu.selectGroupsList()
+        await groupProfile.selectGroup('Default')
+        await handleEditingControl.clickEdit()
+   
     })
 
-    fit ('Should input date successfully', async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupSchedule.navigateToGroupSchedule()
+    it ('Should input date successfully', async function(){
+        await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
-        await actionPopup.showPopup('add')
+        await handlePopup.showPopup('add')
         await groupSchedule.inputDate('dtExpiryDate','24 May 2019')
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await groupSchedule.verifyDisplayedDate('24 May 2019')
     })
 
     it ("Should be able to select the year, month, day, time, ampm, recurring for Group Exception", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupSchedule.navigateToGroupSchedule()
+        await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
-        await actionPopup.showPopup('add')
-        await groupSchedule.selectYearMonthDay('2019','May','28')
+        await handlePopup.showPopup('add')
+        await groupSchedule.selectYearMonthDay('2019','June','29')
         await groupSchedule.selectTime('txtStartTime','10','00')
         await groupSchedule.selectTime('txtEndTime','11','00')
         await groupSchedule.switchToAMPM('txtEndTime','PM')
         await groupSchedule.selectRecurring()
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await groupSchedule.verifyDisplayedDate('29 Jun 2019')
     })
 
     it ("Should be able to select day of week, startTime, endTime for Group Routine", async function(){
-        await actionSupport.startBrowser()
-        await loginPage.login()
-        await tier1TenantConfiguration.navigateToTenantConfiguration()
-        await tenancy.selectTenancy('1001')
-        await editingControl.clickEdit()
-        await groupSchedule.navigateToGroupSchedule()
+        await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.routineGrid','fa fa-plus-circle add')
-        await actionPopup.showPopup('add')
+        await handlePopup.showPopup('add')
         await groupSchedule.selectDayOfWeek('Tuesday')
         await groupSchedule.selectTime('txtStartTime','10','00')
         await groupSchedule.selectTime('txtEndTime','11','00')
         await groupSchedule.switchToAMPM('txtEndTime','PM')
-        await actionPopup.clickSaveAndClose_btn()
-        await titleBar.clickSaveCancel_btn('Save')
-        await titleBar.waitForSavingTxt()
-    })
-
-    afterEach(function(){
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout
+        await handlePopup.clickSave()
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep(2000)
+        await handleEditingControl.verifySaveSuccessfully()
     })
 })
