@@ -3,24 +3,24 @@ var dateFormat = require('dateformat');
 
 exports.config = {
     // Define framework
-    framework: 'jasmine',
+    // framework: 'jasmine',
     
     // The address of a running selenium server.
     //for Chrome, Firefox
     seleniumAddress: 'http://localhost:4444/wd/hub',
 
     //for Edge
-    seleniumAddress:'http://localhost:17556',
+    // seleniumAddress:'http://localhost:17556',
 
     //for IE11
-    seleniumAddress:'http://localhost:5555',
+    // seleniumAddress:'http://localhost:5555',
 
     //Specify the specs to run test script
     // specs: ['TestCases/LoginPage/loginTest.ts'],
-    specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
+    // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
+    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
@@ -29,19 +29,19 @@ exports.config = {
     // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
-    directConnect: true,
+    directConnect: false,
    
     // Capabilities to be passed to the webdriver instance.
     capabilities: {
-        browserName: 'chrome',
-     },
+    browserName: 'chrome',
+    },
 
     //Multiple Capabilities to be passed to the webdriver instance
     // multiCapabilities: [{
-    //   browserName: 'internet explorer',
+    //   browserName: 'chrome'
     // }, 
     // {
-    //   browserName: 'MicrosoftEdge'
+    //   browserName: 'firefox'
     // }],
     
     // Set restart browser to true
@@ -65,36 +65,7 @@ exports.config = {
             baseDirectory: __dirname + '\\TestReports\\' + dateFormat(new Date(), "dddd_mmmm_dS_yyyy_h_MM_ss_TT")
         }).getJasmine2Reporter());
 
-        // var jasmineReporters = require('jasmine-reporters');
-        // jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
-        //     consolidateAll: true,
-        //     savePath: './',
-        //     filePrefix: 'xmlresults'
-        // }));
-        // var fs = require('fs-extra');
- 
-        // fs.emptyDir('screenshots/', function (err) {
-        //     console.log(err);
-        // });
-    
-        // jasmine.getEnv().addReporter({
-        //     specDone: function(result) {
-        //         if (result.status == 'failed') {
-        //             browser.getCapabilities().then(function (caps) {
-        //                 var browserName = caps.get('browserName');
-    
-        //                 browser.takeScreenshot().then(function (png) {
-        //                     var stream = fs.createWriteStream('screenshots/' + browserName + '-' + result.fullName+ '.png');
-        //                     stream.write(new Buffer(png, 'base64'));
-        //                     stream.end();
-        //                 });
-        //             });
-        //         }
-        //     }
-        // });
-
-        // Add a screenshot reporter and store screenshots to `/tmp/screenshots`:
-        
+              
     },
    
     

@@ -14,13 +14,13 @@ export class HandleMenu{
 
     async selectVerMenu(menuName:string){
         var xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
-        await this.actionSupport.presentElement(xpath)
+        // await this.actionSupport.presentElement(xpath)
         await this.actionSupport.clickOnElement(xpath)
     }
     
     async selectHorMenu(menuName:string){
         var xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
-        await this.actionSupport.presentElement(xpath)
+        // await this.actionSupport.presentElement(xpath)
         await this.actionSupport.clickOnElement(xpath)
 
     }
