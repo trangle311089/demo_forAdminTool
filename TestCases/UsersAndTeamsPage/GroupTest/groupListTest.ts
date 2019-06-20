@@ -37,7 +37,6 @@ describe("Group List", function(){
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep(2000)
         await handleEditingControl.verifySaveSuccessfully()
-        // await handleBreadcrumb.selectBreadcrumb('')
     })
 
     it ("Should edit group name and description successfully", async function(){
@@ -58,7 +57,5 @@ describe("Group List", function(){
         await handlePopup.clickYesDel('delete')
         await handlePopup.showPopup('ATTENTION')
         await handlePopup.clickYesDel('delete')
-        // await browser.sleep(2000)
-        // await groupProfilePage.verifyRemovedGroup('Updated _ Automation Group Name')
     })
 })

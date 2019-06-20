@@ -23,7 +23,6 @@ export class ActionSupport{
         console.log ("Clicking on the checkbox " + xpath)
         var el = await this.curBrowser.element(by.xpath(xpath))
         await this.curBrowser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
-        // await this.curBrowser.wait(this.until.visibilityOf(el), timeOut, 'Element' + xpath + 'is NOT visible')
         await el.click()
     }
 
@@ -34,9 +33,4 @@ export class ActionSupport{
         await el.clear()
         await el.sendKeys(data)
     }
-
-    // async sendSingleKey(el:ElementFinder, data:string){
-    //     await this.curBrowser.sleep(60)
-    //     await el.sendKeys(data);
-    // }
 }

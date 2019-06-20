@@ -6,19 +6,19 @@ export class dataBuilder{
         let dataArray: Array<Map<string, string>> = [];
 
         // read file xlsx
-        wb.xlsx.readFile(filePath);
+        await wb.xlsx.readFile(filePath);
         
         // get the sheet in the xlsx file
-        let worksheet = wb.getWorksheet(sheet);
+        let worksheet = await wb.getWorksheet(sheet);
 
         // get the number of rows 
-        let rowCount = worksheet.rowCount;
+        let rowCount = await worksheet.rowCount;
 
         // get the number of columns
-        let columnCount = worksheet.getRow(1).cellCount;
+        let columnCount = await worksheet.getRow(1).cellCount;
 
         // get the header of columns
-        let columnHeaders = worksheet.getRow(1);
+        let columnHeaders = await worksheet.getRow(1);
 
         // get test case value to specify in the test script
         let r: number;

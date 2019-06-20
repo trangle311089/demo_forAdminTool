@@ -32,7 +32,6 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
 
     it ('Should add the user agent greetings prompt and upload the audio successfully', async function(){
         let path = require('path')
-        // let filetoUpload = 'D:/MarryYou.mp3'
         let absolutePath = path.resolve(__dirname,"..//..//..//TestData//MarryYou.mp3")
         let uploadAudio = browser.element(by.xpath("//input[@type='file' and @id='ngf-dialogUploadHandler']"))
                
