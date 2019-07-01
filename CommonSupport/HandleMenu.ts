@@ -1,26 +1,22 @@
-import { ProtractorBrowser, by } from "protractor";
+import { ProtractorBrowser, by, browser } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport";
 import { async } from "q";
 import { TouchSequence } from "selenium-webdriver";
 
 export class HandleMenu{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
 
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport(this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport(browser)
     }
 
     async selectVerMenu(menuName:string){
         var xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
-        // await this.actionSupport.presentElement(xpath)
         await this.actionSupport.clickOnElement(xpath)
     }
     
     async selectHorMenu(menuName:string){
         var xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
-        // await this.actionSupport.presentElement(xpath)
         await this.actionSupport.clickOnElement(xpath)
 
     }
@@ -28,14 +24,14 @@ export class HandleMenu{
     async verifyDisplayedVerMenu(menuName:string){
         console.log ("Vertical Menu: The vertical menu "+menuName+" is displayed")
         let xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
-        let ele= this.curBrowser.element(by.xpath(xpath))
+        let ele= browser.element(by.xpath(xpath))
         await expect(ele.isDisplayed()).toBe(true)   
     }
 
     async verifyDisplayedHorMenu(menuName:string){
         console.log ("Horizontal Menu: The horizontal menu "+menuName+" is displayed")
         let xpath = "//a[@class='ng-binding' and contains (text(),'"+menuName+"')]"
-        let ele= this.curBrowser.element(by.xpath(xpath))
+        let ele= browser.element(by.xpath(xpath))
         await expect(ele.isDisplayed()).toBe(true)  
     }
 

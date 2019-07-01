@@ -15,7 +15,6 @@ describe("Group List", function(){
     let handlePopup: HandlePopup
     let tenancy: TenantConfigurationPage
     let handleMenu: HandleMenu
-    let handleBreadcrumb: HandleBreadcrumb
 
     beforeEach (async function(){
         loginPage = new LoginPage (browser)
@@ -24,7 +23,6 @@ describe("Group List", function(){
         handlePopup = new HandlePopup (browser)
         tenancy = new TenantConfigurationPage(browser)
         handleMenu = new HandleMenu (browser)
-        handleBreadcrumb = new HandleBreadcrumb (browser)
         await loginPage.login()
         await tenancy.selectTenancy('1001')
         await handleEditingControl.clickEdit()
@@ -53,9 +51,7 @@ describe("Group List", function(){
         await handleMenu.selectGroupsList()      
         await groupProfilePage.selectGroup('Updated _ Automation Group Name')  
         await handleEditingControl.clickDelete()
-        await handlePopup.showPopup('ATTENTION')
         await handlePopup.clickYesDel('delete')
-        await handlePopup.showPopup('ATTENTION')
         await handlePopup.clickYesDel('delete')
     })
 })

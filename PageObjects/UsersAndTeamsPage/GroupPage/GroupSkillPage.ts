@@ -1,13 +1,11 @@
-import { ProtractorBrowser, by } from "protractor";
+import { ProtractorBrowser, by, browser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
 
 export class GroupSkillPage{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
 
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport (this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport (browser)
     }
     async inputData_Skills(fieldName:string, data:string){
         let xpath = "//input[@id = '"+fieldName+"']"
@@ -23,13 +21,13 @@ export class GroupSkillPage{
     }
     async verifyDispalyedSkill(skillName:string){
         let xpath = "//span[contains (text(), '"+skillName+"')]"
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele = browser.element(by.xpath(xpath))
         await expect (ele.isDisplayed()).toBe(true)
     }
     async verifyDisplayedHolder(holderName:string){
         console.log ("Group Skill Page: Show the holder "+holderName+" on grid")
         var xpath = "//span[contains (text(), '"+holderName+"')]"
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele = browser.element(by.xpath(xpath))
         await expect (ele.isDisplayed()).toBe(true)
     }
 }

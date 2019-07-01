@@ -10,14 +10,11 @@ import { HandleMenu } from "../../CommonSupport/HandleMenu";
 describe("Login Page", function(){
     var loginPage:LoginPage
     var handleMenu: HandleMenu
-    var actionSupport: ActionSupport
-    var originalTimeout:number
 
     // define some shared setup before running the test script in this spec
         beforeEach(async function(){
         loginPage = new LoginPage(browser)
         handleMenu = new HandleMenu(browser)
-        actionSupport = new ActionSupport (browser)
     })
 
     // Test script to verify when clicking on Sign In button 

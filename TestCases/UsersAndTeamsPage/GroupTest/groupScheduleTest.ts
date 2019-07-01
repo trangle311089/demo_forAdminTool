@@ -11,7 +11,6 @@ import { HandlePopup } from "../../../CommonSupport/HandlePopup";
 
 
 describe('Group Schedule Login', function(){
-    let curBrowser: ProtractorBrowser
     let loginPage: LoginPage
     let groupSchedule: GroupSchedulePage
     let tenancy: TenantConfigurationPage
@@ -21,7 +20,6 @@ describe('Group Schedule Login', function(){
     let handlePopup: HandlePopup
 
     beforeEach(async function(){
-        curBrowser = browser
         loginPage = new LoginPage(browser)
         groupSchedule = new GroupSchedulePage (browser)
         tenancy = new TenantConfigurationPage (browser)
@@ -41,7 +39,6 @@ describe('Group Schedule Login', function(){
     it ('Should input date successfully', async function(){
         await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
-        await handlePopup.showPopup('add')
         await groupSchedule.inputDate('dtExpiryDate','24 May 2019')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
@@ -51,7 +48,6 @@ describe('Group Schedule Login', function(){
     it ("Should be able to select the year, month, day, time, ampm, recurring for Group Exception", async function(){
         await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
-        await handlePopup.showPopup('add')
         await groupSchedule.selectYearMonthDay('2019','July','29')
         await groupSchedule.selectTime('txtStartTime','10','00')
         await groupSchedule.selectTime('txtEndTime','11','00')
@@ -65,7 +61,6 @@ describe('Group Schedule Login', function(){
     it ("Should be able to select day of week, startTime, endTime for Group Routine", async function(){
         await handleMenu.selectGroup_LoginSchedule()
         await groupSchedule.clickEditingControl('data.routineGrid','fa fa-plus-circle add')
-        await handlePopup.showPopup('add')
         await groupSchedule.selectDayOfWeek('Tuesday')
         await groupSchedule.selectTime('txtStartTime','10','00')
         await groupSchedule.selectTime('txtEndTime','11','00')

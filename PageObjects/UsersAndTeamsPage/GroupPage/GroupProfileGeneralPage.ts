@@ -1,15 +1,13 @@
-import { ProtractorBrowser, by } from "protractor";
+import { ProtractorBrowser, by, browser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
 
 export class GroupProfile{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
     groupName_field: string
     description_field:string
 
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport (this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport (browser)
         this.groupName_field = "//input[@id='txtGroupName']"
         this.description_field = "//input[@id='txtDescription']"
     }
@@ -28,13 +26,13 @@ export class GroupProfile{
 
     async verifyDisplayedGroup(groupName:string){
         let xpath = "//span[contains(text(),'"+groupName+"')]"
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele = browser.element(by.xpath(xpath))
         await expect (ele.isDisplayed()).toBe(true)        
     }
 
     async verifyRemovedGroup(groupName:string){
         let xpath = "//span[contains(text(),'"+groupName+"')]"
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele = browser.element(by.xpath(xpath))
         await expect (ele.isDisplayed()).toBe(false)        
     }
   

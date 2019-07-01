@@ -2,12 +2,10 @@ import { ProtractorBrowser, ElementFinder } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport";
 
 export class HandleDDL{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
       
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport (this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport (browser)
     }
 
     async clickOnDDL(ddlName:string, visibleText:string){

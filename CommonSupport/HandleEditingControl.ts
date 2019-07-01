@@ -4,8 +4,6 @@ import { stringify } from 'querystring';
 
 export class HandleEditingControl{
     actionSupport:ActionSupport
-    curBrowser:ProtractorBrowser
-    
     add_option:string
     edit_option:string
     delete_option:string
@@ -14,15 +12,13 @@ export class HandleEditingControl{
     upload_option:string
     move_option:string
     download_option:string
-    
     search_function:string
     remove_search:string
     selectall_check:string
     saving_txt:string
 
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport(this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport(browser)
         this.add_option ="//i[@class='fa fa-plus-circle add']"
         this.edit_option = "//i[@class = 'fa fa-pencil edit']"
         this.delete_option = "//i[@class = 'fa fa-trash-o delete']"
@@ -101,7 +97,7 @@ export class HandleEditingControl{
 
     async verifySaveSuccessfully(){
         console.log("Title Bar: Display the text All changes saved when saving data successfully")
-        var ele = this.curBrowser.element(by.xpath(this.saving_txt))
+        var ele = browser.element(by.xpath(this.saving_txt))
         await expect(ele.isDisplayed()).toBe(true)             
     }
 

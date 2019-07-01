@@ -2,11 +2,9 @@ import { ProtractorBrowser } from "protractor";
 import { ActionSupport } from "../core_function/actionSupport";
 
 export class HandleBreadcrumb {
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
 
-    constructor(browser:any){
-        this.curBrowser = browser
+    constructor(browser:ProtractorBrowser){
         this.actionSupport = new ActionSupport (browser)
     }
 

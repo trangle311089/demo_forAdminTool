@@ -11,7 +11,6 @@ import { HandleEditingControl } from "../../../CommonSupport/HandleEditingContro
 import { GroupProfile } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupProfileGeneralPage";
 
 describe ("Group Status Reason", function(){
-    let curBrowser: ProtractorBrowser
     let loginPage: LoginPage
     let groupStatus: GroupStatusReasonsPage
     let tenancy : TenantConfigurationPage
@@ -22,7 +21,6 @@ describe ("Group Status Reason", function(){
     
     
     beforeEach(async function(){
-        curBrowser = browser
         loginPage = new LoginPage (browser)
         groupStatus = new GroupStatusReasonsPage(browser)
         tenancy = new TenantConfigurationPage (browser)
@@ -42,11 +40,9 @@ describe ("Group Status Reason", function(){
     it ("Should add the group break reason successfully", async function(){
         await handleMenu.selectGroupStatus_BreakReason()
         await handleEditingControl.clickAdd()
-        await handlePopup.showPopup('add')
         await groupStatus.inputData_StatusReasons('txtStatusReason','Group break reason')
         await groupStatus.inputData_StatusReasons('txtDescription','This group break reason is created by script')
         await handlePopup.clickSaveAndAddAnother()
-        await handlePopup.showPopup('add')
         await groupStatus.inputData_StatusReasons('txtStatusReason','Group break reason 1')
         await groupStatus.inputData_StatusReasons('txtDescription','This group break reason is created by script')
         await handlePopup.clickSave()
@@ -59,7 +55,6 @@ describe ("Group Status Reason", function(){
         await handleMenu.selectGroupStatus_BreakReason()
         await groupStatus.selectStt('Group break reason 1')
         await handleEditingControl.clickEdit()
-        await handlePopup.showPopup('edit')
         await groupStatus.inputData_StatusReasons('txtStatusReason','Group break reason 1 Edited')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
@@ -70,9 +65,7 @@ describe ("Group Status Reason", function(){
         await handleMenu.selectGroupStatus_BreakReason()
         await groupStatus.selectStt('Group break reason 1 Edited')
         await handleEditingControl.clickDelete()
-        await handlePopup.showPopup('ATTENTION')
         await handlePopup.clickYesDel('delete')
-        await handlePopup.showPopup('ATTENTION')
         await handlePopup.clickYesDel('delete')
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep(2000)

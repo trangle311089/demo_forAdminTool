@@ -25,10 +25,8 @@ describe("get data from file", function(){
 
     it (" Should create new group successfully by getting data from file", async function(){
         dataArray = await dataBuilder.readExcel(__dirname + "..\\..\\..\\..\\TestData\\group.xlsx","createGroup","TC02")
-        debugger
         let groupName = dataArray[0].get("Group name") || ''
         let description = dataArray[0].get("Description")
-        debugger
         await loginPage.login()
         await tenancy.selectTenancy('1001')
         await handleEditingControl.clickEdit()

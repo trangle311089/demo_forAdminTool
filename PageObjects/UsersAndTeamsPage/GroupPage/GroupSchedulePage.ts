@@ -1,14 +1,12 @@
-import { ProtractorBrowser, by } from "protractor";
+import { ProtractorBrowser, by, browser } from "protractor";
 import { ActionSupport } from "../../../core_function/actionSupport";
 import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
 
 export class GroupSchedulePage{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
 
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport (this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+          this.actionSupport = new ActionSupport (browser)
     }
 
     async clickEditingControl(gridName:string, btnName:string){
@@ -70,7 +68,7 @@ export class GroupSchedulePage{
 
     async verifyDisplayedDate(dateValue:string){
         let xpath = "//div[contains (text(),'"+dateValue+"')] "
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele = browser.element(by.xpath(xpath))
         await expect (ele.isDisplayed()).toBe(true)
     }
     

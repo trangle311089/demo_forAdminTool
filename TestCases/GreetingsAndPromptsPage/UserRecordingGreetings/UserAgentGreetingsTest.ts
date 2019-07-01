@@ -2,11 +2,11 @@ import { ProtractorBrowser, browser,by,  element, $ } from "protractor";
 import { async } from "q";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { LoginPage } from "../../../PageObjects/LoginPage";
-import { AudioControl } from "../../../PageObjects/GreetingsAndPromptsPage/audioControl";
+import { AudioControl } from "../../../PageObjects/GreetingsAndPromptsPage/AudioControl";
 import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
 import { HandlePopup } from "../../../CommonSupport/HandlePopup";
 import { HandleMenu } from "../../../CommonSupport/HandleMenu";
-import { PromptControl } from "../../../PageObjects/GreetingsAndPromptsPage/promptControl";
+import { PromptControl } from "../../../PageObjects/GreetingsAndPromptsPage/PromptControl";
 
 describe ("User Recorded Greetings - Agent Greetings", function(){
     let loginPage: LoginPage
@@ -39,18 +39,18 @@ describe ("User Recorded Greetings - Agent Greetings", function(){
         await promptControl.selectUserGreetings('userSkill')
         await handleMenu.selectUserAgentGreetings()
         await handleEditingControl.clickAdd()
-        await handlePopup.showPopup('add')
         await promptControl.createPrompt('txtPromptName','promptScript2')
         await promptControl.createPrompt('txtDescription', 'This prompt is created by script')
         await uploadAudio.sendKeys(absolutePath)
-        await handlePopup.showPopup('Upload')
         await handlePopup.clickOK_UPLOAD()
         await handlePopup.clickSave()
         await promptControl.verifyDisplayedPrompt('promptScript2')
 
     }) 
 
-    it ("Should play, stop, backward, forward the audio successfully", async function(){
+    fit ("Should play, stop, backward, forward the audio successfully", async function(){
+        await handleMenu.selectGreetingsPrompts()
+        await promptControl.selectUserGreetings('userSkill')
         await handleMenu.selectUserAgentGreetings()
         await promptControl.selectPrompt('promptScript2')
         await audioControl.audioControl('mediaPlay')

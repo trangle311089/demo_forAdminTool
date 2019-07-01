@@ -1,7 +1,7 @@
 import { LoginPage } from "../../../PageObjects/LoginPage";
 import { async, timeout } from "q";
 import { browser, by } from "protractor";
-import { GroupAgentParameters } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/AgentParameters";
+import { GroupAgentParameters } from "../../../PageObjects/UsersAndTeamsPage/GroupPage/GroupAgentParameters";
 import { TenantConfigurationPage } from "../../../PageObjects/TenantConfigurationPage";
 import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
 import { HandleMenu } from "../../../CommonSupport/HandleMenu";

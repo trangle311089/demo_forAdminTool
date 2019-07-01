@@ -1,15 +1,13 @@
-import { ProtractorBrowser, by } from "protractor";
+import { ProtractorBrowser, by, Browser, browser } from "protractor";
 import { ActionSupport } from "../../core_function/actionSupport";
 import { protractor } from "protractor/built/ptor";
 import { HandleEditingControl } from "../../CommonSupport/HandleEditingControl";
 
 export class PromptControl{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
     handleEditingControl: HandleEditingControl
 
-    constructor (browser:any){
-        this.curBrowser = browser
+    constructor (browser:ProtractorBrowser){
         this.actionSupport = new ActionSupport (browser)
         this.handleEditingControl = new HandleEditingControl (browser)
 
@@ -37,14 +35,14 @@ export class PromptControl{
     async verifyDisplayedPrompt(promptName:string){
         console.log ("New Prompt: The prompt " + promptName + " has been created successfully")
         let xpath = "//span[contains (text(), '"+promptName+"' )]"
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele =browser.element(by.xpath(xpath))
         await expect (ele.isDisplayed()).toBe(true)
     }
 
     async verifyPromptWithAudio(){
         console.log ("Audio Prompt: Prompt with audio is highlighed in yellow")
         let xpath = "//div[@role='row' and @comp-id=]"
-        let ele = this.curBrowser.element(by.xpath(xpath))
+        let ele = browser.element(by.xpath(xpath))
         await ele.click()
         await expect (ele.getCssValue('background-color')).toBe("rgba(255, 240, 154, 1)")
 

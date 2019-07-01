@@ -5,14 +5,12 @@ import { emit } from "cluster";
 import { EBADF } from "constants";
 
 export class GroupAgentParameters{
-    curBrowser : ProtractorBrowser
     actionSupport: ActionSupport
     handleEditingControl: HandleEditingControl
 
-    constructor (browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport (this.curBrowser)
-        this.handleEditingControl = new HandleEditingControl (this.curBrowser)      
+    constructor (browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport (browser)
+        this.handleEditingControl = new HandleEditingControl (browser)      
     }
   
     // define element on Login Settings page

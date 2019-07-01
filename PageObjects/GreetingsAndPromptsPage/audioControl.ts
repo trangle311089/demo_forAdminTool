@@ -1,14 +1,12 @@
-import { ProtractorBrowser } from "protractor";
+import { ProtractorBrowser, browser } from "protractor";
 import { ActionSupport } from "../../core_function/actionSupport";
 import { protractor } from "protractor/built/ptor";
 
 export class AudioControl{
-    curBrowser: ProtractorBrowser
     actionSupport: ActionSupport
 
-    constructor(browser:any){
-        this.curBrowser = browser
-        this.actionSupport = new ActionSupport (this.curBrowser)
+    constructor(browser:ProtractorBrowser){
+        this.actionSupport = new ActionSupport (browser)
     }
 
     async audioControl(btnName:string){
@@ -20,7 +18,7 @@ export class AudioControl{
         var xpath = "//input[@id='"+seekName+"']"
         await this.actionSupport.clickOnElement(xpath)
         await this.actionSupport.sendKeyOnElement(xpath,data)
-        await this.curBrowser.actions().sendKeys(protractor.Key.ENTER).perform()
+        await browser.actions().sendKeys(protractor.Key.ENTER).perform()
     }
 
     async audioVolumeControl(btnName:string){

@@ -2,14 +2,12 @@ import { browser, by, element, ProtractorBrowser } from 'protractor';
 import { ActionSupport } from '../core_function/actionSupport';
 
 export class LoginPage {
-    curBrowser:ProtractorBrowser
     actionSupport:ActionSupport    
     signIn_btn:string
     audience_txt:string   
 
-    constructor(brower: any) {
-        this.curBrowser = brower
-        this.actionSupport = new ActionSupport(this.curBrowser)
+    constructor(brower: ProtractorBrowser) {
+        this.actionSupport = new ActionSupport(browser)
         this.signIn_btn = "//button[@ng-click='login()']"
         this.audience_txt = "//input[@id='audience']"
     }
