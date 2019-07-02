@@ -18,22 +18,4 @@ export class GroupProfile{
         console.log("Input the description" + description)
         await this.actionSupport.sendKeyOnElement(this.description_field, description)
     }
-
-    async selectGroup(groupName:string){
-        var xpath ="//span[contains(text(),'"+groupName+"')]"
-        await this.actionSupport.clickOnElement(xpath)
-    }
-
-    async verifyDisplayedGroup(groupName:string){
-        let xpath = "//span[contains(text(),'"+groupName+"')]"
-        let ele = browser.element(by.xpath(xpath))
-        await expect (ele.isDisplayed()).toBe(true)        
-    }
-
-    async verifyRemovedGroup(groupName:string){
-        let xpath = "//span[contains(text(),'"+groupName+"')]"
-        let ele = browser.element(by.xpath(xpath))
-        await expect (ele.isDisplayed()).toBe(false)        
-    }
-  
 }

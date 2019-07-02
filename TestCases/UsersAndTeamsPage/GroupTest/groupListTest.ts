@@ -15,6 +15,7 @@ describe("Group List", function(){
     let handlePopup: HandlePopup
     let tenancy: TenantConfigurationPage
     let handleMenu: HandleMenu
+    let breadcrumb: HandleBreadcrumb
 
     beforeEach (async function(){
         loginPage = new LoginPage (browser)
@@ -23,6 +24,7 @@ describe("Group List", function(){
         handlePopup = new HandlePopup (browser)
         tenancy = new TenantConfigurationPage(browser)
         handleMenu = new HandleMenu (browser)
+        breadcrumb = new HandleBreadcrumb (browser)
         await loginPage.login()
         await tenancy.selectTenancy('1001')
         await handleEditingControl.clickEdit()
@@ -33,25 +35,27 @@ describe("Group List", function(){
         await handleEditingControl.clickAdd()
         await groupProfilePage.createNewGroup("Automation Group", "This group is created by automation script")
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await browser.sleep(2000)
-        await handleEditingControl.verifySaveSuccessfully()
+        await breadcrumb.selectBreadcrumb('Groups')
+        await handleEditingControl.verifyAddSuccessfully('Automation Group')
     })
 
     it ("Should edit group name and description successfully", async function(){
         await handleMenu.selectGroupsList()
-        await groupProfilePage.selectGroup('Automation Group')
+        await handleEditingControl.selectEntryOnGrid('Automation Group')
         await handleEditingControl.clickEdit()
         await groupProfilePage.createNewGroup("Updated _ Automation Group Name", "Updated_This group is edited by script")
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await browser.sleep(3000)
-        await handleEditingControl.verifySaveSuccessfully()
+        await breadcrumb.selectBreadcrumb('Groups')
+        await handleEditingControl.verifyAddSuccessfully('Updated _ Automation Group Name')
+
     })
 
     it ("Should delete the group successfully", async function(){
         await handleMenu.selectGroupsList()      
-        await groupProfilePage.selectGroup('Updated _ Automation Group Name')  
+        await handleEditingControl.selectEntryOnGrid('Updated _ Automation Group Name')  
         await handleEditingControl.clickDelete()
         await handlePopup.clickYesDel('delete')
         await handlePopup.clickYesDel('delete')
+        await handleEditingControl.verifyRemoveSuccessfully('Updated _ Automation Group Name')
     })
 })

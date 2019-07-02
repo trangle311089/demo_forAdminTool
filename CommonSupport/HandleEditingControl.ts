@@ -101,5 +101,33 @@ export class HandleEditingControl{
         await expect(ele.isDisplayed()).toBe(true)             
     }
 
+    async verifyAddSuccessfully(entryName:string){
+        let xpath = "//div[@ref='eBodyContainer']"
+        let ele = browser.element(by.xpath(xpath))
+        await expect (ele.getText()).toContain(entryName)  
+    }
+
+    async verifyRemoveSuccessfully(entryName:string){
+        let xpath = "//div[@ref='eBodyContainer']"
+        let ele = browser.element(by.xpath(xpath))
+        await expect (ele.getText()).not.toContain(entryName)
+    }
+
+    async selectEntryOnGrid(entryName:string){
+        let xpath ="//span[contains(text(),'"+entryName+"')]"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
+    async selectCheckbox(btnName:string){
+        let xpath = "//input[@type='checkbox' and @ng-model='"+btnName+"']"
+        await this.actionSupport.selectCheckbox(xpath)
+    }
+
+    async selectRadio(btnName:string){
+        let xpath = "//input[@id='"+btnName+"']"
+        await this.actionSupport.clickOnElement(xpath)
+
+    }
+
     
 }

@@ -1,8 +1,8 @@
 import { ProtractorBrowser, by, browser } from "protractor";
-import { ActionSupport } from "../../../core_function/actionSupport";
 import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
+import { ActionSupport } from "../core_function/actionSupport";
 
-export class GroupSchedulePage{
+export class HandleDateTime{
     actionSupport: ActionSupport
 
     constructor(browser:ProtractorBrowser){
@@ -66,11 +66,15 @@ export class GroupSchedulePage{
         await this.actionSupport.clickOnElement(xpath)
     }
 
-    async verifyDisplayedDate(dateValue:string){
-        let xpath = "//div[contains (text(),'"+dateValue+"')] "
+    async verifyAddExceptionDateSuccessfully(date:string, startTime:string){
+        let xpath = "//div[@data='data.exceptionGrid']"
         let ele = browser.element(by.xpath(xpath))
-        await expect (ele.isDisplayed()).toBe(true)
+        await expect (ele.getText()).toContain(date, startTime)
     }
-    
 
+    async verifyAddRoutineScheduleSuccessfully(date:string, startTime:string){
+        let xpath = "//div[@data='data.routineGrid']"
+        let ele = browser.element(by.xpath(xpath))
+        await expect (ele.getText()).toContain(date, startTime)
+    }
 }
