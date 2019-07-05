@@ -11,23 +11,19 @@ export class GroupSkillPage{
         let xpath = "//input[@id = '"+fieldName+"']"
         await this.actionSupport.sendKeyOnElement(xpath, data)
     }
-    async selectSkill(skillName:string){
-        let xpath = "//span[contains (text(),'"+skillName+"')]"
-        await this.actionSupport.clickOnElement(xpath)
-    }
+
     async clickShowSkillHolders_btn(){
         let xpath = "//button[@ng-click='showSkillHolders()']"
         await this.actionSupport.clickOnElement(xpath)
     }
-    async verifyDispalyedSkill(skillName:string){
-        let xpath = "//span[contains (text(), '"+skillName+"')]"
+    async verifyAddSkillSuccessfully(skillName:string){
+        let xpath = "//div[@data='data.skillListGrid']"
         let ele = browser.element(by.xpath(xpath))
-        await expect (ele.isDisplayed()).toBe(true)
+        await expect (ele.getText()).toContain(skillName)
     }
-    async verifyDisplayedHolder(holderName:string){
-        console.log ("Group Skill Page: Show the holder "+holderName+" on grid")
-        var xpath = "//span[contains (text(), '"+holderName+"')]"
+    async verifyShowSkillHolder(holderName:string){
+        let xpath = "//div[@data='data.skillHoldersGrid']"
         let ele = browser.element(by.xpath(xpath))
-        await expect (ele.isDisplayed()).toBe(true)
+        await expect (ele.getText()).toContain(holderName)
     }
 }

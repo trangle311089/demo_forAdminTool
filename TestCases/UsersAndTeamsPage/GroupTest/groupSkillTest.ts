@@ -15,7 +15,6 @@ describe("Group Skill", function(){
     let handleMenu: HandleMenu
     let handlePopup: HandlePopup
     let handleEditingControl: HandleEditingControl
-    let groupProfile: GroupProfile
 
     beforeEach(async function(){
         loginPage = new LoginPage (browser)
@@ -24,13 +23,11 @@ describe("Group Skill", function(){
         handleMenu = new HandleMenu (browser)
         handlePopup = new HandlePopup (browser)
         handleEditingControl = new HandleEditingControl (browser)
-        groupProfile = new GroupProfile (browser)
-
         await loginPage.login()
         await tenancy.selectTenancy('1001')
         await handleEditingControl.clickEdit()
         await handleMenu.selectGroupsList()
-        await groupProfile.selectGroup('Default')
+        await handleEditingControl.selectEntryOnGrid('Default')
         await handleEditingControl.clickEdit()
     })
 
@@ -44,22 +41,22 @@ describe("Group Skill", function(){
         await groupSkillPage.inputData_Skills('txtSkillDescription','This skill is created by script')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await groupSkillPage.verifyDispalyedSkill('SkillScript')
+        await groupSkillPage.verifyAddSkillSuccessfully('SkillScript')
     })
 
     it ("Should edit the skill successfully", async function(){
         await handleMenu.selectGroupSkillList()
-        await groupSkillPage.selectSkill('skillscript9')
+        await handleEditingControl.selectEntryOnGrid('skillscript9')
         await handleEditingControl.clickEdit()
         await groupSkillPage.inputData_Skills('txtSkillName', 'skillScriptEdited')
         await handlePopup.clickSave()
         await handleEditingControl.clickSaveCancel_btn('Save')
-        await groupSkillPage.verifyDispalyedSkill('skillScriptEdited')
+        await groupSkillPage.verifyAddSkillSuccessfully('skillScriptEdited')
     })
 
     it ("Should delete the skill successfully", async function(){
         await handleMenu.selectGroupSkillList()
-        await groupSkillPage.selectSkill('skillScriptEdited')
+        await handleEditingControl.selectEntryOnGrid('skillScriptEdited')
         await handleEditingControl.clickDelete()
         await handlePopup.clickYesDel('delete')
         await handlePopup.clickYesDel('delete')
@@ -70,8 +67,8 @@ describe("Group Skill", function(){
 
     it("Should return the users list who are holding the skill", async function(){
         await handleMenu.selectGroupSkillList()
-        await groupSkillPage.selectSkill('skillHolder')
+        await handleEditingControl.selectEntryOnGrid('skillHolder')
         await groupSkillPage.clickShowSkillHolders_btn()
-        await groupSkillPage.verifyDisplayedHolder('userSkill')
+        await groupSkillPage.verifyShowSkillHolder('userSkill')
     })
 })

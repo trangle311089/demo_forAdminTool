@@ -7,7 +7,7 @@ exports.config = {
     
     // The address of a running selenium server.
     //for Chrome, Firefox
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
 
     //for Edge
     // seleniumAddress:'http://localhost:17556',
@@ -22,14 +22,14 @@ exports.config = {
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
+    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
-    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
+    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
     // specs: ['TestCases/UsersAndTeamsPage/GroupTest/getData.ts'],
     // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
-    directConnect: false,
+    directConnect: true,
    
     // Capabilities to be passed to the webdriver instance.
     capabilities: {

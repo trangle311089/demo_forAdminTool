@@ -118,6 +118,11 @@ export class HandleEditingControl{
         await this.actionSupport.clickOnElement(xpath)
     }
 
+    async selectEntryOnGrid2(entryName:string){
+        let xpath = "//div[text()='"+entryName+"']"
+        await this.actionSupport.clickOnElement(xpath)
+    }
+
     async selectCheckbox(btnName:string){
         let xpath = "//input[@type='checkbox' and @ng-model='"+btnName+"']"
         await this.actionSupport.selectCheckbox(xpath)
@@ -126,7 +131,6 @@ export class HandleEditingControl{
     async selectRadio(btnName:string){
         let xpath = "//input[@id='"+btnName+"']"
         await this.actionSupport.clickOnElement(xpath)
-
     }
 
     

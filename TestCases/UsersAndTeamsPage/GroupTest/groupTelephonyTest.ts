@@ -33,7 +33,7 @@ describe("Group Telephony", function(){
         await tenancy.selectTenancy('1001')
         await handleEditingControl.clickEdit()
         await handleMenu.selectGroupsList()
-        await groupProfile.selectGroup('Default')
+        await handleEditingControl.selectEntryOnGrid('Default')
         await handleEditingControl.clickEdit()
     })
 
