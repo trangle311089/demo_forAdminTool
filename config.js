@@ -20,12 +20,12 @@ exports.config = {
     // specs: ['Specs/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['Specs/ActiveStatusPage/activeStatusTest.ts'],
     // specs: ['Specs/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
-    specs:['Specs/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts','Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
+    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts','Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
-    // specs: ['Specs/UsersAndTeamsPage/GroupTest/getData.ts'],
+    specs: ['Specs/UsersAndTeamsPage/GroupTest/getData.ts'],
     // specs:['Specs/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
@@ -38,11 +38,11 @@ exports.config = {
     // },
 
     //Multiple Capabilities to be passed to the webdriver instance
-    multiCapabilities: [{
-      browserName: 'chrome',
-      shardTestFiles: true,
-      maxInstances:2
-    }], 
+    // multiCapabilities: [{
+    //   browserName: 'chrome',
+    //   shardTestFiles: true,
+    //   maxInstances:2
+    // }], 
     // {
     //   browserName: 'firefox'
     // }],
