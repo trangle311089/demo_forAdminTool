@@ -6,7 +6,7 @@ export class LoginPage {
     signIn_btn:string
     audience_txt:string   
 
-    constructor(brower: ProtractorBrowser) {
+    constructor(browser: ProtractorBrowser) {
         this.actionSupport = new ActionSupport(browser)
         this.signIn_btn = "//button[@ng-click='login()']"
         this.audience_txt = "//input[@id='audience']"

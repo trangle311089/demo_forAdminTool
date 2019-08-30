@@ -34,7 +34,7 @@ describe('Group Schedule Login', function(){
         await handleEditingControl.clickEdit()
     })
 
-    it ('Should input date successfully', async function(){
+    fit ('Should input date successfully', async function(){
         await handleMenu.selectGroup_LoginSchedule()
         await handleDateTime.clickEditingControl('data.exceptionGrid','fa fa-plus-circle add')
         await handleDateTime.inputDate('dtExpiryDate','24 May 2019')

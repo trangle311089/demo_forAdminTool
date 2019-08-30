@@ -31,9 +31,10 @@ describe("Group List", function(){
     })
 
     it ("Should add new group successfully ", async function(){
+        debugger
         await handleMenu.selectGroupsList()
         await handleEditingControl.clickAdd()
-        await groupProfilePage.createNewGroup("Automation Group", "This group is created by automation script")
+        await groupProfilePage.createNewGroup("Automation Group", 'This group is created by automation script')
         await handleEditingControl.clickSaveCancel_btn('Save')
         await breadcrumb.selectBreadcrumb('Groups')
         await handleEditingControl.verifyAddSuccessfully('Automation Group')

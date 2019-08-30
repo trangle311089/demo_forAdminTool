@@ -7,7 +7,7 @@ exports.config = {
     
     // The address of a running selenium server.
     //for Chrome, Firefox
-    // seleniumAddress: 'http://localhost:4444/wd/hub',
+    seleniumAddress: 'http://localhost:4444/wd/hub',
 
     //for Edge
     // seleniumAddress:'http://localhost:17556',
@@ -16,30 +16,33 @@ exports.config = {
     // seleniumAddress:'http://localhost:5555',
 
     //Specify the specs to run test script
-    // specs: ['TestCases/LoginPage/loginTest.ts'],
-    // specs: ['TestCases/TenantConfiguration/tenantFunctionTest.ts'],
-    // specs: ['TestCases/ActiveStatusPage/activeStatusTest.ts'],
-    // specs: ['TestCases/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
-    specs:['TestCases/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
-    // specs:['TestCases/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
-    // specs: ['TestCases/UsersAndTeamsPage/GroupTest/getData.ts'],
-    // specs:['TestCases/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
+    // specs: ['Specs/LoginPage/loginTest.ts'],
+    // specs: ['Specs/TenantConfiguration/tenantFunctionTest.ts'],
+    // specs: ['Specs/ActiveStatusPage/activeStatusTest.ts'],
+    // specs: ['Specs/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
+    specs:['Specs/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts','Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
+    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
+    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
+    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
+    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
+    // specs: ['Specs/UsersAndTeamsPage/GroupTest/getData.ts'],
+    // specs:['Specs/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
-    directConnect: true,
+    directConnect: false,
    
     // Capabilities to be passed to the webdriver instance.
-    capabilities: {
-    browserName: 'chrome',
-    },
+    // capabilities: {
+    // browserName: 'chrome',
+    // shardTestFiles:true
+    // },
 
     //Multiple Capabilities to be passed to the webdriver instance
-    // multiCapabilities: [{
-    //   browserName: 'chrome'
-    // }, 
+    multiCapabilities: [{
+      browserName: 'chrome',
+      shardTestFiles: true,
+      maxInstances:2
+    }], 
     // {
     //   browserName: 'firefox'
     // }],

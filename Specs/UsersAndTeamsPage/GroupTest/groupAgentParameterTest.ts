@@ -32,7 +32,7 @@ describe ("Group - Agent Parameters", function(){
         await handleEditingControl.clickEdit()
     })
 
-    it ("Should update the login settings successfully", async function(){
+    fit ("Should update the login settings successfully", async function(){
         await handleMenu.selectGroupAgentParmeter_LoginSettings()
         await handleEditingControl.selectRadio('rdNotReady')
         await handleEditingControl.selectCheckbox('dataModel.readyProfiles[0].readyProfile1.enabled')
