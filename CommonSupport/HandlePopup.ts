@@ -23,49 +23,51 @@ export class HandlePopup{
     // Click on the button on popup. Include these button's names: OK, yes, delete, logout
     async clickYesDel(buttonName:string){
         var xpath = "//button[@class='button action-btn btn-save ng-binding' and contains (text(), '"+buttonName+"')]"
+        console.log ("Handle POPUP - Click on OK/ YES/ DEL/ LOGOUT button on the popup")
         await this.actionSupport.clickOnElement(xpath)
     }
 
     // Click on the button on popup. Include these button's names: cancel, no
     async clickNoCancel(buttonName:string){
         var xpath = "//button[@class='button action-btn btn-cancel ng-binding' and contains (text(),'"+buttonName+"')]"
+        console.log ("Handle POPUP - Click on CANCEL/ NO button on the popup")
         await this.actionSupport.clickOnElement(xpath)
     }
 
     // Click on the button on popup. Include these button's names: ok
     async clickOK(buttonName:string){
-        console.log ("POPUP: Click on the OK button")
         var xpath = "//button[@class='action-btn button btn-save' and contains (text(), '"+buttonName+"')]"
+        console.log ("Handle POPUP - Click on OK button on the popup")
         await this.actionSupport.clickOnElement(xpath)
     }
     
     // Click on SAVE button on the popup
     async clickSave(){
-        console.log ("POPUP: Click on the SAVE button")
+        console.log ("Handle POPUP - Click on the SAVE button on the popup")
         await this.actionSupport.clickOnElement(this.saveAndClose_btn)
     }
     
     // Click on CANCEL button on the popup
     async clickCancel(){
-        console.log ("POPUP: Click on the CANCEL button")
+        console.log ("Handle POPUP - Click on the CANCEL button on the popup")
         await this.actionSupport.clickOnElement(this.cancel_btn)
     }
 
     // Click SAVE & ADD ANOTHER button on the popup
     async clickSaveAndAddAnother(){
-        console.log("POPUP: Click on the SAVE & ADD ANOTHER button")
+        console.log("Handle POPUP - Click on the SAVE & ADD ANOTHER button on the popup")
         await this.actionSupport.clickOnElement(this.saveAndAddAnother_btn)
     }
 
     // Click UPLOAD button on the popup
     async clickUpload(){
-        console.log ("POPUP: Click on the UPLOAD button")
+        console.log ("Handle POPUP - Click on the UPLOAD button on the popup")
         await this.actionSupport.clickOnElement(this.upload_btn)
     }
 
     //Click OK button on UPLOAD popup
     async clickOK_UPLOAD(){
-        console.log("UPLOAD POPUP: Click on the OK button")
+        console.log("Handle POPUP: Click on the OK button on the UPLOAD popup")
         await this.actionSupport.clickOnElement(this.okOnUploadPopup)
     }
     

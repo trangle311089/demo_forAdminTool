@@ -6,6 +6,7 @@ import { dataBuilder } from "../../../core_function/dataBuilder";
 import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
 import { HandleMenu } from "../../../CommonSupport/HandleMenu";
 import { HandleBreadcrumb } from "../../../CommonSupport/HandleBreadcrumb";
+import groupdata from "../../../TestData/groupdata.json";
 
 describe("get data from file", function(){
     let loginPage: LoginPage
@@ -30,6 +31,22 @@ describe("get data from file", function(){
         let groupName = dataArray[0].get("Group name") || ''
         let description = dataArray[0].get("Description")
         debugger
+        await loginPage.login()
+        await tenancy.selectTenancy('1001')
+        await handleEditingControl.clickEdit()
+        await handleMenu.selectGroupsList()
+        await handleEditingControl.clickAdd()
+        await groupProfilePage.createNewGroup(groupName,description)
+        await handleEditingControl.clickSaveCancel_btn('Save')
+        await browser.sleep (2000)
+        await handleBreadcrumb.selectBreadcrumb("Groups")
+        await handleEditingControl.verifyAddSuccessfully("Group UI Automation")
+    })
+
+    fit ("Should create new group from json", async function(){
+        let group = groupdata["TC01"]
+        let groupName = group.groupName
+        let description = group.description 
         await loginPage.login()
         await tenancy.selectTenancy('1001')
         await handleEditingControl.clickEdit()

@@ -22,7 +22,7 @@ export class HandleMenu{
     }
 
     async verifyDisplayedVerMenu(menuName:string){
-        console.log ("Vertical Menu: The vertical menu "+menuName+" is displayed")
+        console.log ("Handle Menu - The vertical menu "+menuName+" is displayed")
         let xpath = "//a[@class='verical-menu-item ng-binding' and contains (text(),'"+menuName+"')]"
         let ele= browser.element(by.xpath(xpath))
         await expect(ele.isDisplayed()).toBe(true)   
@@ -36,6 +36,7 @@ export class HandleMenu{
     }
 
     async selectTenantConfigurationMenu(){
+        console.log ("Handle Menu - Select Tier 1 vertical Tenant Configuration menu")
         await this.selectVerMenu('Tenant Configuration')
     }
 

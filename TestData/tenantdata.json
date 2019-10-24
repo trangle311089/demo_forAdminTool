@@ -1,0 +1,14 @@
+{
+    "TC01": {
+        "tenantid": "1001",
+        "tenantName":"Tenant 1001",
+        "description": "The tenant 1001 is created by getting data from JSON file"
+    },
+
+    "TC02": {
+        "tenantid": "1002",
+        "tenantName":"Tenant 1002",
+        "description": "The tenant 1002 is copied from tenant 1001"
+    }
+
+}

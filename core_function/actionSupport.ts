@@ -10,7 +10,7 @@ export class ActionSupport{
     }
 
     async clickOnElement(xpath:string, timeOut=this.timeOut){
-        console.log ("Clicking on element " + xpath)
+        console.log ("Action Support - Clicking on element " + xpath)
         var el = await browser.element(by.xpath(xpath))
         await browser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
         await browser.wait(this.until.elementToBeClickable(el), timeOut, 'Element' + xpath + 'is NOT clickable')
@@ -18,14 +18,14 @@ export class ActionSupport{
     }
 
     async selectCheckbox(xpath:string, timeOut=this.timeOut){
-        console.log ("Clicking on the checkbox " + xpath)
+        console.log ("Action Support - Clicking on the checkbox " + xpath)
         var el = await browser.element(by.xpath(xpath))
         await browser.wait(this.until.presenceOf(el), timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
         await el.click()
     }
 
     async sendKeyOnElement(xpath:string, data:string, timeOut=this.timeOut){
-        console.log ("Send text to the element " + xpath)
+        console.log ("Action Support - Send text to the element " + xpath)
         var el = await browser.element(by.xpath(xpath))
         await browser.wait(this.until.presenceOf(el),timeOut, 'Element' + xpath + 'take too long to appear in the DOM')
         await el.clear()

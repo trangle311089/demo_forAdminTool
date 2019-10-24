@@ -5,6 +5,7 @@ export class TenantConfigurationPage {
     actionSupport:ActionSupport
     tnt_id:string
     tnt_name:string
+    tnt_description:string
     show_disTenancy_option:string
     enable_tenancy_option:string
     disable_tenancy_option:string
@@ -12,56 +13,61 @@ export class TenantConfigurationPage {
     constructor(browser:ProtractorBrowser){
         this.actionSupport = new ActionSupport(browser)        
         this.tnt_id = "//input[@id='txtTenantId']"
-        this.tnt_name = "//input[@id='txtTenantName']"            
+        this.tnt_name = "//input[@id='txtTenantName']" 
+        this.tnt_description = "//input[@id='txtDescription']" 
+                  
         this.show_disTenancy_option = "//label[@class='show-disable-tenant']"
         this.enable_tenancy_option = "//span[@ng-disabled='!checkEnableCondition()']"
         this.disable_tenancy_option = "//span[@ng-disabled='!checkDisableCondition()']"        
     }
 
-    async createNewTenancy(tenantid:string, tenantName:string){
-        console.log("Input Tenant id: " + tenantid)
+    async createNewTenancy(tenantid:string, tenantName:string, tenantDescription:string){
+        console.log("Tenant Configuration Page - Input Tenant id: " + tenantid)
         await this.actionSupport.sendKeyOnElement(this.tnt_id, tenantid)
-        console.log("Input Tenant name: "+ tenantName)
+        console.log("Tenant Configuration Page - Input Tenant name: "+ tenantName)
         await this.actionSupport.sendKeyOnElement(this.tnt_name,tenantName)
+        console.log("Tenant Configuration Page - Input Tenant Description"+ tenantDescription)
+        await this.actionSupport.sendKeyOnElement(this.tnt_description,tenantDescription)
     }
 
-    async selectTenancy(tenancyName:string){
-        var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+    async selectTenancy(tenantid:string){
+        var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
+        console.log ("Tenant Configuration Page - Select the existing tenant on grid")
         await this.actionSupport.clickOnElement(xpath)
     }
 
     async showDisabledTenancy(){
-        console.log ("Show the disabled tenancy on the tenant list")
+        console.log ("Tenant Configuration Page - Click on the Show disabled tenant option")
         await this.actionSupport.clickOnElement(this.show_disTenancy_option)
     }
 
     async enableTenancy(){
-        console.log("Enable the tenancy")
+        console.log("Tenant Configuration Page - Click on the enable option")
         await this.actionSupport.clickOnElement(this.enable_tenancy_option)
     }
 
     async disableTenancy(){
-        console.log("Disable the tenancy")
+        console.log("Tenant Configuration Page - Click on the disable option")
         await this.actionSupport.clickOnElement(this.disable_tenancy_option)
     }
 
-    async verifyDisplayedTenancy(tenancyName:string){
-        console.log('Tenant Configuration Page: The tenancy ' + tenancyName + ' is displayed in grid' )
-        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+    async verifyDisplayedTenancy(tenantid:string){
+        console.log('Tenant Configuration Page: The tenancy ' + tenantid + ' is displayed on grid' )
+        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
         let el= browser.element(by.xpath(xpath))
         await expect(el.isDisplayed()).toBe(true)  
     }
 
-    async verifyDisabledTenancy(tenancyName:string){
-        console.log('Tenant Configuration Page: The tenancy ' + tenancyName + ' is disabled' )
-        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+    async verifyDisabledTenancy(tenantid:string){
+        console.log('Tenant Configuration Page: The tenancy ' + tenantid + ' is disabled' )
+        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
         let el= browser.element(by.xpath(xpath))
         await expect (el.getCssValue('color')).toBe('rgba(51, 62, 207, 1)')
     }
 
-    async verifyEnabledTenancy(tenancyName:string){
-        console.log ('Tenany Configuration Page: The tenancy ' + tenancyName +' is enabled' )
-        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenancyName+"')]"
+    async verifyEnabledTenancy(tenantid:string){
+        console.log ('Tenany Configuration Page: The tenancy ' + tenantid +' is enabled' )
+        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
         let el= browser.element(by.xpath(xpath))
         await expect (el.getCssValue('background-color')).toBe('rgba(0, 0, 0, 0)')
     }

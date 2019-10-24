@@ -1,8 +1,5 @@
-import { async } from "q";
 import { browser, by } from "protractor";
 import { LoginPage } from "../../PageObjects/LoginPage";
-import { sign } from "crypto";
-import { ActionSupport } from "../../core_function/actionSupport";
 import { HandleMenu } from "../../CommonSupport/HandleMenu";
 
 // define the name of this spec "Login Page"

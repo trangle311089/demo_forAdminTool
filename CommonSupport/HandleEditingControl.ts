@@ -34,69 +34,69 @@ export class HandleEditingControl{
     }
 
     async clickAdd(){
-        console.log("Editing Control: Click on the add option on the editing control")
+        console.log("Editing Control - Click on the add option on the editing control")
         await this.actionSupport.clickOnElement(this.add_option)
     }
 
     async clickEdit(){
-        console.log ("Editing Control: Click on the edit option on the editing control")
+        console.log ("Editing Control - Click on the edit option on the editing control")
         await this.actionSupport.clickOnElement(this.edit_option)
         await browser.sleep(2000)
     }
 
     async clickDelete(){
-        console.log ("Editing Control: Click on the delete option on the editing control")
+        console.log ("Editing Control - Click on the delete option on the editing control")
         await this.actionSupport.clickOnElement(this.delete_option)
     }
 
     async clickCopy(){
-        console.log ("Editing Control: Click on the copy option on the editing control")
+        console.log ("Editing Control - Click on the copy option on the editing control")
         await this.actionSupport.clickOnElement(this.copy_option)
     }
 
     async clickRemove(){
-        console.log ("Editing Control: Click on the remove option on the editing control")
+        console.log ("Editing Control - Click on the remove option on the editing control")
         await this.actionSupport.clickOnElement(this.remove_option)
     }
 
     async searchEntry(textSearch:string){
-        console.log ("Editing Control: Enter text on the search field: " + textSearch)
+        console.log ("Editing Control - Enter text on the search field: " + textSearch)
         await this.actionSupport.sendKeyOnElement(this.search_function, textSearch)
     }
 
     async removeSearchEntry(){
-        console.log ("Editing Control: Click on the cross icon on search field to remove search")
+        console.log ("Editing Control - Click on the cross icon on search field to remove search")
         await this.actionSupport.clickOnElement(this.remove_search)
     }
 
     async clickUpload(){
-        console.log ("Editing Control: Click on the upload option on the editing control of Greetings & Prompts")
+        console.log ("Editing Control - Click on the upload option on the editing control of Greetings & Prompts")
         await this.actionSupport.clickOnElement(this.upload_option)
     }
 
     async clickMove(){
-        console.log ("Editing Control: Click on the move option on the editing control of Greetings & Prompts")
+        console.log ("Editing Control - Click on the move option on the editing control of Greetings & Prompts")
         await this.actionSupport.clickOnElement(this.move_option)
     }
 
     async clickDownload(){
-        console.log ("Editing Control:  Click on the download option on the editing control of Greetings & Prompts")
+        console.log ("Editing Control - Click on the download option on the editing control of Greetings & Prompts")
         await this.actionSupport.clickOnElement(this.download_option)
     }
 
     async clickSelectAll(){
-        console.log ("Angular Grid: Click on the select all check box on the grid")
+        console.log ("Editing Control - Click on the select all check box on the grid")
         await this.actionSupport.selectCheckbox(this.selectall_check)
     }
 
     async clickSaveCancel_btn(btnName:string){
-        console.log ("Title Bar: Click on SAVE or CANCEL button")
+        console.log ("Editing Control - Click on SAVE or CANCEL button on the title bar")
         var xpath = "//button[@ng-click='saveAction()' and contains (text(), '"+btnName+"')]"
         await this.actionSupport.clickOnElement(xpath)
     }
 
     async verifySaveSuccessfully(){
-        console.log("Title Bar: Display the text All changes saved when saving data successfully")
+        console.log("Editing Control - All changes saved is displayed on the title bar")
         var ele = browser.element(by.xpath(this.saving_txt))
         await expect(ele.isDisplayed()).toBe(true)             
     }
@@ -104,32 +104,38 @@ export class HandleEditingControl{
     async verifyAddSuccessfully(entryName:string){
         let xpath = "//div[@ref='eBodyContainer']"
         let ele = browser.element(by.xpath(xpath))
+        console.log ("Editing Control - Verify new entry added")
         await expect (ele.getText()).toContain(entryName)  
     }
 
     async verifyRemoveSuccessfully(entryName:string){
         let xpath = "//div[@ref='eBodyContainer']"
         let ele = browser.element(by.xpath(xpath))
+        console.log ("Editing Control - Verify existing entry removed")
         await expect (ele.getText()).not.toContain(entryName)
     }
 
     async selectEntryOnGrid(entryName:string){
         let xpath ="//span[contains(text(),'"+entryName+"')]"
+        console.log ("Editing Control - Select one entry on the Tier 1 grid")
         await this.actionSupport.clickOnElement(xpath)
     }
 
     async selectEntryOnGrid2(entryName:string){
         let xpath = "//div[text()='"+entryName+"']"
+        console.log ("Editing Control - Select one entry on the Tier 2 grid")
         await this.actionSupport.clickOnElement(xpath)
     }
 
     async selectCheckbox(btnName:string){
         let xpath = "//input[@type='checkbox' and @ng-model='"+btnName+"']"
+        console.log ("Editing Control - Select the checkbox")
         await this.actionSupport.selectCheckbox(xpath)
     }
 
     async selectRadio(btnName:string){
         let xpath = "//input[@id='"+btnName+"']"
+        console.log ("Editing Control - Select the radio")
         await this.actionSupport.clickOnElement(xpath)
     }
 

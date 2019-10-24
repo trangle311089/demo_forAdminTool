@@ -17,7 +17,7 @@ export class LoginPage {
         await browser.get("http://localhost:81/landlordAutomation/#/login")
         await browser.manage().window().maximize()
 
-        console.log("LoginPage: Click on the SIGN IN button on the Login Page")
+        console.log("STEP 1 - Login Page - Click on the SIGN IN button on the Login Page")
         await this.actionSupport.clickOnElement(this.signIn_btn)
     }
 
