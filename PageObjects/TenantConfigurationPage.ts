@@ -30,6 +30,16 @@ export class TenantConfigurationPage {
         await this.actionSupport.sendKeyOnElement(this.tnt_description,tenantDescription)
     }
 
+    async inputTenantId(tenantid:string){
+        console.log("Tenant Configuration Page - Input Tenant id: " + tenantid)
+        await this.actionSupport.sendKeyOnElement(this.tnt_id, tenantid)
+    }
+
+    async inputTenantName(tenantName:string){
+        console.log("Tenant Configuration Page - Input Tenant Name: " + tenantName)
+        await this.actionSupport.sendKeyOnElement(this.tnt_name, tenantName)
+    }
+
     async selectTenancy(tenantid:string){
         var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
         console.log ("Tenant Configuration Page - Select the existing tenant on grid")
@@ -49,13 +59,6 @@ export class TenantConfigurationPage {
     async disableTenancy(){
         console.log("Tenant Configuration Page - Click on the disable option")
         await this.actionSupport.clickOnElement(this.disable_tenancy_option)
-    }
-
-    async verifyDisplayedTenancy(tenantid:string){
-        console.log('Tenant Configuration Page: The tenancy ' + tenantid + ' is displayed on grid' )
-        let xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
-        let el= browser.element(by.xpath(xpath))
-        await expect(el.isDisplayed()).toBe(true)  
     }
 
     async verifyDisabledTenancy(tenantid:string){

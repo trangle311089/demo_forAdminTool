@@ -101,27 +101,27 @@ export class HandleEditingControl{
         await expect(ele.isDisplayed()).toBe(true)             
     }
 
-    async verifyAddSuccessfully(entryName:string){
+    async verifyDisplayedEntry(entryName:string){
         let xpath = "//div[@ref='eBodyContainer']"
         let ele = browser.element(by.xpath(xpath))
-        console.log ("Editing Control - Verify new entry added")
+        console.log ("Editing Control - Verify entry displayed on grid")
         await expect (ele.getText()).toContain(entryName)  
     }
 
     async verifyRemoveSuccessfully(entryName:string){
         let xpath = "//div[@ref='eBodyContainer']"
         let ele = browser.element(by.xpath(xpath))
-        console.log ("Editing Control - Verify existing entry removed")
+        console.log ("Editing Control - Verify entry removed")
         await expect (ele.getText()).not.toContain(entryName)
     }
 
-    async selectEntryOnGrid(entryName:string){
+    async selectEntryOnTier1Grid(entryName:string){
         let xpath ="//span[contains(text(),'"+entryName+"')]"
         console.log ("Editing Control - Select one entry on the Tier 1 grid")
         await this.actionSupport.clickOnElement(xpath)
     }
 
-    async selectEntryOnGrid2(entryName:string){
+    async selectEntryOnTier2Grid(entryName:string){
         let xpath = "//div[text()='"+entryName+"']"
         console.log ("Editing Control - Select one entry on the Tier 2 grid")
         await this.actionSupport.clickOnElement(xpath)

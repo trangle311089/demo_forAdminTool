@@ -11,8 +11,7 @@ export class HandlePopup{
     okOnUploadPopup:string
 
     constructor(browser:ProtractorBrowser){
-        this.actionSupport = new ActionSupport(browser)
-      
+        this.actionSupport = new ActionSupport(browser)      
         this.saveAndClose_btn = "//button [@ng-click='saveAndClose()']"
         this.cancel_btn = '//button[@class="button action-btn btn-cancel" and contains (text(), "CANCEL")]'     
         this.saveAndAddAnother_btn = "//button[@ng-click='saveOnly()']"
