@@ -1,5 +1,5 @@
 import { async } from "q";
-import { browser, by } from "protractor";
+import { $,browser, by, element } from "protractor";
 import { LoginPage } from "../../PageObjects/LoginPage";
 import { TenantConfigurationPage } from "../../PageObjects/TenantConfigurationPage";
 import { HandleMenu } from "../../CommonSupport/HandleMenu";
@@ -9,21 +9,24 @@ import tenantdata from "../../TestData/tenantdata.json"
 import { HandleValidation } from "../../CommonSupport/HandleValidation";
 
 
+
 describe("Tenant Configuration", function(){
     let loginPage:LoginPage
     let handleEditingControl:HandleEditingControl
     let tenantConfigurationPage:TenantConfigurationPage
     let handleMenu: HandleMenu
     let handlePopup: HandlePopup 
-    let handleValidation: HandleValidation   
-   
+    let handleValidation: HandleValidation 
+  
+
+         
     beforeEach(async function(){
         loginPage = new LoginPage (browser)
         handleEditingControl = new HandleEditingControl(browser)
         handlePopup = new HandlePopup (browser)
         tenantConfigurationPage = new TenantConfigurationPage (browser)
         handleMenu = new HandleMenu (browser)
-        handleValidation = new HandleValidation (browser)
+        handleValidation = new HandleValidation (browser)     
         console.log ("STEP 1 - Launch the Admin Tool and click on SIGN IN button")
         await loginPage.login()
         console.log("STEP 2: Navigate to Tenant Configuration menu")
@@ -159,5 +162,38 @@ describe("Tenant Configuration", function(){
         await handleValidation.verifyRequiredFieldMsg()
         console.log("STEP 7: Verify Tenant Name field bordered in red")
         await handleValidation.verifyFieldInRed('txtTenantName')
+    })
+
+    it ("TC 10 - Duplicated tenantid - should validate when tenant id is duplicated", async function(){
+        console.log("STEP 3: Click on add option")
+        await handleEditingControl.clickAdd()
+        console.log("STEP 4: Input duplicated tenant id with existing one")
+        await tenantConfigurationPage.inputTenantId("1001")
+        console.log("STEP 5: Verify validation message Tenant Id already exists displayed")
+        await handleValidation.verifyDuplicatedTenantidMsg()
+        console.log("STEP 6: Verify Tenant Id field is bordered in red")
+        await handleValidation.verifyFieldInRed('txtTenantId')
+
+    })
+
+    it ("TC 11 - Duplicated tenant name - should validate when tenant name is duplicated", async function(){
+        console.log("STEP 3: Click on add option")
+        await handleEditingControl.clickAdd()
+        console.log("STEP 4: Input duplicated tenant name with existing one")
+        await tenantConfigurationPage.inputTenantName("Tenant 1001")
+        console.log("STEP 5: Verify validation message Tenant Name already exists displayed")
+        await handleValidation.verifyDuplicatedTenantNameMsg()
+        console.log("STEP 6: Verify Tenant Name field is bordered in red")
+        await handleValidation.verifyFieldInRed("txtTenantName")
+    })
+
+  
+    fit ("TC 12 - Tier 1 Tenant Configuration icon - should display correct icon", async function(){
+        console.log ("STEP 3: Verify the Tier 1 Tenant Configuration icon")
+        let xpath = "//i[@class='landlord tier1-icon']"
+        let el = browser.element(by.xpath(xpath))
+        await browser.imageComparison.saveElement(el)
+        await expect (browser.imageComparison.checkElement(el)).toEqual(0)
+        
     })
 })

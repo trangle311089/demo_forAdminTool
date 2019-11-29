@@ -1,5 +1,6 @@
 // conf.js
 var dateFormat = require('dateformat');
+const {join} = require('path')
 
 exports.config = {
     // Define framework
@@ -52,7 +53,18 @@ exports.config = {
 
     // Set promise to true
     SELENIUM_PROMISE_MANAGER: false,
-    
+
+    plugins:[{
+        package: 'D:/Working/ProtractorAdminTool/demo_forAdminTool/node_modules/protractor-image-comparison',
+        options:{
+            baselineFolder: './imageComparison/baseline',
+            actualFolder:'./imageComparison/actual',
+            diffFolder:'./imageComparison/diff',
+            autoSaveBaseline: true
+        }
+    }],
+
+   
     onPrepare: function() {
         require('ts-node').register({
           project: require('path').join(__dirname, './tsconfig.json')
@@ -67,11 +79,8 @@ exports.config = {
             //baseDirectory: 'tmp/screenshots'
             baseDirectory: __dirname + '\\TestReports\\' + dateFormat(new Date(), "dddd_mmmm_dS_yyyy_h_MM_ss_TT")
         }).getJasmine2Reporter());
-
-              
     },
-   
-    
+       
     //HTMLReport called once tests are finished
     onComplete: function() {
         

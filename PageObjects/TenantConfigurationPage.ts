@@ -9,6 +9,7 @@ export class TenantConfigurationPage {
     show_disTenancy_option:string
     enable_tenancy_option:string
     disable_tenancy_option:string
+    
 
     constructor(browser:ProtractorBrowser){
         this.actionSupport = new ActionSupport(browser)        
@@ -26,7 +27,7 @@ export class TenantConfigurationPage {
         await this.actionSupport.sendKeyOnElement(this.tnt_id, tenantid)
         console.log("Tenant Configuration Page - Input Tenant name: "+ tenantName)
         await this.actionSupport.sendKeyOnElement(this.tnt_name,tenantName)
-        console.log("Tenant Configuration Page - Input Tenant Description"+ tenantDescription)
+        console.log("Tenant Configuration Page - Input Tenant Description: "+ tenantDescription)
         await this.actionSupport.sendKeyOnElement(this.tnt_description,tenantDescription)
     }
 
@@ -74,4 +75,5 @@ export class TenantConfigurationPage {
         let el= browser.element(by.xpath(xpath))
         await expect (el.getCssValue('background-color')).toBe('rgba(0, 0, 0, 0)')
     }
+
 }

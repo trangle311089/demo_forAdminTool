@@ -23,6 +23,7 @@
     "protractor-beautiful-reporter": "^1.2.7",
     "protractor-firefox-support": "^1.5.0",
     "protractor-html-reporter-2": "^1.0.4",
+    "protractor-image-comparison": "^3.8.1",
     "request": "^2.88.0",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "ts-node": "^8.1.0",
