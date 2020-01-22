@@ -43,7 +43,7 @@ export class TenantConfigurationPage {
 
     async selectTenancy(tenantid:string){
         var xpath = "//div[@col-id='tenantid' and contains (text(),'"+tenantid+"')]"
-        console.log ("Tenant Configuration Page - Select the existing tenant on grid")
+        console.log ("Tenant Configuration Page - Select the existing tenancy on grid")
         await this.actionSupport.clickOnElement(xpath)
     }
 

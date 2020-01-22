@@ -1,6 +1,0 @@
-{
-    "TC01": {
-        "groupName": "Group data from json",
-        "description": "This group is created by getting data from json file"
-    }
-}

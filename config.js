@@ -1,6 +1,5 @@
 // conf.js
 var dateFormat = require('dateformat');
-const {join} = require('path')
 
 exports.config = {
     // Define framework
@@ -18,25 +17,26 @@ exports.config = {
 
     //Specify the specs to run test script
     // specs: ['Specs/LoginPage/loginTest.ts'],
-    specs: ['Specs/TenantConfiguration/tenantFunctionTest.ts'],
+    // specs: ['Specs/TenantConfiguration/tenantFunctionTest.ts'],
     // specs: ['Specs/ActiveStatusPage/activeStatusTest.ts'],
-    // specs: ['Specs/UsersAndTeamsPage/GroupTest/groupListTest.ts'],
-    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts','Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
+    specs: ['Specs/UsersAndTeamsPage/GroupTest/groupProfileTest.ts'],
+    // specs:['Specs/UsersAndTeamsPage/GroupTest/groupAgentParameterTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupSkillTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupTelephonyTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupStatusReasonsTest.ts'],
     // specs:['Specs/UsersAndTeamsPage/GroupTest/groupScheduleTest.ts'],
     // specs: ['Specs/UsersAndTeamsPage/GroupTest/getData.ts'],
     // specs:['Specs/GreetingsAndPromptsPage/UserRecordingGreetings/UserAgentGreetingsTest.ts'],
+    // specs: ['Specs/Tier1Icons/tier1IconsTest.ts'],
     
     //run directly with browser driver without using webdriver manager
     directConnect: true,
    
     // Capabilities to be passed to the webdriver instance.
-    // capabilities: {
-    // browserName: 'chrome',
-    // shardTestFiles:true
-    // },
+    capabilities: {
+    browserName: 'chrome',
+    shardTestFiles:true // setting to run multiple specs on the same browser
+    },
 
     //Multiple Capabilities to be passed to the webdriver instance
     // multiCapabilities: [{
@@ -57,10 +57,12 @@ exports.config = {
     plugins:[{
         package: 'D:/Working/ProtractorAdminTool/demo_forAdminTool/node_modules/protractor-image-comparison',
         options:{
-            baselineFolder: './imageComparison/baseline',
-            actualFolder:'./imageComparison/actual',
-            diffFolder:'./imageComparison/diff',
-            autoSaveBaseline: true
+            baselineFolder: './.tmp/baseline',
+            actualFolder:'./.tmp/actual',
+            diffFolder:'./.tmp/diff',
+            autoSaveBaseline: false,
+            clearRuntimeFolder: true,
+            formatImageName: '{tag}-chrome-48x48-dpr-1'
         }
     }],
 

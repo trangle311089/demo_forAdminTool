@@ -186,14 +186,13 @@ describe("Tenant Configuration", function(){
         console.log("STEP 6: Verify Tenant Name field is bordered in red")
         await handleValidation.verifyFieldInRed("txtTenantName")
     })
-
-  
-    fit ("TC 12 - Tier 1 Tenant Configuration icon - should display correct icon", async function(){
+ 
+    it ("TC 12 - Verify Tier 1 icon - TENANT CONFIGURATION page", async function(){
         console.log ("STEP 3: Verify the Tier 1 Tenant Configuration icon")
         let xpath = "//i[@class='landlord tier1-icon']"
         let el = browser.element(by.xpath(xpath))
-        await browser.imageComparison.saveElement(el)
-        await expect (browser.imageComparison.checkElement(el)).toEqual(0)
+        await browser.imageComparison.saveElement(el,'tenantConfiguration')
+        await expect (browser.imageComparison.checkElement((el),'tenantConfiguration')).toEqual(0)
         
     })
 })

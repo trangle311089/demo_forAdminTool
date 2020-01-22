@@ -1,0 +1,17 @@
+{
+    "TC01": {
+        "skillName": "Skill 1",
+        "description": "This skill is created by getting data from json file"
+    },
+
+    "TC02": {
+        "skillName": "Skill 2",
+        "description": "This skill is created by getting data from json file"
+    },
+
+    "TC03": {
+        "skillName": "Skill 3",
+        "description": "This skill is created by getting data from json file"
+    }
+
+}

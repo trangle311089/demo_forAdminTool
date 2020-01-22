@@ -104,14 +104,14 @@ export class HandleEditingControl{
     async verifyDisplayedEntry(entryName:string){
         let xpath = "//div[@ref='eBodyContainer']"
         let ele = browser.element(by.xpath(xpath))
-        console.log ("Editing Control - Verify entry displayed on grid")
+        console.log ("Editing Control - Verify the entry is displayed on grid")
         await expect (ele.getText()).toContain(entryName)  
     }
 
     async verifyRemoveSuccessfully(entryName:string){
         let xpath = "//div[@ref='eBodyContainer']"
         let ele = browser.element(by.xpath(xpath))
-        console.log ("Editing Control - Verify entry removed")
+        console.log ("Editing Control - Verify the entry is removed")
         await expect (ele.getText()).not.toContain(entryName)
     }
 
@@ -122,7 +122,7 @@ export class HandleEditingControl{
     }
 
     async selectEntryOnTier2Grid(entryName:string){
-        let xpath = "//div[text()='"+entryName+"']"
+        let xpath = "//span[contains(text(),'"+entryName+"')]"
         console.log ("Editing Control - Select one entry on the Tier 2 grid")
         await this.actionSupport.clickOnElement(xpath)
     }

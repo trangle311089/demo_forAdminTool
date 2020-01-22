@@ -3,13 +3,19 @@ import { ActionSupport } from "../../../core_function/actionSupport";
 
 export class GroupSkillPage{
     actionSupport: ActionSupport
+    skill_name: string
+    skill_description: string
 
     constructor(browser:ProtractorBrowser){
         this.actionSupport = new ActionSupport (browser)
+        this.skill_name = "//input[@id = 'txtSkillName']"
+        this.skill_description = "//input[@id = 'txtSkillDescription']"
     }
-    async inputData_Skills(fieldName:string, data:string){
-        let xpath = "//input[@id = '"+fieldName+"']"
-        await this.actionSupport.sendKeyOnElement(xpath, data)
+    async createSkill(skillName:string, skillDescription:string){
+        console.log ("Group Skills Page - Input skill name: " + skillName)
+        await this.actionSupport.sendKeyOnElement(this.skill_name, skillName)
+        console.log ("Group Skills Page - Input skill description: " + skillDescription)
+        await this.actionSupport.sendKeyOnElement(this.skill_description, skillDescription)
     }
 
     async clickShowSkillHolders_btn(){

@@ -6,20 +6,30 @@ export class HandleValidation{
     duplicated_tenantName_msg:string
 
     constructor (browser:ProtractorBrowser){
+        // General
         this.requiredField_msg = "//p[@ng-bind='validationMessage.requiredField' and contains (text(),'Required field')]"
         // Tenant Validation Message
         this.duplicated_tenantid_msg = "//p[@ng-bind='tenantIdUniqueMessage' and contains (text(),'The Tenant Id already exists')]"
         this.duplicated_tenantName_msg = "//p[@ng-bind='tenantNameUniqueMessage' and contains (text(),'The Tenant Name already exists')]"
     }
 
-    // Verify validation message displayed
+    // General - Required Message
     async verifyRequiredFieldMsg(){
         console.log("Handle Validation - The validation msg Required field is displayed")
         let ele = browser.element(by.xpath(this.requiredField_msg))
         await expect (ele.isDisplayed()).toBe(true) 
     }
 
-    //Tenant Validation message
+    // General - Verify invalid field bordered in red
+    async verifyFieldInRed(fieldid:string){
+        console.log("Handle Validation - The field '"+fieldid+"' is bordered in red")
+        let xpath = "//input[@id='" + fieldid +"']"
+        let ele = browser.element(by.xpath(xpath))
+        await expect (ele.getCssValue('border')).toBe('2px solid rgb(255, 13, 0)')
+    
+        }
+
+    //Tenant - Validation message
     async verifyDuplicatedTenantidMsg(){
         console.log("Handle Validation - The validation msg The Tenant Id already exists is displayed")
         let ele = browser.element(by.xpath(this.duplicated_tenantid_msg))
@@ -32,12 +42,5 @@ export class HandleValidation{
         await expect (ele.isDisplayed()).toBe(true) 
     }
 
-    // Verify invalid field bordered in red
-    async verifyFieldInRed(fieldid:string){
-        console.log("Handle Validation - The field '"+fieldid+"' is bordered in red")
-        let xpath = "//input[@id='" + fieldid +"']"
-        let ele = browser.element(by.xpath(xpath))
-        await expect (ele.getCssValue('border')).toBe('2px solid rgb(255, 13, 0)')
 
-    }
 }

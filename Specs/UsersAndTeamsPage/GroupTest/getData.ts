@@ -6,7 +6,7 @@ import { dataBuilder } from "../../../core_function/dataBuilder";
 import { HandleEditingControl } from "../../../CommonSupport/HandleEditingControl";
 import { HandleMenu } from "../../../CommonSupport/HandleMenu";
 import { HandleBreadcrumb } from "../../../CommonSupport/HandleBreadcrumb";
-import groupdata from "../../../TestData/groupdata.json";
+import groupdata from "../../../TestData/groupProfileData.json";
 
 describe("get data from file", function(){
     let loginPage: LoginPage
@@ -40,10 +40,10 @@ describe("get data from file", function(){
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep (2000)
         await handleBreadcrumb.selectBreadcrumb("Groups")
-        await handleEditingControl.verifyAddSuccessfully("Group UI Automation")
+        await handleEditingControl.verifyDisplayedEntry("Group UI Automation")
     })
 
-    fit ("Should create new group from json", async function(){
+    it ("Should create new group from json", async function(){
         let group = groupdata["TC01"]
         let groupName = group.groupName
         let description = group.description 
@@ -56,7 +56,7 @@ describe("get data from file", function(){
         await handleEditingControl.clickSaveCancel_btn('Save')
         await browser.sleep (2000)
         await handleBreadcrumb.selectBreadcrumb("Groups")
-        await handleEditingControl.verifyAddSuccessfully("Group UI Automation")
+        await handleEditingControl.verifyDisplayedEntry("Group UI Automation")
     })
    
 })
